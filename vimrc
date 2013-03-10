@@ -1,178 +1,147 @@
-" Leader
-let mapleader = " "
 
-set nocompatible  " Use Vim settings, rather then Vi settings
-set nobackup
-set nowritebackup
-set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
-set history=50
-set ruler         " show the cursor position all the time
-set showcmd       " display incomplete commands
-set incsearch     " do incremental searching
-set laststatus=2  " Always display the status line
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
-
-" Declare bundles are handled via Vundle
+set nocompatible
+filetype off
+syntax enable
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
+filetype plugin on
+filetype indent on
 
-" Let Vundle manage Vundle
 Bundle 'gmarik/vundle'
-
-" Define bundles via Github repos
-Bundle 'croaky/vim-colors-github'
-Bundle 'danro/rename.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'kien/ctrlp.vim'
-Bundle 'nanki/treetop.vim'
-Bundle 'timcharper/textile.vim'
-Bundle 'tpope/vim-cucumber'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-haml'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'tsaleh/vim-matchit'
-Bundle 'vim-scripts/ctags.vim'
-Bundle 'vim-scripts/greplace.vim'
-Bundle 'vim-scripts/tComment'
-Bundle 'xenoterracide/html.vim'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "snipmate-snippets"
+Bundle "garbas/vim-snipmate"
+Bundle "Raimondi/delimitMate"
+Bundle "altercation/vim-colors-solarized.git"
+Bundle 'L9'
+" Bundle 'fugitive.vim' A tad hazardous in the hands of a novice git user like
+" me
+Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+Bundle 'tComment'
+Bundle 'c.vim'
+Bundle 'Vim-R-plugin'
 
-filetype plugin indent on
+au BufNewFile,BufReadPost *.tex set syntax=tex
+au Bufenter,BufNewFile,BufReadPost *.hs compiler ghc
+au BufRead,BufNewFile,BufReadPost *.txt,*.tex set
+" thesaurus+=~/.vim/thesaurus/mthesaur.txt 
 
-augroup vimrcEx
-  au!
-
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
-
-  " When editing a file, always jump to the last known cursor position.
-  " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal g`\"" |
-    \ endif
-augroup END
-
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
+set backspace=indent,eol,start
+set pastetoggle=<F2>
+set showmode
+set hidden
+set laststatus=2
+set tabstop=4
 set expandtab
+set autoindent
+set smartindent
+set nocursorcolumn
+set nocursorline
+set softtabstop=4
+set shiftwidth=4
+set incsearch
+set nobackup
+set noswapfile
+set noerrorbells
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set undolevels=100
+set history=100
+set foldlevelstart=2
+set wildmenu
+set wildignore=*.o,a.out,*.bbl,*.pdf
+set autochdir
+set so=10
+set paste
+set wrap
+set linebreak
+set textwidth=80
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
+set foldmethod=manual
+set formatoptions+="tpcqa"
+syntax sync minlines=10
+syntax enable
 
-" Display extra whitespace
-set list listchars=tab:»·,trail:·
+colorscheme solarized
+" let g:solarized_contrast="high"    "default value is normal
+set background=dark
 
-" Local config
-if filereadable(".vimrc.local")
-  source .vimrc.local
+if has('gui_running')
+	let g:solarized_contrast="high"    "default value is normal
+	" set guifont=Inconsolata\ 10
+	"
+	set lines=40 columns=82
 endif
 
-" Use Ag (https://github.com/ggreer/the_silver_searcher) instead of Grep when
-" available
-if executable("ag")
-  set grepprg=ag\ --noheading\ --nogroup\ --nocolor
+nnoremap <F2> :set invpaste paste?<CR>
+nnoremap ; :
+map j gj
+map k gk
+map <silent> <leader>w :wa <cr>:! make all<cr>
+map <leader>c <c-_><c-_>
+nmap <leader>cs <c-_><c-_> gUU
+nnoremap <leader>m :make
+nmap ;ww :w<CR>
+noremap <C-k> :bprev<CR> 
+noremap <C-l> :bnext<CR> 
+nnoremap q; q:
+nnoremap ;n :n
+nnoremap ! :! 
+nnoremap ,cd :cd %:p:h<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>em :e Makefile<CR>
+nmap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
+nmap <silent> <leader>bi :BundleInstall<CR>
+nmap <silent> <leader>tn :tabn<CR>
+nmap <silent> <leader>tp :tabp<CR>
+nmap <silent> <leader>sc :tabp<CR>
+
+let g:netrw_keepdir=0 
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_ViewRule_pdf = 'okular'
+let g:tex_fold_enabled=1
+let g:tex_flavor='latex'
+
+if has('mouse')
+	set mouse=a
 endif
 
-" Color scheme
-colorscheme github
-highlight NonText guibg=#060606
-highlight Folded  guibg=#0A0A0A guifg=#9090D0
+" if has("autocmd")
+"   augroup vimrcEx
+"   au!
+"   autocmd FileType text setlocal textwidth=80
+"   autocmd BufReadPost *
+"     \ if line("'\"") > 1 && line("'\"") <= line("$") |
+			" \   exe "normal! g`\"" |
+			" \ endif
+"     " 
+"     "   augroup END
+"     " endif " has("autocmd")
+"
+"     " if !exists(":DiffOrig")
+"     "   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+"     "       \ | wincmd p | diffthis
+"     " endif
+"     " 
+"     " let g:ipy_completefunc = 'local'
+"     " au BufRead *.tex *.Rnw so ~/.vim/after/ftplugin/tex.vim
+"
+"     " autocmd User fugitive
+"     "   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+"     "   \   nnoremap <buffer> .. :edit %:h<CR> |
+"     "   \ endif
+"
+"     " autocmd BufReadPost fugitive://* set bufhidden=delete
+"
+"     " set sessionoptions=blank,buffers,curdir,folds,winsize,slash,unix
+"     " au BufWinLeave *.tex mkview
+"     " au BufWinEnter *.tex silent loadview
+"     " command! Math w | !command cat "`pwd`/%" | math | grep -v "In\["
+"     " au BufRead *.m so ~/.vim/after/ftplugin/mathematica.vim
 
-" Numbers
-set number
-set numberwidth=5
-
-" Snippets are activated by Shift+Tab
-let g:snippetsEmu_key = "<S-Tab>"
-
-" Tab completion
-" will insert tab at beginning of line,
-" will use completion if not at beginning
-set wildmode=list:longest,list:full
-set complete=.,w,t
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
-
-" Cucumber navigation commands
-autocmd User Rails Rnavcommand step features/step_definitions -glob=**/* -suffix=_steps.rb
-autocmd User Rails Rnavcommand config config -glob=**/* -suffix=.rb -default=routes
-
-" Switch between the last two files
-nnoremap <leader><leader> <c-^>
-
-" Get off my lawn
-nnoremap <Left> :echoe "Use h"<CR>
-nnoremap <Right> :echoe "Use l"<CR>
-nnoremap <Up> :echoe "Use k"<CR>
-nnoremap <Down> :echoe "Use j"<CR>
-
-" Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
-
-" Markdown files end in .md
-au BufRead,BufNewFile *.md set filetype=markdown
-
-" Enable spellchecking for Markdown
-au BufRead,BufNewFile *.md setlocal spell
-
-" Automatically wrap at 80 characters for Markdown
-au BufRead,BufNewFile *.md setlocal textwidth=80
-
-" rspec mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-
-function! RunCurrentSpecFile()
-  if InSpecFile()
-    let l:command = "s " . @% . " -f documentation"
-    call SetLastSpecCommand(l:command)
-    call RunSpecs(l:command)
-  endif
-endfunction
-
-function! RunNearestSpec()
-  if InSpecFile()
-    let l:command = "s " . @% . " -l " . line(".") . " -f documentation"
-    call SetLastSpecCommand(l:command)
-    call RunSpecs(l:command)
-  endif
-endfunction
-
-function! RunLastSpec()
-  if exists("t:last_spec_command")
-    call RunSpecs(t:last_spec_command)
-  endif
-endfunction
-
-function! InSpecFile()
-  return match(expand("%"), "_spec.rb$") != -1
-endfunction
-
-function! SetLastSpecCommand(command)
-  let t:last_spec_command = a:command
-endfunction
-
-function! RunSpecs(command)
-  execute ":w\|!clear && echo " . a:command . " && echo && " . a:command
-endfunction
+" This beauty remembers where you were the last time you edited the
+" file, and returns to the same position.
+" au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
