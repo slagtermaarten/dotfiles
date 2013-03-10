@@ -1,4 +1,3 @@
-
 set nocompatible
 filetype off
 syntax enable
@@ -17,8 +16,6 @@ Bundle "garbas/vim-snipmate"
 Bundle "Raimondi/delimitMate"
 Bundle "altercation/vim-colors-solarized.git"
 Bundle 'L9'
-" Bundle 'fugitive.vim' A tad hazardous in the hands of a novice git user like
-" me
 Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
 Bundle 'tComment'
 Bundle 'c.vim'
@@ -54,7 +51,6 @@ set wildmenu
 set wildignore=*.o,a.out,*.bbl,*.pdf
 set autochdir
 set so=10
-set paste
 set wrap
 set linebreak
 set textwidth=80
