@@ -1,5 +1,5 @@
 [push]
-  default = upstream
+  default = origin  
 [color]
   branch = auto
   diff = auto

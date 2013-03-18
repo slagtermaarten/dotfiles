@@ -27,6 +27,7 @@ Bundle 'Vim-R-plugin'
 
 au BufNewFile,BufReadPost *.tex set syntax=tex 
 au BufNewFile,BufReadPost *.tex :UltiSnipsAddFiletypes tex
+au BufNewFile,BufReadPost *.tex :so ~/.vim/myTeXsurrounds.vim
 au Bufenter,BufNewFile,BufReadPost *.hs compiler ghc
 au Bufenter,BufNewFile,BufReadPost *.md set syntax=markdown
 " au BufRead,BufNewFile,BufReadPost *.txt,*.tex set
@@ -86,8 +87,9 @@ let g:solarized_contrast="high"    "default value is normal
 set background=dark
 
 if has('gui_running')
-	set guifont=Inconsolata\ 10
-	set lines=40 columns=82
+	set guifont=Inconsolata\ 12
+	set lines=50 columns=85
+    set guioptions-=T
 endif
 
 nnoremap <F2> :set invpaste paste?<CR>

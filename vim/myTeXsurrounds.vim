@@ -1,0 +1,7 @@
+let g:surround_{char2nr('_')} = "_{\r}"
+let g:surround_{char2nr('t')} = "\\text{\r}"
+let g:surround_{char2nr('i')} = "\\emph{\r}"
+let g:surround_{char2nr('b')} = "\\textbf{\r}"
+let g:surround_{char2nr('v')} = "\\verbatim{\r}"
+let g:surround_{char2nr('o')} = "\\overline{\r}"
+let g:surround_{char2nr('s')} = "\\sub{\r}"
