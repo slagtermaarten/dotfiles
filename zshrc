@@ -6,6 +6,7 @@ ZSH=$HOME/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="bira"
+eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.256dark`
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -32,10 +33,18 @@ ZSH_THEME="bira"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git debian vi-mode)
 
 source $ZSH/oh-my-zsh.sh
+source $HOME/dotfiles/aliases.sh
 
+xmodmap $HOME/dotfiles/keymap
 bindkey -v
 
-# Customize to your needs...
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM='xterm-256color'
+else
+    export TERM='xterm-color'
+fi
+
+eval `dircolors ~/dotfiles/dircolors-solarized`

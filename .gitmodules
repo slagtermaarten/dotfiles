@@ -1,9 +1,12 @@
-[submodule "omz"]
-	path = omz
-	url = git://github.com/robbyrussell/oh-my-zsh.git
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
 [submodule "vim-colors-solarized"]
 	path = vim-colors-solarized
 	url = https://github.com/altercation/vim-colors-solarized
+[submodule "dircolors-solarized"]
+	path = dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized.git
+[submodule "vendor/tmux-mem-cpu-load"]
+	path = vendor/tmux-mem-cpu-load
+	url = git://github.com/thewtex/tmux-mem-cpu-load.git

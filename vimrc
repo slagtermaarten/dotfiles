@@ -1,31 +1,40 @@
 set nocompatible
 filetype off
-syntax enable
+
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-filetype plugin on
-filetype indent on
+
+filetype plugin indent on
 
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-Bundle "snipmate-snippets"
-Bundle "garbas/vim-snipmate"
+" Bundle "SirVer/ultisnips"
+Bundle "slagtermaarten/ultisnips"
 Bundle "Raimondi/delimitMate"
-Bundle "altercation/vim-colors-solarized.git"
+Bundle "altercation/vim-colors-solarized"
+Bundle "nelstrom/vim-markdown-folding"
 Bundle 'L9'
-Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
 Bundle 'tComment'
 Bundle 'c.vim'
 Bundle 'Vim-R-plugin'
 
-au BufNewFile,BufReadPost *.tex set syntax=tex
+" Bundle "snipmate-snippets"
+" Bundle "garbas/vim-snipmate"
+" Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+
+au BufNewFile,BufReadPost *.tex set syntax=tex 
+au BufNewFile,BufReadPost *.tex :UltiSnipsAddFiletypes tex
 au Bufenter,BufNewFile,BufReadPost *.hs compiler ghc
-au BufRead,BufNewFile,BufReadPost *.txt,*.tex set
+au Bufenter,BufNewFile,BufReadPost *.md set syntax=markdown
+" au BufRead,BufNewFile,BufReadPost *.txt,*.tex set
 " thesaurus+=~/.vim/thesaurus/mthesaur.txt 
 
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsUsePythonVersion=2
+syntax enable
 set backspace=indent,eol,start
 set pastetoggle=<F2>
 set showmode
@@ -46,29 +55,38 @@ set noerrorbells
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set undolevels=100
 set history=100
-set foldlevelstart=2
 set wildmenu
 set wildignore=*.o,a.out,*.bbl,*.pdf
 set autochdir
 set so=10
-set wrap
-set linebreak
 set textwidth=80
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 set foldmethod=manual
 set formatoptions+="tpcqa"
 syntax sync minlines=10
+set clipboard=unnamed
 syntax enable
 
+func! WordProcessorMode() 
+  setlocal formatoptions=1 
+  setlocal noexpandtab 
+  setlocal spell spelllang=en_us 
+  " set thesaurus+=/Users/sbrown/.vim/thesaurus/mthesaur.txt
+  set complete+=s
+  set formatprg=par
+  setlocal wrap 
+  setlocal linebreak 
+endfu 
+com! WP call WordProcessorMode()
+
 colorscheme solarized
-" let g:solarized_contrast="high"    "default value is normal
+set t_Co=256
+let g:solarized_contrast="high"    "default value is normal
 set background=dark
 
 if has('gui_running')
-	let g:solarized_contrast="high"    "default value is normal
-	" set guifont=Inconsolata\ 10
-	"
+	set guifont=Inconsolata\ 10
 	set lines=40 columns=82
 endif
 
@@ -86,7 +104,7 @@ noremap <C-l> :bnext<CR>
 nnoremap q; q:
 nnoremap ;n :n
 nnoremap ! :! 
-nnoremap ,cd :cd %:p:h<CR>
+" nnoremap ,cd :cd %:p:h<CR>
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>em :e Makefile<CR>
 nmap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
@@ -96,15 +114,18 @@ nmap <silent> <leader>tp :tabp<CR>
 nmap <silent> <leader>sc :tabp<CR>
 
 let g:netrw_keepdir=0 
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_ViewRule_pdf = 'okular'
-let g:tex_fold_enabled=1
-let g:tex_flavor='latex'
 
 if has('mouse')
 	set mouse=a
 endif
 
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
+
+" let g:Tex_DefaultTargetFormat = 'pdf'
+" let g:Tex_ViewRule_pdf = 'okular'
+" let g:tex_fold_enabled=1
+" let g:tex_flavor='latex'
 " if has("autocmd")
 "   augroup vimrcEx
 "   au!
@@ -133,11 +154,6 @@ endif
 "     " autocmd BufReadPost fugitive://* set bufhidden=delete
 "
 "     " set sessionoptions=blank,buffers,curdir,folds,winsize,slash,unix
-"     " au BufWinLeave *.tex mkview
-"     " au BufWinEnter *.tex silent loadview
 "     " command! Math w | !command cat "`pwd`/%" | math | grep -v "In\["
 "     " au BufRead *.m so ~/.vim/after/ftplugin/mathematica.vim
 
-" This beauty remembers where you were the last time you edited the
-" file, and returns to the same position.
-" au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
