@@ -1,6 +1,5 @@
 set nocompatible
 filetype off
-
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -11,7 +10,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
-" Bundle "SirVer/ultisnips"
 Bundle "slagtermaarten/ultisnips"
 Bundle "Raimondi/delimitMate"
 Bundle "altercation/vim-colors-solarized"
@@ -20,10 +18,27 @@ Bundle 'L9'
 Bundle 'tComment'
 Bundle 'c.vim'
 Bundle 'Vim-R-plugin'
-
+Bundle 'wincent/Command-T'
+Bundle 'rsmenon/vim-mathematica'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+" Bundle 'klen/python-mode'
 " Bundle "snipmate-snippets"
 " Bundle "garbas/vim-snipmate"
-" Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+" Bundle "SirVer/ultisnips"
+
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode = 1
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run_key = 'R'
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_lint_write = 0
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_doc = 1
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_doc_key = 'K'
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run = 1
+" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run_key = '<leader>r'
+" map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
+autocmd BufEnter * silent! lcd %:p:h
+let mapleader = ","
+
+let g:mma_highlight_option = "solarized"
+let g:mma_candy = 1
 
 au BufNewFile,BufReadPost *.tex set syntax=tex 
 au BufNewFile,BufReadPost *.tex :UltiSnipsAddFiletypes tex
@@ -36,15 +51,17 @@ au Bufenter,BufNewFile,BufReadPost *.md set syntax=markdown
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsUsePythonVersion=2
 syntax enable
-set backspace=indent,eol,start
+" set backspace=indent,eol,start
 set pastetoggle=<F2>
+set clipboard=unnamed
 set showmode
+set bs=2
 set hidden
 set laststatus=2
 set tabstop=4
 set expandtab
 set autoindent
-set smartindent
+set shiftround
 set nocursorcolumn
 set nocursorline
 set softtabstop=4
@@ -54,50 +71,54 @@ set nobackup
 set noswapfile
 set noerrorbells
 set wildignore=*.swp,*.bak,*.pyc,*.class
-set undolevels=100
-set history=100
+set undolevels=700
+set history=700
 set wildmenu
-set wildignore=*.o,a.out,*.bbl,*.pdf
+set wildignore=*.o,*.bbl,*.pdf,*.out,*.blg,*.aux,*.log,*.latexmk
 set autochdir
 set so=10
 set textwidth=80
+set colorcolumn=80
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
-set foldmethod=manual
-set formatoptions+="tpcqa"
+" set foldmethod=manual
+" set formatprg=par
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 syntax sync minlines=10
-set clipboard=unnamed
 syntax enable
+let vimrplugin_screenplugin = 0
 
 func! WordProcessorMode() 
-  setlocal formatoptions=1 
-  setlocal noexpandtab 
-  setlocal spell spelllang=en_us 
-  " set thesaurus+=/Users/sbrown/.vim/thesaurus/mthesaur.txt
-  set complete+=s
-  set formatprg=par
-  setlocal wrap 
-  setlocal linebreak 
+    " setlocal formatoptions=1 
+    " setlocal noexpandtab 
+    set formatoptions+="tpcqa"
+    setlocal spell spelllang=en_us 
+    " set thesaurus+=/Users/sbrown/.vim/thesaurus/mthesaur.txt
+    " set complete+=s
 endfu 
 com! WP call WordProcessorMode()
 
-colorscheme solarized
 set t_Co=256
-let g:solarized_contrast="high"    "default value is normal
-set background=dark
+" set background=dark
+" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+" au InsertLeave * match ExtraWhitespace /\s\+$/
 
 if has('gui_running')
-	set guifont=Inconsolata\ 12
-	set lines=50 columns=85
+    colorscheme solarized
+    let g:solarized_contrast="high"
+    set guifont=Inconsolata\ 14
+    set lines=50 columns=85
     set guioptions-=T
 endif
 
-nnoremap <F2> :set invpaste paste?<CR>
+" nnoremap <F2> :set invpaste paste?<CR>
+vmap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 map j gj
 map k gk
 map <silent> <leader>w :wa <cr>:! make all<cr>
 map <leader>c <c-_><c-_>
+map <F5> :e!<cr>
 nmap <leader>cs <c-_><c-_> gUU
 nnoremap <leader>m :make
 nmap ;ww :w<CR>
@@ -107,22 +128,42 @@ nnoremap q; q:
 nnoremap ;n :n
 nnoremap ! :! 
 " nnoremap ,cd :cd %:p:h<CR>
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" nmap <silent> <leader>bi :BundleInstall<CR>
 nmap <silent> <leader>em :e Makefile<CR>
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>o :CommandTJump<CR>
+nmap <silent> <leader>sc :tabp<CR>
 nmap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
-nmap <silent> <leader>bi :BundleInstall<CR>
 nmap <silent> <leader>tn :tabn<CR>
 nmap <silent> <leader>tp :tabp<CR>
-nmap <silent> <leader>sc :tabp<CR>
+" inoremap <C-n> :nohl<CR>
+noremap <C-n> :nohl<CR>
+vnoremap <C-n> :nohl<CR>
+vnoremap < <gv
+vnoremap > >gv
+vmap Q gq
+nmap Q gqap
+
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
+autocmd FileType c,cpp,java,python,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 let g:netrw_keepdir=0 
+let mapleader=","
+vnoremap <Leader>s :sort<CR>
 
 if has('mouse')
-	set mouse=a
+    set mouse=a
 endif
 
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
+autocmd! bufwritepost .vimrc source %
 
 " let g:Tex_DefaultTargetFormat = 'pdf'
 " let g:Tex_ViewRule_pdf = 'okular'
@@ -134,8 +175,8 @@ autocmd BufWinEnter *.* silent loadview
 "   autocmd FileType text setlocal textwidth=80
 "   autocmd BufReadPost *
 "     \ if line("'\"") > 1 && line("'\"") <= line("$") |
-			" \   exe "normal! g`\"" |
-			" \ endif
+" \   exe "normal! g`\"" |
+" \ endif
 "     " 
 "     "   augroup END
 "     " endif " has("autocmd")
