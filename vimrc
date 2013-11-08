@@ -106,7 +106,7 @@ set t_Co=256
 if has('gui_running')
     colorscheme solarized
     let g:solarized_contrast="high"
-    set guifont=Inconsolata\ 14
+    set guifont=Inconsolata\ 11
     set lines=50 columns=85
     set guioptions-=T
 endif

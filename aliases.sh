@@ -15,5 +15,6 @@ alias -s md=vim
 alias -s tex=vim
 alias -s com=chromium-browser
 alias zz="sudo pm-suspend"
+alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 
 # alias tmux="TERM=screen-256color-bce tmux"
