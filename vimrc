@@ -33,7 +33,7 @@ Bundle 'LaTeX-Box-Team/LaTeX-Box'
 " au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_doc_key = 'K'
 " au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run = 1
 " au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run_key = '<leader>r'
-map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
+" map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
 autocmd BufEnter * silent! lcd %:p:h
 let mapleader = ","
 
@@ -77,7 +77,6 @@ set wildmenu
 set wildignore=*.o,*.bbl,*.pdf,*.out,*.blg,*.aux,*.log,*.latexmk
 set autochdir
 set so=10
-set textwidth=0
 set colorcolumn=80
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
@@ -108,6 +107,7 @@ if has('gui_running')
     let g:solarized_contrast="high"
     set guifont=Inconsolata\ 11
     set lines=30 columns=80
+    set lines=50 columns=85
     set guioptions-=T
 endif
 
@@ -165,38 +165,6 @@ autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
 autocmd! bufwritepost .vimrc source %
 
-" let g:Tex_DefaultTargetFormat = 'pdf'
-" let g:Tex_ViewRule_pdf = 'okular'
-" let g:tex_fold_enabled=1
-" let g:tex_flavor='latex'
-" if has("autocmd")
-"   augroup vimrcEx
-"   au!
-"   autocmd FileType text setlocal textwidth=80
-"   autocmd BufReadPost *
-"     \ if line("'\"") > 1 && line("'\"") <= line("$") |
-" \   exe "normal! g`\"" |
-" \ endif
-"     " 
-"     "   augroup END
-"     " endif " has("autocmd")
-"
-"     " if !exists(":DiffOrig")
-"     "   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-"     "       \ | wincmd p | diffthis
-"     " endif
-"     " 
-"     " let g:ipy_completefunc = 'local'
-"     " au BufRead *.tex *.Rnw so ~/.vim/after/ftplugin/tex.vim
-"
-"     " autocmd User fugitive
-"     "   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-"     "   \   nnoremap <buffer> .. :edit %:h<CR> |
-"     "   \ endif
-"
-"     " autocmd BufReadPost fugitive://* set bufhidden=delete
-"
-"     " set sessionoptions=blank,buffers,curdir,folds,winsize,slash,unix
-"     " command! Math w | !command cat "`pwd`/%" | math | grep -v "In\["
-"     " au BufRead *.m so ~/.vim/after/ftplugin/mathematica.vim
+" command! Math w | !command cat "`pwd`/%" | math | grep -v "In\["
+" au BufRead *.m so ~/.vim/after/ftplugin/mathematica.vim
 
