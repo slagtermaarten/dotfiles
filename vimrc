@@ -33,7 +33,7 @@ Bundle 'LaTeX-Box-Team/LaTeX-Box'
 " au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_doc_key = 'K'
 " au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run = 1
 " au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run_key = '<leader>r'
-" map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
+map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
 autocmd BufEnter * silent! lcd %:p:h
 let mapleader = ","
 
@@ -77,7 +77,7 @@ set wildmenu
 set wildignore=*.o,*.bbl,*.pdf,*.out,*.blg,*.aux,*.log,*.latexmk
 set autochdir
 set so=10
-set textwidth=80
+set textwidth=0
 set colorcolumn=80
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
@@ -107,7 +107,7 @@ if has('gui_running')
     colorscheme solarized
     let g:solarized_contrast="high"
     set guifont=Inconsolata\ 11
-    set lines=50 columns=85
+    set lines=30 columns=80
     set guioptions-=T
 endif
 

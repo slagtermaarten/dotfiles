@@ -6,16 +6,9 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
-require("vicious")
-require("wicked")
 
 -- Load Debian menu entries
 require("debian.menu")
-
-browser="chromium-browser"
-terminal="gnome-terminal"
-editor = os.getenv("EDITOR") or "gvim"
-editor_cmd = terminal .. " -e " .. editor
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -46,6 +39,11 @@ end
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
+browser="chromium-browser"
+terminal="gnome-terminal"
+editor = os.getenv("EDITOR") or "gvim"
+editor_cmd = terminal .. " -e " .. editor
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -56,11 +54,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
+    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
-    awful.layout.suit.floating,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
@@ -79,8 +77,8 @@ layouts =
 --          layouts[12], layouts[9], layouts[3], layouts[7]
 --}}
 tags = {
-names  = { "latex", "misc", "mathematica", "www", "images", "misc2" },
-layout = { layouts[1], layouts[5], layouts[5], layouts[1], layouts[5], layouts[6]
+names  = { "www", "2", "3", "4", "5", "6" },
+layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
 }}
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -197,7 +195,7 @@ for s = 1, screen.count() do
 end
 -- }}}
 
--- {{{ Mouse bindingscombination
+-- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 3, function () mymainmenu:toggle() end),
     awful.button({ }, 4, awful.tag.viewnext),

@@ -1,4 +1,3 @@
-Maarten Slagter dotfiles
-===================
+## Maarten Slagter dotfiles
 
-Adjusted from thoughtbot/dotfiles
+Adjusted from thoughtbot/dotfiles, modified to my preference :)

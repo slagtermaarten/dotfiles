@@ -10,6 +10,7 @@ alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
 alias bi='vim +BundleClean! +BundleInstall +qall'
 alias vcell='javaws $HOME/bin/vcell.jnlp'
 alias ff='find . -name'
+alias ag='sudo apt-get install'
 
 alias -s md=vim
 alias -s tex=vim
