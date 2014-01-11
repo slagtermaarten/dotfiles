@@ -6,9 +6,11 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
+require("vicious")
 
 -- Load Debian menu entries
 require("debian.menu")
+--awful.widget.gmail = require('awful.widget.gmail')
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -44,6 +46,19 @@ terminal="gnome-terminal"
 editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
 
+-- Create an ACPI widget
+batterywidget = widget({ type = "textbox" })
+batterywidget.text = " | Battery | "
+batterywidgettimer = timer({ timeout = 5 })
+batterywidgettimer:add_signal("timeout",
+  function()
+    fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+    batterywidget.text = " |" .. fh:read("*l") .. " | "
+    fh:close()
+  end
+)
+batterywidgettimer:start()
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -77,8 +92,8 @@ layouts =
 --          layouts[12], layouts[9], layouts[3], layouts[7]
 --}}
 tags = {
-names  = { "www", "2", "3", "4", "5", "6" },
-layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1]
+names  = { "write", "math", "www", "misc", "email", "misc2" },
+layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[8]
 }}
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -97,7 +112,9 @@ myawesomemenu = {
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "Debian", debian.menu.Debian_menu.Debian },
-                                    { "open terminal", terminal }
+                                    { "open terminal", terminal },
+                                    { "zzz", "zsh -c -i 'gksu pm-suspend'"},
+                                    { "shutdown", '/home/maarten/bin/shutdown.sh'}
                                   }
                         })
 
@@ -108,6 +125,41 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
+
+-- RAM usage widget
+memwidget = awful.widget.progressbar()
+memwidget:set_width(15)
+memwidget:set_height(30)
+memwidget:set_vertical(true)
+memwidget:set_background_color('#494B4F')
+memwidget:set_color('#AECF96')
+memwidget:set_gradient_colors({ '#AECF96', '#88A175', '#FF5656' })
+
+-- RAM usage tooltip
+memwidget_t = awful.tooltip({ objects = { memwidget.widget },})
+
+vicious.cache(vicious.widgets.mem)
+vicious.register(memwidget, vicious.widgets.mem,
+                function (widget, args)
+                    memwidget_t:set_text(" RAM: " .. args[2] .. "MB / " .. args[3] .. "MB ")
+                    return args[1]
+                 end, 13)
+                 --update every 13 seconds
+
+-- gmail widget and tooltip
+mygmail = widget({ type = "textbox" })
+gmail_t = awful.tooltip({ objects = { mygmail },})
+
+mygmailimg = widget({ type = "imagebox" })
+mygmailimg.image = image("~/.config/awesome/zenburn/gmail.png")
+
+vicious.register(mygmail, vicious.widgets.gmail,
+                function (widget, args)
+                    gmail_t:set_text(args["{subject}"])
+                    gmail_t:add_to_object(mygmailimg)
+                    return args["{count}"]
+                 end, 60) 
+                 --the '120' here means check every 2 minutes.
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -129,7 +181,7 @@ mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
                                               if c == client.focus then
-                                                  c.minimized = true
+                                                  c.minimized = false
                                               else
                                                   if not c:isvisible() then
                                                       awful.tag.viewonly(c:tags()[1])
@@ -188,6 +240,11 @@ for s = 1, screen.count() do
         },
         mylayoutbox[s],
         mytextclock,
+        batterywidget,
+        memwidget,
+        --gmailwidget,
+        --mailwidget,
+        mygmail,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -236,7 +293,7 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "t", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -248,10 +305,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-
-    awful.key({ modkey, "Shift" }, "e",     function () awful.util.spawn("sh /home/maarten/bin/extmon.sh") end),
-    awful.key({ modkey, "Shift" }, "i",     function () awful.util.spawn("sh /home/maarten/bin/laptopmon.sh") end),
-    awful.key({ modkey, "Control" }, "n", awful.client.restore),
+    awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("sh /home/maarten/bin/extmon.sh") end),
+    awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("sh /home/maarten/bin/laptopmon.sh") end),
+    awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
+    awful.key({ modkey,           }, "b",     function () awful.util.spawn("chromium-browser") end),
+    awful.key({ modkey,           }, "d",     function () awful.util.spawn("dolphin") end),
+    awful.key({ modkey,           }, "e",     function () awful.util.spawn("thunderbird") end),
+    awful.key({ modkey, "Control" }, "n",     awful.client.restore),
 
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
@@ -347,6 +407,8 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { class = "compucell3d" },
+      properties = { floating = true } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
@@ -356,8 +418,10 @@ awful.rules.rules = {
     { rule = { class = "mathematica" },
       properties = { floating = true } },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "chromium-browser" },
+      properties = { tag = tags[1] } },
+    { rule = { class = "thunderbird" },
+      properties = { tag = tags[1] } }
 }
 -- }}}
 
@@ -392,6 +456,8 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
+-- {{{ Autostarts
 awful.util.spawn_with_shell("~/bin/run_once nm-applet")
 awful.util.spawn_with_shell("~/bin/run_once gnome-sound-applet")
 awful.util.spawn_with_shell("dropbox start")
+-- }}}

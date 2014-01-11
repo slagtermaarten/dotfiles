@@ -1,310 +1,0 @@
-let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
-argglobal
-let s:cpo_save=&cpo
-set cpo&vim
-imap <buffer> <RightMouse> <Plug>delimitMateMRightMouse
-imap <buffer> <LeftMouse> <Plug>delimitMateMLeftMouse
-imap <buffer> <S-Up> <Plug>delimitMateS-Up
-imap <buffer> <S-Down> <Plug>delimitMateS-Down
-imap <buffer> <PageDown> <Plug>delimitMatePageDown
-imap <buffer> <PageUp> <Plug>delimitMatePageUp
-imap <buffer> <Down> <Plug>delimitMateDown
-imap <buffer> <Up> <Plug>delimitMateUp
-imap <buffer> <C-Right> <Plug>delimitMateC-Right
-imap <buffer> <C-Left> <Plug>delimitMateC-Left
-imap <buffer> <End> <Plug>delimitMateEnd
-imap <buffer> <Home> <Plug>delimitMateHome
-imap <buffer> <Right> <Plug>delimitMateRight
-imap <buffer> <Left> <Plug>delimitMateLeft
-imap <buffer> <Del> <Plug>delimitMateDel
-imap <buffer> <S-Tab> <Plug>delimitMateS-Tab
-imap <buffer> <S-BS> <Plug>delimitMateS-BS
-imap <buffer> <BS> <Plug>delimitMateBS
-inoremap <buffer> <Plug>delimitMateJumpMany =len(b:_l_delimitMate_buffer) ? delimitMate#Finish(0) : delimitMate#JumpMany()
-imap <buffer> <C-ScrollWheelRight> <Plug>delimitMateC-ScrollWheelRight
-imap <buffer> <S-ScrollWheelRight> <Plug>delimitMateS-ScrollWheelRight
-imap <buffer> <ScrollWheelRight> <Plug>delimitMateScrollWheelRight
-imap <buffer> <C-ScrollWheelLeft> <Plug>delimitMateC-ScrollWheelLeft
-imap <buffer> <S-ScrollWheelLeft> <Plug>delimitMateS-ScrollWheelLeft
-imap <buffer> <ScrollWheelLeft> <Plug>delimitMateScrollWheelLeft
-imap <buffer> <C-ScrollWheelDown> <Plug>delimitMateC-ScrollWheelDown
-imap <buffer> <S-ScrollWheelDown> <Plug>delimitMateS-ScrollWheelDown
-imap <buffer> <ScrollWheelDown> <Plug>delimitMateScrollWheelDown
-imap <buffer> <C-ScrollWheelUp> <Plug>delimitMateC-ScrollWheelUp
-imap <buffer> <S-ScrollWheelUp> <Plug>delimitMateS-ScrollWheelUp
-imap <buffer> <ScrollWheelUp> <Plug>delimitMateScrollWheelUp
-nnoremap <buffer> <silent> \rd :call RSetWD()
-nnoremap <buffer> <silent> \r- :call RBrowserOpenCloseLists(0)
-nnoremap <buffer> <silent> \r= :call RBrowserOpenCloseLists(1)
-nnoremap <buffer> <silent> \ro :call RObjBrowser()
-nnoremap <buffer> <silent> \rb :call RAction("plotsumm")
-nnoremap <buffer> <silent> \rg :call RAction("plot")
-nnoremap <buffer> <silent> \rs :call RAction("summary")
-nnoremap <buffer> <silent> \rh :call RAction("help")
-nnoremap <buffer> <silent> \re :call RAction("example")
-nnoremap <buffer> <silent> \ra :call RAction("args")
-nnoremap <buffer> <silent> \rt :call RAction("str")
-nnoremap <buffer> <silent> \rn :call RAction("vim.names")
-nnoremap <buffer> <silent> \rp :call RAction("print")
-nnoremap <buffer> <silent> \rm :call RClearAll()
-nnoremap <buffer> <silent> \rr :call RClearConsole()
-nnoremap <buffer> <silent> \rl :call SendCmdToR("ls()")
-nnoremap <buffer> <silent> \fa :call SendFunctionToR("echo", "down")
-nnoremap <buffer> <silent> \fd :call SendFunctionToR("silent", "down")
-nnoremap <buffer> <silent> \fe :call SendFunctionToR("echo", "stay")
-nnoremap <buffer> <silent> \ff :call SendFunctionToR("silent", "stay")
-nnoremap <buffer> <silent> \; :call MovePosRCodeComment("normal")
-nnoremap <buffer> <silent> \xu :call RSimpleUncommentLine("normal")
-nnoremap <buffer> <silent> \xc :call RSimpleCommentLine("normal")
-nnoremap <buffer> <silent> \xx :call RComment("normal")
-nnoremap <buffer> <silent> \rw :call RQuit('save')
-nnoremap <buffer> <silent> \rq :call RQuit('nosave')
-nnoremap <buffer> <silent> \rc :call StartR("custom")
-nnoremap <buffer> <silent> \rv :call StartR("vanilla")
-nnoremap <buffer> <silent> \rf :call StartR("R")
-vnoremap <buffer> <silent> \rd :call RSetWD()
-onoremap <buffer> <silent> \rd :call RSetWD()
-vnoremap <buffer> <silent> \r- :call RBrowserOpenCloseLists(0)
-onoremap <buffer> <silent> \r- :call RBrowserOpenCloseLists(0)
-vnoremap <buffer> <silent> \r= :call RBrowserOpenCloseLists(1)
-onoremap <buffer> <silent> \r= :call RBrowserOpenCloseLists(1)
-vnoremap <buffer> <silent> \ro :call RObjBrowser()
-onoremap <buffer> <silent> \ro :call RObjBrowser()
-vnoremap <buffer> <silent> \rb :call RAction("plotsumm")
-onoremap <buffer> <silent> \rb :call RAction("plotsumm")
-vnoremap <buffer> <silent> \rg :call RAction("plot")
-onoremap <buffer> <silent> \rg :call RAction("plot")
-vnoremap <buffer> <silent> \rs :call RAction("summary")
-onoremap <buffer> <silent> \rs :call RAction("summary")
-vnoremap <buffer> <silent> \rh :call RAction("help")
-onoremap <buffer> <silent> \rh :call RAction("help")
-vnoremap <buffer> <silent> \re :call RAction("example")
-onoremap <buffer> <silent> \re :call RAction("example")
-vnoremap <buffer> <silent> \ra :call RAction("args")
-onoremap <buffer> <silent> \ra :call RAction("args")
-vnoremap <buffer> <silent> \rt :call RAction("str")
-onoremap <buffer> <silent> \rt :call RAction("str")
-vnoremap <buffer> <silent> \rn :call RAction("vim.names")
-onoremap <buffer> <silent> \rn :call RAction("vim.names")
-vnoremap <buffer> <silent> \rp :call RAction("print")
-onoremap <buffer> <silent> \rp :call RAction("print")
-vnoremap <buffer> <silent> \rm :call RClearAll()
-onoremap <buffer> <silent> \rm :call RClearAll()
-vnoremap <buffer> <silent> \rr :call RClearConsole()
-onoremap <buffer> <silent> \rr :call RClearConsole()
-vnoremap <buffer> <silent> \rl :call SendCmdToR("ls()")
-onoremap <buffer> <silent> \rl :call SendCmdToR("ls()")
-noremap <buffer> <silent> \d :call SendLineToR("down")0
-noremap <buffer> <silent> \l :call SendLineToR("stay")0
-noremap <buffer> <silent> \pa :call SendParagraphToR("echo", "down")
-noremap <buffer> <silent> \pd :call SendParagraphToR("silent", "down")
-noremap <buffer> <silent> \pe :call SendParagraphToR("echo", "stay")
-noremap <buffer> <silent> \pp :call SendParagraphToR("silent", "stay")
-vnoremap <buffer> <silent> \sa :call SendSelectionToR("echo", "down")
-vnoremap <buffer> <silent> \sd :call SendSelectionToR("silent", "down")
-vnoremap <buffer> <silent> \se :call SendSelectionToR("echo", "stay")
-vnoremap <buffer> <silent> \ss :call SendSelectionToR("silent", "stay")
-vnoremap <buffer> <silent> \fa :call SendFunctionToR("echo", "down")
-onoremap <buffer> <silent> \fa :call SendFunctionToR("echo", "down")
-vnoremap <buffer> <silent> \fd :call SendFunctionToR("silent", "down")
-onoremap <buffer> <silent> \fd :call SendFunctionToR("silent", "down")
-vnoremap <buffer> <silent> \fe :call SendFunctionToR("echo", "stay")
-onoremap <buffer> <silent> \fe :call SendFunctionToR("echo", "stay")
-vnoremap <buffer> <silent> \ff :call SendFunctionToR("silent", "stay")
-onoremap <buffer> <silent> \ff :call SendFunctionToR("silent", "stay")
-noremap <buffer> <silent> \ba :call SendMBlockToR("echo", "down")
-noremap <buffer> <silent> \bd :call SendMBlockToR("silent", "down")
-noremap <buffer> <silent> \be :call SendMBlockToR("echo", "stay")
-noremap <buffer> <silent> \bb :call SendMBlockToR("silent", "stay")
-noremap <buffer> <silent> \ks :call RSpin()
-noremap <buffer> <silent> \ao :call ShowRout()
-noremap <buffer> <silent> \ae :call SendFileToR("echo")
-noremap <buffer> <silent> \aa :call SendFileToR("silent")
-vnoremap <buffer> <silent> \; :call MovePosRCodeComment("selection")
-onoremap <buffer> <silent> \; :call MovePosRCodeComment("normal")
-vnoremap <buffer> <silent> \xu :call RSimpleUncommentLine("selection")
-onoremap <buffer> <silent> \xu :call RSimpleUncommentLine("normal")
-vnoremap <buffer> <silent> \xc :call RSimpleCommentLine("selection")
-onoremap <buffer> <silent> \xc :call RSimpleCommentLine("normal")
-vnoremap <buffer> <silent> \xx :call RComment("selection")
-onoremap <buffer> <silent> \xx :call RComment("normal")
-vnoremap <buffer> <silent> \rw :call RQuit('save')
-onoremap <buffer> <silent> \rw :call RQuit('save')
-vnoremap <buffer> <silent> \rq :call RQuit('nosave')
-onoremap <buffer> <silent> \rq :call RQuit('nosave')
-vnoremap <buffer> <silent> \rc :call StartR("custom")
-onoremap <buffer> <silent> \rc :call StartR("custom")
-vnoremap <buffer> <silent> \rv :call StartR("vanilla")
-onoremap <buffer> <silent> \rv :call StartR("vanilla")
-vnoremap <buffer> <silent> \rf :call StartR("R")
-onoremap <buffer> <silent> \rf :call StartR("R")
-imap <buffer> <silent> g <Plug>delimitMateJumpMany
-imap <buffer> <silent>  =RCompleteArgs()
-imap <buffer> " <Plug>delimitMate"
-imap <buffer> ' <Plug>delimitMate'
-imap <buffer> ( <Plug>delimitMate(
-imap <buffer> ) <Plug>delimitMate)
-imap <buffer> [ <Plug>delimitMate[
-inoremap <buffer> <silent> \rd :call RSetWD()a
-inoremap <buffer> <silent> \r- :call RBrowserOpenCloseLists(0)a
-inoremap <buffer> <silent> \r= :call RBrowserOpenCloseLists(1)a
-inoremap <buffer> <silent> \ro :call RObjBrowser()a
-inoremap <buffer> <silent> \rb :call RAction("plotsumm")a
-inoremap <buffer> <silent> \rg :call RAction("plot")a
-inoremap <buffer> <silent> \rs :call RAction("summary")a
-inoremap <buffer> <silent> \rh :call RAction("help")a
-inoremap <buffer> <silent> \re :call RAction("example")a
-inoremap <buffer> <silent> \ra :call RAction("args")a
-inoremap <buffer> <silent> \rt :call RAction("str")a
-inoremap <buffer> <silent> \rn :call RAction("vim.names")a
-inoremap <buffer> <silent> \rp :call RAction("print")a
-inoremap <buffer> <silent> \rm :call RClearAll()a
-inoremap <buffer> <silent> \rr :call RClearConsole()a
-inoremap <buffer> <silent> \rl :call SendCmdToR("ls()")a
-imap <buffer> <silent> \r<Right> l:call RSendPartOfLine("right", 0)i
-imap <buffer> <silent> \r<Left> l:call RSendPartOfLine("left", 0)i
-inoremap <buffer> <silent> \q :call SendLineToR("newline")a
-inoremap <buffer> <silent> \d :call SendLineToR("down")0i
-inoremap <buffer> <silent> \l :call SendLineToR("stay")0i
-inoremap <buffer> <silent> \pa :call SendParagraphToR("echo", "down")a
-inoremap <buffer> <silent> \pd :call SendParagraphToR("silent", "down")a
-inoremap <buffer> <silent> \pe :call SendParagraphToR("echo", "stay")a
-inoremap <buffer> <silent> \pp :call SendParagraphToR("silent", "stay")a
-inoremap <buffer> <silent> \fa :call SendFunctionToR("echo", "down")a
-inoremap <buffer> <silent> \fd :call SendFunctionToR("silent", "down")a
-inoremap <buffer> <silent> \fe :call SendFunctionToR("echo", "stay")a
-inoremap <buffer> <silent> \ff :call SendFunctionToR("silent", "stay")a
-inoremap <buffer> <silent> \ba :call SendMBlockToR("echo", "down")a
-inoremap <buffer> <silent> \bd :call SendMBlockToR("silent", "down")a
-inoremap <buffer> <silent> \be :call SendMBlockToR("echo", "stay")a
-inoremap <buffer> <silent> \bb :call SendMBlockToR("silent", "stay")a
-inoremap <buffer> <silent> \ks :call RSpin()a
-inoremap <buffer> <silent> \ao :call ShowRout()a
-inoremap <buffer> <silent> \ae :call SendFileToR("echo")a
-inoremap <buffer> <silent> \aa :call SendFileToR("silent")a
-inoremap <buffer> <silent> \; :call MovePosRCodeComment("normal")a
-inoremap <buffer> <silent> \xu :call RSimpleUncommentLine("normal")a
-inoremap <buffer> <silent> \xc :call RSimpleCommentLine("normal")a
-inoremap <buffer> <silent> \xx :call RComment("normal")a
-inoremap <buffer> <silent> \rw :call RQuit('save')a
-inoremap <buffer> <silent> \rq :call RQuit('nosave')a
-inoremap <buffer> <silent> \rc :call StartR("custom")a
-inoremap <buffer> <silent> \rv :call StartR("vanilla")a
-inoremap <buffer> <silent> \rf :call StartR("R")a
-imap <buffer> ] <Plug>delimitMate]
-imap <buffer> <silent> _ :call ReplaceUnderS()a
-imap <buffer> ` <Plug>delimitMate`
-imap <buffer> { <Plug>delimitMate{
-imap <buffer> } <Plug>delimitMate}
-let &cpo=s:cpo_save
-unlet s:cpo_save
-setlocal keymap=
-setlocal noarabic
-setlocal autoindent
-setlocal balloonexpr=
-setlocal nobinary
-setlocal bufhidden=
-setlocal buflisted
-setlocal buftype=
-setlocal nocindent
-setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
-setlocal cinoptions=
-setlocal cinwords=if,else,while,do,for,switch
-setlocal colorcolumn=
-setlocal comments=b:#,b:##,b:###,b:#'
-setlocal commentstring=#%s
-setlocal complete=.,w,b,u,t,i
-setlocal concealcursor=
-setlocal conceallevel=0
-setlocal completefunc=
-setlocal nocopyindent
-setlocal cryptmethod=
-setlocal nocursorbind
-setlocal nocursorcolumn
-setlocal nocursorline
-setlocal define=
-setlocal dictionary=
-setlocal nodiff
-setlocal equalprg=
-setlocal errorformat=
-setlocal expandtab
-if &filetype != 'r'
-setlocal filetype=r
-endif
-setlocal foldcolumn=0
-setlocal foldenable
-setlocal foldexpr=0
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldmarker={{{,}}}
-setlocal foldmethod=manual
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldtext=foldtext()
-setlocal formatexpr=
-setlocal formatoptions=tcq
-setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
-setlocal grepprg=
-setlocal iminsert=2
-setlocal imsearch=2
-setlocal include=
-setlocal includeexpr=
-setlocal indentexpr=GetRIndent()
-setlocal indentkeys=0{,0},:,!^F,o,O,e
-setlocal noinfercase
-setlocal iskeyword=@,48-57,_,.
-setlocal keywordprg=
-setlocal nolinebreak
-setlocal nolisp
-setlocal nolist
-setlocal makeprg=
-setlocal matchpairs=(:),{:},[:]
-setlocal modeline
-setlocal modifiable
-setlocal nrformats=octal,hex
-setlocal nonumber
-setlocal numberwidth=4
-setlocal omnifunc=
-setlocal path=
-setlocal nopreserveindent
-setlocal nopreviewwindow
-setlocal quoteescape=\\
-setlocal noreadonly
-setlocal norelativenumber
-setlocal norightleft
-setlocal rightleftcmd=search
-setlocal noscrollbind
-setlocal shiftwidth=4
-setlocal noshortname
-setlocal smartindent
-setlocal softtabstop=4
-setlocal nospell
-setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
-setlocal spellfile=
-setlocal spelllang=en
-setlocal statusline=
-setlocal suffixesadd=
-setlocal noswapfile
-setlocal synmaxcol=3000
-if &syntax != 'r'
-setlocal syntax=r
-endif
-setlocal tabstop=4
-setlocal tags=
-setlocal textwidth=80
-setlocal thesaurus=
-setlocal noundofile
-setlocal nowinfixheight
-setlocal nowinfixwidth
-setlocal wrap
-setlocal wrapmargin=0
-silent! normal! zE
-let s:l = 2 - ((1 * winheight(0) + 10) / 21)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-2
-normal! 0
-let &so = s:so_save | let &siso = s:siso_save
-doautoall SessionLoadPost
-" vim: set ft=vim :

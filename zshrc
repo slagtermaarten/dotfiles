@@ -5,12 +5,8 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.256dark`
-
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+ZSH_THEME="gozilla"
+eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-dark`
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -47,12 +43,14 @@ else
     export TERM='xterm-color'
 fi
 
-eval `dircolors ~/dotfiles/dircolors-solarized`
+# eval `dircolors ~/dotfiles/dircolors-solarized`
+
+EDITOR=vim
 
 # export PATH=$HOME/bin:${PATH}
 # path=($^path(N))
 
-# export CUDA_HOME=/usr/local/cuda-5.0 
+# export CUDA_HOME=/usr/local/cuda-5.0
 # export CUDA_ROOT=/usr/local/cuda/bin
-# export LD_LIBRARY_PATH=${CUDA_HOME}/lib64 
-# export PATH=${CUDA_HOME}/bin:${PATH} 
+# export LD_LIBRARY_PATH=${CUDA_HOME}/lib64
+# export PATH=${CUDA_HOME}/bin:${PATH}

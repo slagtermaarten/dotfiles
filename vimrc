@@ -1,58 +1,41 @@
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/custom
 call vundle#rc()
-
 filetype plugin indent on
 
+" Bundles {{{
 Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "slagtermaarten/ultisnips"
-Bundle "Raimondi/delimitMate"
-Bundle "altercation/vim-colors-solarized"
-Bundle "nelstrom/vim-markdown-folding"
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'Raimondi/delimitMate'
+Bundle 'tomtom/tlib_vim'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'L9'
 Bundle 'tComment'
 Bundle 'c.vim'
 Bundle 'Vim-R-plugin'
 Bundle 'wincent/Command-T'
 Bundle 'rsmenon/vim-mathematica'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'bling/vim-airline'
+Bundle 'sukima/xmledit'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'scrooloose/nerdtree'
+Bundle 'ervandew/supertab'
+Bundle 'slagtermaarten/ultisnips'
+Bundle 'slagtermaarten/LaTeX-Box'
+" Bundle 'matze/vim-tex-fold'
 " Bundle 'klen/python-mode'
-" Bundle "snipmate-snippets"
-" Bundle "garbas/vim-snipmate"
-" Bundle "SirVer/ultisnips"
+" Bundle 'ivanov/vim-ipython'
+" Bundle 'johndgiese/vipy'
+" }}}
 
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode = 1
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run_key = 'R'
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_lint_write = 0
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_doc = 1
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_doc_key = 'K'
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run = 1
-" au Bufenter,BufNewFile,BufReadPost *.py let g:pymode_run_key = '<leader>r'
-" map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
-autocmd BufEnter * silent! lcd %:p:h
-let mapleader = ","
-
-let g:mma_highlight_option = "solarized"
-let g:mma_candy = 1
-
-au BufNewFile,BufReadPost *.tex set syntax=tex 
-au BufNewFile,BufReadPost *.tex :UltiSnipsAddFiletypes tex
-au BufNewFile,BufReadPost *.tex :so ~/.vim/myTeXsurrounds.vim
-au Bufenter,BufNewFile,BufReadPost *.hs compiler ghc
-au Bufenter,BufNewFile,BufReadPost *.md set syntax=markdown
-" au BufRead,BufNewFile,BufReadPost *.txt,*.tex set
-" thesaurus+=~/.vim/thesaurus/mthesaur.txt 
-
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsUsePythonVersion=2
-syntax enable
-" set backspace=indent,eol,start
+" Settings {{{
 set pastetoggle=<F2>
+" set listchars
 set clipboard=unnamed
 set showmode
 set bs=2
@@ -61,9 +44,9 @@ set laststatus=2
 set tabstop=4
 set expandtab
 set autoindent
-set shiftround
+" set shiftround
 set nocursorcolumn
-set nocursorline
+" set nocursorline
 set softtabstop=4
 set shiftwidth=4
 set incsearch
@@ -75,96 +58,196 @@ set undolevels=700
 set history=700
 set wildmenu
 set wildignore=*.o,*.bbl,*.pdf,*.out,*.blg,*.aux,*.log,*.latexmk
-set autochdir
 set so=10
-set colorcolumn=80
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set lazyredraw
+set matchtime=3
+" set showbreak=↪
+set splitbelow
+set splitright
+set colorcolumn=
+" set t_Co=256
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
-" set foldmethod=manual
-" set formatprg=par
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+" set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
 let vimrplugin_screenplugin = 0
+let g:mma_highlight_option = "solarized"
+let g:mma_candy = 1
+set encoding=utf-8
+let g:airline_powerline_fonts=1
+let g:airline#extensions#bufferline#enabled=1
+let g:airline#extensions#bufferline#overwrite_variables=1
+let g:airline#extensions#tabline#left_alt_sep='|'
+let g:airline_section_b='%{strftime("%H:%M")}'
+let g:airline_section_y='BN %{bufnr("%")}'
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsUsePythonVersion=2
+set foldmethod=marker
+" }}}
 
-func! WordProcessorMode() 
-    " setlocal formatoptions=1 
-    " setlocal noexpandtab 
-    set formatoptions+="tpcqa"
-    setlocal spell spelllang=en_us 
-    " set thesaurus+=/Users/sbrown/.vim/thesaurus/mthesaur.txt
-    " set complete+=s
-endfu 
-com! WP call WordProcessorMode()
-
-set t_Co=256
-" set background=dark
-" autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-" au InsertLeave * match ExtraWhitespace /\s\+$/
-
+" Gui, mouse, appearance {{{
 if has('gui_running')
     colorscheme solarized
+    let g:airline_theme='solarized'
     let g:solarized_contrast="high"
-    set guifont=Inconsolata\ 11
-    set lines=30 columns=80
-    set lines=50 columns=85
+    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 11
+    " set lines=40 columns=80
     set guioptions-=T
+    set guioptions-=m
+    set fileencoding=utf-8
+    set enc=utf-8
 endif
-
-" nnoremap <F2> :set invpaste paste?<CR>
-vmap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
-nnoremap ; :
-map j gj
-map k gk
-map <silent> <leader>w :wa <cr>:! make all<cr>
-map <leader>c <c-_><c-_>
-map <F5> :e!<cr>
-nmap <leader>cs <c-_><c-_> gUU
-nnoremap <leader>m :make
-nmap ;ww :w<CR>
-noremap <C-k> :bprev<CR> 
-noremap <C-l> :bnext<CR> 
-nnoremap q; q:
-nnoremap ;n :n
-nnoremap ! :! 
-" nnoremap ,cd :cd %:p:h<CR>
-" nmap <silent> <leader>bi :BundleInstall<CR>
-nmap <silent> <leader>em :e Makefile<CR>
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>o :CommandTJump<CR>
-nmap <silent> <leader>sc :tabp<CR>
-nmap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
-nmap <silent> <leader>tn :tabn<CR>
-nmap <silent> <leader>tp :tabp<CR>
-" inoremap <C-n> :nohl<CR>
-noremap <C-n> :nohl<CR>
-vnoremap <C-n> :nohl<CR>
-vnoremap < <gv
-vnoremap > >gv
-vmap Q gq
-nmap Q gqap
-
-fun! <SID>StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    call cursor(l, c)
-endfun
-
-autocmd FileType c,cpp,java,python,tex autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-
-let g:netrw_keepdir=0 
-let mapleader=","
-vnoremap <Leader>s :sort<CR>
 
 if has('mouse')
     set mouse=a
 endif
 
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
-autocmd! bufwritepost .vimrc source %
+" }}}
 
-" command! Math w | !command cat "`pwd`/%" | math | grep -v "In\["
-" au BufRead *.m so ~/.vim/after/ftplugin/mathematica.vim
+" Functions {{{
+let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
+let s:minfontsize = 6
+let s:maxfontsize = 16
+function! AdjustFontSize(amount)
+  if has("gui_gtk2") && has("gui_running")
+    let fontname = substitute(&guifont, s:pattern, '\1', '')
+    let cursize = substitute(&guifont, s:pattern, '\2', '')
+    let newsize = cursize + a:amount
+    if (newsize >= s:minfontsize) && (newsize <= s:maxfontsize)
+      let newfont = fontname . newsize
+      let &guifont = newfont
+    endif
+  else
+    echoerr "You need to run the GTK2 version of Vim to use this function."
+  endif
+endfunction
 
+function! LargerFont()
+  call AdjustFontSize(1)
+  " echom 'exec('set guifont?')'
+  set guifont?
+endfunction
+command! LargerFont call LargerFont()
+
+function! SmallerFont()
+  call AdjustFontSize(-1)
+  set guifont?
+endfunction
+command! SmallerFont call SmallerFont()
+
+fun! StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfunction
+
+func! WordProcessorMode()
+    " setlocal formatoptions=1
+    " setlocal noexpandtab
+    " set formatoptions+="tpcqa"
+    setlocal spell spelllang=en_us
+    set thesaurus+=~/mthesaur.txt
+    " set complete+=s
+endfu
+com! WP call WordProcessorMode()
+
+fun! ResetSyntax()
+    " TeX syntax tends to freeze, confusing everything to be in mathmode
+    echom "Syntax reset!"
+    syntax off
+    syntax on
+endfun
+" }}}
+
+" Mappings {{{
+let mapleader = ","
+let maplocalleader = "\\"
+map <C-n> :NERDTreeToggle<CR>
+vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
+nnoremap ; :
+nnoremap j gj
+nnoremap k gk
+nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
+nnoremap <leader>m :wa <cr> :make <cr>
+nnoremap <leader>c <c-_><c-_>
+nnoremap <leader>y :call ResetSyntax() <cr>
+" nnoremap <F5> :e!<cr>
+" nnoremap <leader>cs <c-_><c-_> gUU
+nnoremap ;ww :w<CR>
+nnoremap <C-j> :bprev<CR>
+nnoremap <C-k> :bnext<CR>
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
+nnoremap q; q:
+nnoremap ;n :n
+nnoremap ! :!
+nnoremap H ^
+nnoremap L $
+nnoremap <silent> <leader>bi :BundleInstall<CR>
+nnoremap <silent> <leader>em :e Makefile<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>ea :e ~/.config/awesome/rc.lua <CR>
+nnoremap <silent> <leader>ft :e ~/.vim/custom/ftplugin <CR>
+nnoremap <silent> <leader>o :CommandTJump<CR>
+nnoremap <silent> <leader>sc :tabp<CR>
+nnoremap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
+nnoremap <C-DOWN> :call SmallerFont() <cr>
+nnoremap <C-UP> :call LargerFont() <cr>
+
+" nnoremap <silent> <leader>tn :tabn<CR>
+" nnoremap <silent> <leader>tp :tabp<CR>
+nnoremap <silent> <leader>a za
+vnoremap < <gv
+vnoremap > >gv
+nnoremap Q gqap
+vnoremap Q gq
+inoremap <c-d> <esc>ld$a
+nnoremap <c-d> dd
+inoremap <c-q> <esc>gqipe
+inoremap <c-u> <esc>bviwUea
+nnoremap <c-u> viwUe
+nnoremap <leader>c :!clear <cr><cr>
+nnoremap <leader>j Jxxi,<esc>
+" map <tab> %
+vnoremap <Leader>s :sort<CR>
+" Easy copy paste commands
+noremap <C-a> ggVG
+vnoremap <C-c> "+y
+noremap <C-p> i<C-r>+ <Esc>
+inoremap <C-p> <C-r>+
+" }}}
+
+" Autocommands{{{
+augroup randomautocmds
+    autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
+    autocmd BufWinLeave *.* mkview
+    autocmd BufWinEnter *.* silent loadview
+    autocmd! bufwritepost .vimrc source %
+    autocmd BufEnter * silent! lcd %:p:h
+    au Bufenter,BufNewFile,BufReadPost *.md set filetype=markdown
+    au FocusLost * :silent! wall
+    " Resize splits when the window is resized
+    au VimResized * :wincmd =
+    " autocmd vimenter * if !argc() | NERDTree | endif
+augroup END
+
+augroup pymode
+    au Bufenter,BufNewFile,BufReadPost *.py let g:pymode = 0
+    map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
+augroup end
+
+augroup filetypechecking
+    " Mathematica file type
+    au BufRead *.m set ft=mma
+    " LaTeX filetype
+    au BufRead *.tex set ft=tex
+    au BufRead *.tex let g:LatexBox_Folding=0
+    au BufRead *.tex set foldmethod=marker
+augroup end
+" }}}
+
+" Abbreviations {{{
+iabbrev THe The
+" }}}
