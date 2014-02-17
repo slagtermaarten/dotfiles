@@ -42,7 +42,7 @@ end
 beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 browser="chromium-browser"
-terminal="gnome-terminal"
+terminal="roxterm"
 editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -238,13 +238,13 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        mylayoutbox[s],
         mytextclock,
-        batterywidget,
+        mylayoutbox[s],
         memwidget,
+        batterywidget,
         --gmailwidget,
         --mailwidget,
-        mygmail,
+        --mygmail,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -283,6 +283,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
+    awful.key({                   }, "F12", function () awful.util.spawn("xscreensaver-command -lock") end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -460,4 +461,5 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 awful.util.spawn_with_shell("~/bin/run_once nm-applet")
 awful.util.spawn_with_shell("~/bin/run_once gnome-sound-applet")
 awful.util.spawn_with_shell("dropbox start")
+awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- }}}

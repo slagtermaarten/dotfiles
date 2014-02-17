@@ -1,12 +1,11 @@
-# Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 ZSH_THEME="gozilla"
+EDITOR=vim
+
+xmodmap $HOME/dotfiles/keymap
+
 eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-dark`
+# eval `dircolors ~/dotfiles/dircolors-solarized`
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -34,7 +33,6 @@ plugins=(git debian vi-mode)
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
 
-xmodmap $HOME/dotfiles/keymap
 bindkey -v
 
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
@@ -43,9 +41,12 @@ else
     export TERM='xterm-color'
 fi
 
-# eval `dircolors ~/dotfiles/dircolors-solarized`
+function chpwd() {
+    emulate -L zsh
+    ls -a
+}
 
-EDITOR=vim
+autoload zmv
 
 # export PATH=$HOME/bin:${PATH}
 # path=($^path(N))

@@ -24,9 +24,13 @@ Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'slagtermaarten/ultisnips'
 Bundle 'slagtermaarten/LaTeX-Box'
+Bundle 'Rip-Rip/clang_complete'
+Bundle 'mileszs/ack.vim'
+
 " Bundle 'matze/vim-tex-fold'
 " Bundle 'klen/python-mode'
 " Bundle 'ivanov/vim-ipython'
@@ -44,9 +48,7 @@ set laststatus=2
 set tabstop=4
 set expandtab
 set autoindent
-" set shiftround
-set nocursorcolumn
-" set nocursorline
+set hlsearch
 set softtabstop=4
 set shiftwidth=4
 set incsearch
@@ -66,6 +68,7 @@ set matchtime=3
 set splitbelow
 set splitright
 set colorcolumn=
+set grepprg=ack-grep\ -k
 " set t_Co=256
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
@@ -83,6 +86,7 @@ let g:airline_section_b='%{strftime("%H:%M")}'
 let g:airline_section_y='BN %{bufnr("%")}'
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsUsePythonVersion=2
+let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 " }}}
 
@@ -91,7 +95,7 @@ if has('gui_running')
     colorscheme solarized
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
-    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 11
+    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 9
     " set lines=40 columns=80
     set guioptions-=T
     set guioptions-=m
@@ -165,36 +169,43 @@ endfun
 let mapleader = ","
 let maplocalleader = "\\"
 map <C-n> :NERDTreeToggle<CR>
+cnoreabbrev wq w<bar>bd
+" cnoreabbrev q bd
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
+nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>c <c-_><c-_>
 nnoremap <leader>y :call ResetSyntax() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
 nnoremap ;ww :w<CR>
-nnoremap <C-j> :bprev<CR>
-nnoremap <C-k> :bnext<CR>
+nnoremap <C-h> :bprev<CR>
+nnoremap <C-l> :bnext<CR>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
-nnoremap q; q:
+nnoremap ;q :q
 nnoremap ;n :n
 nnoremap ! :!
 nnoremap H ^
 nnoremap L $
-nnoremap <silent> <leader>bi :BundleInstall<CR>
+nnoremap <silent> <leader>ed :e ~/dotfiles<CR>
 nnoremap <silent> <leader>em :e Makefile<CR>
+nnoremap <silent> <leader>ec :e ~/.vim/custom/ftplugin<cr>
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <silent> <leader>ea :e ~/.config/awesome/rc.lua <CR>
-nnoremap <silent> <leader>ft :e ~/.vim/custom/ftplugin <CR>
+nnoremap <silent> <leader>et :e ~/dotfiles/tmux.conf <CR>
+nnoremap <silent> <leader>ef :e ~/.vim/custom/ftplugin <CR>
+nnoremap <silent> <leader>bi :BundleInstall<CR>
 nnoremap <silent> <leader>o :CommandTJump<CR>
 nnoremap <silent> <leader>sc :tabp<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
 nnoremap <C-DOWN> :call SmallerFont() <cr>
 nnoremap <C-UP> :call LargerFont() <cr>
+" nnoremap <leader>pa :! pandoc % | :! xclip
 
 " nnoremap <silent> <leader>tn :tabn<CR>
 " nnoremap <silent> <leader>tp :tabp<CR>
@@ -235,7 +246,7 @@ augroup END
 
 augroup pymode
     au Bufenter,BufNewFile,BufReadPost *.py let g:pymode = 0
-    map <Leader>b Oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
+    map <Leader>de oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
 augroup end
 
 augroup filetypechecking
@@ -250,4 +261,6 @@ augroup end
 
 " Abbreviations {{{
 iabbrev THe The
+iabbrev cc3 CompuCell3D
 " }}}
+

@@ -19,5 +19,7 @@ alias zz="sudo pm-suspend"
 alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
+alias xclipc="xclip -selection c"
+alias u="cd .."
 
 # alias tmux="TERM=screen-256color-bce tmux"
