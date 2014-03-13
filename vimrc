@@ -10,7 +10,6 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'Raimondi/delimitMate'
 Bundle 'tomtom/tlib_vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'nelstrom/vim-markdown-folding'
@@ -24,12 +23,14 @@ Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
 Bundle 'ervandew/supertab'
 Bundle 'slagtermaarten/ultisnips'
 Bundle 'slagtermaarten/LaTeX-Box'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'mileszs/ack.vim'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'fs111/pydoc.vim'
+Bundle 'scrooloose/syntastic'
 
 " Bundle 'matze/vim-tex-fold'
 " Bundle 'klen/python-mode'
@@ -74,6 +75,7 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
+let NERDTreeChDirMode=1
 let vimrplugin_screenplugin = 0
 let g:mma_highlight_option = "solarized"
 let g:mma_candy = 1
@@ -88,31 +90,15 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsUsePythonVersion=2
 let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-" }}}
-
-" Gui, mouse, appearance {{{
-if has('gui_running')
-    colorscheme solarized
-    let g:airline_theme='solarized'
-    let g:solarized_contrast="high"
-    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 9
-    " set lines=40 columns=80
-    set guioptions-=T
-    set guioptions-=m
-    set fileencoding=utf-8
-    set enc=utf-8
-endif
-
-if has('mouse')
-    set mouse=a
-endif
-
+set tags=./tags;$HOME
+set tags+=$HOME/CompuCell3D/CompuCell3D/core
 " }}}
 
 " Functions {{{
 let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
 let s:minfontsize = 6
 let s:maxfontsize = 16
+
 function! AdjustFontSize(amount)
   if has("gui_gtk2") && has("gui_running")
     let fontname = substitute(&guifont, s:pattern, '\1', '')
@@ -139,6 +125,13 @@ function! SmallerFont()
   set guifont?
 endfunction
 command! SmallerFont call SmallerFont()
+
+" function! OpenCC3DSim()
+"   SyntasticToggleMode
+"   e dir/Simulation/*.py
+"   echomsg "Ran my command"
+" endfunction
+
 
 fun! StripTrailingWhitespaces()
     let l = line(".")
@@ -177,6 +170,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
+let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>c <c-_><c-_>
 nnoremap <leader>y :call ResetSyntax() <cr>
@@ -187,6 +181,7 @@ nnoremap <C-h> :bprev<CR>
 nnoremap <C-l> :bnext<CR>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
+nnoremap q; q:
 nnoremap ;q :q
 nnoremap ;n :n
 nnoremap ! :!
@@ -205,6 +200,7 @@ nnoremap <silent> <leader>sc :tabp<CR>
 nnoremap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
 nnoremap <C-DOWN> :call SmallerFont() <cr>
 nnoremap <C-UP> :call LargerFont() <cr>
+nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
 
 " nnoremap <silent> <leader>tn :tabn<CR>
@@ -230,11 +226,32 @@ noremap <C-p> i<C-r>+ <Esc>
 inoremap <C-p> <C-r>+
 " }}}
 
+" Gui, mouse, appearance {{{
+if has('gui_running')
+    colorscheme solarized
+    nnoremap <C-h> :tabprev<CR>
+    nnoremap <C-l> :tabnext<CR>
+    let g:airline_theme='solarized'
+    let g:solarized_contrast="high"
+    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 9
+    " set lines=40 columns=80
+    set guioptions-=T
+    set guioptions-=m
+    set fileencoding=utf-8
+    set enc=utf-8
+endif
+
+if has('mouse')
+    set mouse=a
+endif
+" }}}
+
 " Autocommands{{{
 augroup randomautocmds
     autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
     autocmd BufWinLeave *.* mkview
     autocmd BufWinEnter *.* silent loadview
+    " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost .vimrc source %
     autocmd BufEnter * silent! lcd %:p:h
     au Bufenter,BufNewFile,BufReadPost *.md set filetype=markdown
@@ -264,3 +281,4 @@ iabbrev THe The
 iabbrev cc3 CompuCell3D
 " }}}
 
+" SyntasticToggleMode

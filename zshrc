@@ -48,7 +48,7 @@ function chpwd() {
 
 autoload zmv
 
-# export PATH=$HOME/bin:${PATH}
+export PATH=$HOME/dotfiles/bin:${PATH}
 # path=($^path(N))
 
 # export CUDA_HOME=/usr/local/cuda-5.0
