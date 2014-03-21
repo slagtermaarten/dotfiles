@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ANS=`psgrep -fx "gvim --servername GVIM"`
+ANS=`pgrep -fx "gvim --servername GVIM"`
 
 echo $@
 
@@ -9,5 +9,5 @@ if [[ ! $ANS ]]; then
 fi
 
 if [[ $1 ]]; then
-    gvim --servername GVIM --remote-tab "S{@}"
+    gvim --servername GVIM --remote-tab "${@}"
 fi

@@ -1,0 +1,9 @@
+# Find motility file related to most recent simulation
+MOTILFILE=`lastfile ~/CC3DWorkspace`/CTLmotility.dat
+
+# Extract Cell ID of first CTL
+firstTcellID=`awk 'NR==2 {print; exit}' $MOTILFILE | awk '{print $2}'`
+echo "Cell id: $firstTcellID"
+
+# Print file, filtering lines that equal firstTcellID
+awk -v ID="$firstTcellID" '$2==ID {print $0}' $MOTILFILE

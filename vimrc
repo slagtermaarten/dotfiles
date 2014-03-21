@@ -163,6 +163,7 @@ let mapleader = ","
 let maplocalleader = "\\"
 map <C-n> :NERDTreeToggle<CR>
 cnoreabbrev wq w<bar>bd
+cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 " cnoreabbrev q bd
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
@@ -187,13 +188,16 @@ nnoremap ;n :n
 nnoremap ! :!
 nnoremap H ^
 nnoremap L $
-nnoremap <silent> <leader>ed :e ~/dotfiles<CR>
-nnoremap <silent> <leader>em :e Makefile<CR>
-nnoremap <silent> <leader>ec :e ~/.vim/custom/ftplugin<cr>
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
-nnoremap <silent> <leader>ea :e ~/.config/awesome/rc.lua <CR>
-nnoremap <silent> <leader>et :e ~/dotfiles/tmux.conf <CR>
-nnoremap <silent> <leader>ef :e ~/.vim/custom/ftplugin <CR>
+nnoremap <silent> <leader>es :tabedit ~/dotfiles/aliases.sh<CR>
+nnoremap <silent> <leader>ed :tabedit ~/dotfiles<CR>
+nnoremap <silent> <leader>eb :tabedit ~/dotfiles/bin<CR>
+nnoremap <silent> <leader>em :tabedit Makefile<CR>
+nnoremap <silent> <leader>ec :tabedit ~/.vim/custom/ftplugin<cr>
+nnoremap <silent> <leader>ev :tabedit $MYVIMRC<CR>
+nnoremap <silent> <leader>eg :tabedit ~/.gitconfig<CR>
+nnoremap <silent> <leader>ea :tabedit ~/.config/awesome/rc.lua <CR>
+nnoremap <silent> <leader>et :tabedit ~/dotfiles/tmux.conf <CR>
+nnoremap <silent> <leader>ef :tabedit ~/.vim/custom/ftplugin <CR>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 nnoremap <silent> <leader>o :CommandTJump<CR>
 nnoremap <silent> <leader>sc :tabp<CR>

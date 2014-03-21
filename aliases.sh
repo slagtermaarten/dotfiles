@@ -21,5 +21,6 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 alias u="cd .."
+alias kp="sudo killall -r python"
 
 # alias tmux="TERM=screen-256color-bce tmux"
