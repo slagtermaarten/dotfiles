@@ -8,7 +8,6 @@ alias x='chmod +x'
 # alias etodo='geeknote edit --notebook todo --title `date +%d%m%y`'
 alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
 alias bi='vim +BundleClean! +BundleInstall +qall'
-alias vcell='javaws $HOME/bin/vcell.jnlp'
 alias ff='find . -name'
 alias ag='sudo apt-get install'
 
@@ -20,7 +19,9 @@ alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
-alias u="cd .."
-alias kp="sudo killall -r python"
 
 # alias tmux="TERM=screen-256color-bce tmux"
+# File name aliases
+# alias -s pdf=evince
+# alias -s py=vi
+# alias -s sh=vi

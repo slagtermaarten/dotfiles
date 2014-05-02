@@ -9,25 +9,27 @@
 -- {{{ Main
 theme = {}
 --theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/zenburn/zenburn-background.png" }
-theme.wallpaper_cmd = { "awsetbg /usr/share/awesome/themes/zenburn/greentree.jpg" }
+theme.wallpaper_cmd = { "awsetbg /home/maarten/dotfiles/awesome/zenburn/greentree.jpg" }
 -- }}}
 
 -- {{{ Styles
 theme.font      = "sans 8"
+brightgreen = "#8BB381"
 
 -- {{{ Colors
 theme.fg_normal = "#DCDCCC"
 theme.fg_focus  = "#F0DFAF"
 theme.fg_urgent = "#CC9393"
 theme.bg_normal = "#3F3F3F"
-theme.bg_focus  = "#1E2320"
+theme.bg_focus  = brightgreen
 theme.bg_urgent = "#3F3F3F"
 -- }}}
 
 -- {{{ Borders
 theme.border_width  = "2"
 theme.border_normal = "#3F3F3F"
-theme.border_focus  = "#6F6F6F"
+-- theme.border_focus  = "#6F6F6F"
+theme.border_focus  = brightgreen
 theme.border_marked = "#CC9393"
 -- }}}
 

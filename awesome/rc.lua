@@ -39,25 +39,26 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+beautiful.init("/home/maarten/dotfiles/awesome/zenburn/theme.lua")
 
-browser="chromium-browser"
-terminal="roxterm"
+browser = "chromium-browser"
+terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Create an ACPI widget
-batterywidget = widget({ type = "textbox" })
-batterywidget.text = " | Battery | "
-batterywidgettimer = timer({ timeout = 5 })
-batterywidgettimer:add_signal("timeout",
-  function()
-    fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-    batterywidget.text = " |" .. fh:read("*l") .. " | "
-    fh:close()
-  end
-)
-batterywidgettimer:start()
+-- batterywidget = widget({ type = "textbox" })
+-- batterywidget.text = " | Battery | "
+-- batterywidgettimer = timer({ timeout = 5 })
+-- batterywidgettimer:add_signal("timeout",
+--   function()
+--     fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+--     batterywidget.text = " |" .. fh:read("*l") .. " | "
+--     fh:close()
+--   end
+-- )
+-- batterywidgettimer:start()
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -92,9 +93,9 @@ layouts =
 --          layouts[12], layouts[9], layouts[3], layouts[7]
 --}}
 tags = {
-names  = { "write", "math", "www", "misc", "email", "misc2" },
-layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[8]
-}}
+names  = { "1", "2", "3", "4", "5", "6", "7", "8", "9"},
+layout = { layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
+}
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
  tags[s] = awful.tag(tags.names, s, tags.layout)
@@ -238,10 +239,10 @@ for s = 1, screen.count() do
             mypromptbox[s],
             layout = awful.widget.layout.horizontal.leftright
         },
-        mytextclock,
         mylayoutbox[s],
+        mytextclock,
         memwidget,
-        batterywidget,
+        -- batterywidget,
         --gmailwidget,
         --mailwidget,
         --mygmail,
@@ -310,7 +311,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("sh /home/maarten/bin/laptopmon.sh") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn("chromium-browser") end),
-    awful.key({ modkey,           }, "d",     function () awful.util.spawn("dolphin") end),
+    awful.key({ modkey,           }, "d",     function () awful.util.spawn("nautilus") end),
     awful.key({ modkey,           }, "e",     function () awful.util.spawn("thunderbird") end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
 

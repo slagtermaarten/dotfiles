@@ -23,6 +23,7 @@ Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'ervandew/supertab'
 Bundle 'slagtermaarten/ultisnips'
 Bundle 'slagtermaarten/LaTeX-Box'
@@ -76,6 +77,7 @@ set grepprg=ack-grep\ -k
 syntax sync minlines=10
 syntax enable
 let NERDTreeChDirMode=1
+let g:nerdtree_tabs_open_on_gui_startup=0
 let vimrplugin_screenplugin = 0
 let g:mma_highlight_option = "solarized"
 let g:mma_candy = 1
@@ -132,7 +134,6 @@ command! SmallerFont call SmallerFont()
 "   echomsg "Ran my command"
 " endfunction
 
-
 fun! StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -160,8 +161,11 @@ endfun
 
 " Mappings {{{
 let mapleader = ","
-let maplocalleader = "\\"
-map <C-n> :NERDTreeToggle<CR>
+" let maplocalleader = "\\"
+let maplocalleader = ","
+vmap <Space> <Plug>RDSendSelection
+nmap <Space> <Plug>RDSendLine
+map <C-n> :NERDTreeTabsToggle<CR>
 cnoreabbrev wq w<bar>bd
 cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 " cnoreabbrev q bd
@@ -188,11 +192,12 @@ nnoremap ;n :n
 nnoremap ! :!
 nnoremap H ^
 nnoremap L $
+vnoremap L $
 nnoremap <silent> <leader>es :tabedit ~/dotfiles/aliases.sh<CR>
+nnoremap <silent> <leader>ec :tabedit ~/convenienceCC3D<CR>
 nnoremap <silent> <leader>ed :tabedit ~/dotfiles<CR>
 nnoremap <silent> <leader>eb :tabedit ~/dotfiles/bin<CR>
 nnoremap <silent> <leader>em :tabedit Makefile<CR>
-nnoremap <silent> <leader>ec :tabedit ~/.vim/custom/ftplugin<cr>
 nnoremap <silent> <leader>ev :tabedit $MYVIMRC<CR>
 nnoremap <silent> <leader>eg :tabedit ~/.gitconfig<CR>
 nnoremap <silent> <leader>ea :tabedit ~/.config/awesome/rc.lua <CR>
@@ -237,7 +242,7 @@ if has('gui_running')
     nnoremap <C-l> :tabnext<CR>
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
-    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 9
+    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
     " set lines=40 columns=80
     set guioptions-=T
     set guioptions-=m
@@ -267,16 +272,16 @@ augroup END
 
 augroup pymode
     au Bufenter,BufNewFile,BufReadPost *.py let g:pymode = 0
-    map <Leader>de oimport ipdb; ipdb.set_trace()  # BREAKPOINT<C-c>
+    au Bufenter,BufNewFile,BufReadPost *.py map <Leader>de oimport pudb; pudb.set_trace()  # BREAKPOINT<C-c>
 augroup end
 
 augroup filetypechecking
-    " Mathematica file type
-    au BufRead *.m set ft=mma
-    " LaTeX filetype
+    au BufRead *.m set ft=mma "Mathematica
     au BufRead *.tex set ft=tex
+    au BufRead *.Rmd set ft=r
     au BufRead *.tex let g:LatexBox_Folding=0
     au BufRead *.tex set foldmethod=marker
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
 augroup end
 " }}}
 

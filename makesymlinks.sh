@@ -1,6 +1,6 @@
 dir=~/dotfiles
 olddir=~/dotfiles_old
-files="tmux.conf matplotlibrc gitignore gitconfig vimrc vim zshrc oh-my-zsh"
+files="tmux.conf matplotlibrc gitignore gitconfig vimrc vim zshrc zshenv oh-my-zsh"
 
 # create dotfiles_old in homedir
 echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
