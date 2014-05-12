@@ -1,3 +1,13 @@
 #!/bin/bash
 
-gvim --remote-silent $@
+ANS=`pgrep -fx "gvim --servername GVIM"`
+
+# echo $@
+
+if [[ ! $ANS ]]; then
+    gvim --servername GVIM
+fi
+
+if [[ $1 ]]; then
+    gvim --servername GVIM --remote-tab "${@}"
+fi

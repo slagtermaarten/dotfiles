@@ -309,6 +309,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
     awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("sh /home/maarten/bin/extmon.sh") end),
     awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("sh /home/maarten/bin/laptopmon.sh") end),
+    awful.key({ modkey, "Shift"   }, "l",     function () awful.util.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn("chromium-browser") end),
     awful.key({ modkey,           }, "d",     function () awful.util.spawn("nautilus") end),

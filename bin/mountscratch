@@ -1,0 +1,1 @@
+sudo mount -t smbfs -o username=nki\\m.slagter //nki-avl/scratch /media/scratch
