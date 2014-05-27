@@ -165,7 +165,8 @@ let mapleader = ","
 let maplocalleader = ","
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-map <C-n> :NERDTreeTabsToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeFind<CR>
 cnoreabbrev wq w<bar>bd
 cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 " cnoreabbrev q bd
@@ -279,6 +280,7 @@ augroup filetypechecking
     au BufRead *.m set ft=mma "Mathematica
     au BufRead *.tex set ft=tex
     au BufRead *.Rmd set ft=r
+    au BufRead *.Rmd setlocal syntax=off
     au BufRead *.tex let g:LatexBox_Folding=0
     au BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
