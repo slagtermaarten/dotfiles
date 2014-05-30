@@ -18,20 +18,21 @@ Bundle 'tComment'
 Bundle 'c.vim'
 Bundle 'Vim-R-plugin'
 Bundle 'wincent/Command-T'
+Bundle 'rsmenon/vim-mathematica'
 Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'ervandew/supertab'
-Bundle 'sirver/ultisnips'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'slagtermaarten/ultisnips'
+Bundle 'slagtermaarten/LaTeX-Box'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'fs111/pydoc.vim'
 Bundle 'scrooloose/syntastic'
-" Bundle 'rsmenon/vim-mathematica'
-" Bundle 'jistr/vim-nerdtree-tabs'
+
 " Bundle 'matze/vim-tex-fold'
 " Bundle 'klen/python-mode'
 " Bundle 'ivanov/vim-ipython'
@@ -75,7 +76,7 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-let NERDTreeChDirMode=1
+let NERDTreeChDirMode=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 let vimrplugin_screenplugin = 0
 let g:mma_highlight_option = "solarized"
@@ -88,7 +89,6 @@ let g:airline#extensions#tabline#left_alt_sep='|'
 let g:airline_section_b='%{strftime("%H:%M")}'
 let g:airline_section_y='BN %{bufnr("%")}'
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 let g:UltiSnipsUsePythonVersion=2
 let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
@@ -163,7 +163,10 @@ endfun
 let mapleader = ","
 " let maplocalleader = "\\"
 let maplocalleader = ","
-map <C-n> :NERDTreeTabsToggle<CR>
+vmap <Space> <Plug>RDSendSelection
+nmap <Space> <Plug>RDSendLine
+map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeFind<CR>
 cnoreabbrev wq w<bar>bd
 cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 " cnoreabbrev q bd
@@ -171,6 +174,7 @@ vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
+nnoremap te  :tabedit<Space>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
@@ -180,8 +184,6 @@ nnoremap <leader>y :call ResetSyntax() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
 nnoremap ;ww :w<CR>
-nnoremap <leader>pw :echo expand('%:p:h')<CR>
-"RESendParagraph
 nnoremap <C-h> :bprev<CR>
 nnoremap <C-l> :bnext<CR>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -193,16 +195,16 @@ nnoremap ! :!
 nnoremap H ^
 nnoremap L $
 vnoremap L $
-nnoremap <silent> <leader>es :edit ~/dotfiles/aliases.sh<CR>
-nnoremap <silent> <leader>ec :edit ~/convenienceCC3D<CR>
-nnoremap <silent> <leader>ed :edit ~/dotfiles<CR>
-nnoremap <silent> <leader>eb :edit ~/dotfiles/bin<CR>
-nnoremap <silent> <leader>em :edit Makefile<CR>
-nnoremap <silent> <leader>ev :edit $MYVIMRC<CR>
-nnoremap <silent> <leader>eg :edit ~/.gitconfig<CR>
-nnoremap <silent> <leader>ea :edit ~/.config/awesome/rc.lua <CR>
-nnoremap <silent> <leader>et :edit ~/dotfiles/tmux.conf <CR>
-nnoremap <silent> <leader>ef :edit ~/.vim/custom/ftplugin <CR>
+nnoremap <silent> <leader>es :tabedit ~/dotfiles/aliases.sh<CR>
+nnoremap <silent> <leader>ec :tabedit ~/convenienceCC3D<CR>
+nnoremap <silent> <leader>ed :tabedit ~/dotfiles<CR>
+nnoremap <silent> <leader>eb :tabedit ~/dotfiles/bin<CR>
+nnoremap <silent> <leader>em :tabedit Makefile<CR>
+nnoremap <silent> <leader>ev :tabedit $MYVIMRC<CR>
+nnoremap <silent> <leader>eg :tabedit ~/.gitconfig<CR>
+nnoremap <silent> <leader>ea :tabedit ~/.config/awesome/rc.lua <CR>
+nnoremap <silent> <leader>et :tabedit ~/dotfiles/tmux.conf <CR>
+nnoremap <silent> <leader>ef :tabedit ~/.vim/custom/ftplugin <CR>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 nnoremap <silent> <leader>o :CommandTJump<CR>
 nnoremap <silent> <leader>sc :tabp<CR>
@@ -211,10 +213,7 @@ nnoremap <C-DOWN> :call SmallerFont() <cr>
 nnoremap <C-UP> :call LargerFont() <cr>
 nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
-vmap <Space> <Plug>RDSendSelection
-nmap <Space> <Plug>RDSendLine
-nmap <LocalLeader>bb <Plug> RESendMBlock
-" nnoremap <leader>pp mta"<esc>hbi"<esc>lel
+
 " nnoremap <silent> <leader>tn :tabn<CR>
 " nnoremap <silent> <leader>tp :tabp<CR>
 nnoremap <silent> <leader>a za
@@ -241,12 +240,13 @@ inoremap <C-p> <C-r>+
 " Gui, mouse, appearance {{{
 if has('gui_running')
     colorscheme solarized
-    nnoremap <C-h> :bprev<CR>
-    nnoremap <C-l> :bnext<CR>
+    nnoremap <C-h> :tabprev<CR>
+    set guitablabel=%t
+    nnoremap <C-l> :tabnext<CR>
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
     set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    set lines=50 columns=80
+    " set lines=40 columns=80
     set guioptions-=T
     set guioptions-=m
     set fileencoding=utf-8
@@ -279,9 +279,9 @@ augroup pymode
 augroup end
 
 augroup filetypechecking
+    " au BufRead *.Rmd set ft=rmd
     au BufRead *.m set ft=mma "Mathematica
     au BufRead *.tex set ft=tex
-    au BufRead *.Rmd set ft=r
     au BufRead *.tex let g:LatexBox_Folding=0
     au BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml

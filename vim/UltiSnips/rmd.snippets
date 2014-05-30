@@ -1,5 +1,17 @@
-snippet "code"
-```{r, $1}
-    $2
-```
+extends r, md
+
+snippet rc "Code block"
+\`\`\`\{r, warning=FALSE}
+${VISUAL}
+\`\`\`
+endsnippet
+
+snippet com "Commented out"
+<!-- ${VISUAL} -->
+endsnippet
+
+snippet mcom "Commented out"
+<!-- 
+${VISUAL} 
+-->
 endsnippet
