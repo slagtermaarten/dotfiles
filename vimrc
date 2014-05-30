@@ -76,7 +76,7 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-let NERDTreeChDirMode=1
+let NERDTreeChDirMode=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 let vimrplugin_screenplugin = 0
 let g:mma_highlight_option = "solarized"
@@ -277,10 +277,9 @@ augroup pymode
 augroup end
 
 augroup filetypechecking
+    " au BufRead *.Rmd set ft=rmd
     au BufRead *.m set ft=mma "Mathematica
     au BufRead *.tex set ft=tex
-    au BufRead *.Rmd set ft=r
-    au BufRead *.Rmd setlocal syntax=off
     au BufRead *.tex let g:LatexBox_Folding=0
     au BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
