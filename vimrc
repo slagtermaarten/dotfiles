@@ -24,7 +24,7 @@ Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'ervandew/supertab'
+" Bundle 'ervandew/supertab'
 Bundle 'slagtermaarten/ultisnips'
 Bundle 'slagtermaarten/LaTeX-Box'
 Bundle 'Rip-Rip/clang_complete'
@@ -174,6 +174,7 @@ vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
+nnoremap te  :tabedit<Space>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
@@ -240,6 +241,7 @@ inoremap <C-p> <C-r>+
 if has('gui_running')
     colorscheme solarized
     nnoremap <C-h> :tabprev<CR>
+    set guitablabel=%t
     nnoremap <C-l> :tabnext<CR>
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
