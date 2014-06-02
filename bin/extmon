@@ -1,0 +1,6 @@
+#!/bin/bash
+
+EXTERNAL_OUTPUT="HDMI1"
+INTERNAL_OUTPUT="LVDS1"
+
+xrandr --output $INTERNAL_OUTPUT --off --output $EXTERNAL_OUTPUT --auto

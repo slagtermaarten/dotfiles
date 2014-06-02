@@ -159,7 +159,7 @@ vicious.register(mygmail, vicious.widgets.gmail,
                     gmail_t:set_text(args["{subject}"])
                     gmail_t:add_to_object(mygmailimg)
                     return args["{count}"]
-                 end, 60) 
+                 end, 60)
                  --the '120' here means check every 2 minutes.
 
 -- Create a systray
@@ -309,6 +309,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn("chromium-browser") end),
+    awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("/home/maarten/dotfiles/bin/intmon") end),
+    awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("/home/maarten/dotfiles/bin/extmon") end),
     awful.key({ modkey,           }, "d",     function () awful.util.spawn("nautilus") end),
     awful.key({ modkey,           }, "e",     function () awful.util.spawn("thunderbird") end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
