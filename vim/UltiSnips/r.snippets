@@ -164,3 +164,11 @@ endsnippet
 snippet kvt "KV test"
 kv.test(${1:x}, ${0:y})
 endsnippet
+
+snippet pt "System time + print statement"
+system.time(print(
+${1}${VISUAL}
+))
+${0}
+endsnippet
+
