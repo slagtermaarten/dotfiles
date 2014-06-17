@@ -23,8 +23,6 @@ Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-" Bundle 'ervandew/supertab'
 Bundle 'slagtermaarten/ultisnips'
 Bundle 'slagtermaarten/LaTeX-Box'
 Bundle 'Rip-Rip/clang_complete'
@@ -32,6 +30,7 @@ Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'fs111/pydoc.vim'
 Bundle 'scrooloose/syntastic'
+Bundle 'honza/vim-snippets'
 
 " Bundle 'matze/vim-tex-fold'
 " Bundle 'klen/python-mode'
@@ -281,6 +280,8 @@ augroup end
 augroup filetypechecking
     " au BufRead *.Rmd set ft=rmd
     au BufRead *.m set ft=mma "Mathematica
+    au BufRead *.Rmd set ft=rmd
+    au BufRead *.R set ft=r
     au BufRead *.tex set ft=tex
     au BufRead *.tex let g:LatexBox_Folding=0
     au BufRead *.tex set foldmethod=marker
