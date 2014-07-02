@@ -1,0 +1,5 @@
+--pager=less -r
+--color
+--sort-files
+--nohtml
+--nohtm

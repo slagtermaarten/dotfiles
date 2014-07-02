@@ -1,8 +1,8 @@
 setlocal errorformat=%f:%l:\ %m,%f:%l-%\\d%\\+:\ %m
 if filereadable('Makefile')
     setlocal makeprg=make
-else
-    exec "setlocal makeprg=make\\ -f\\ ~/bin/latex.mk\\ " . substitute(bufname("%"),"tex","pdf", "")
+" else
+"     exec "setlocal makeprg=make\\ -f\\ ~/bin/latex.mk\\ " . substitute(bufname("%"),"tex","pdf", "")
 endif
 
 " let g:Latexbox_Folding = 'yes'
