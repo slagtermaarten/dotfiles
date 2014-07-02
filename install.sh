@@ -9,8 +9,9 @@ ln -s dotfiles/zshenv .zshenv
 ln -s dotfiles/matplotlibrc .matplotlibrc
 ln -s dotfiles/tmux.conf .tmux.conf
 ln -s dotfiles/gitignore .gitignore
-ln -s dotfiles/gitignore .gitconfig
+ln -s dotfiles/gitconfig .gitconfig
 ln -s dotfiles/powerline-fonts .fonts
+ln -s dotfiles/ackrc .ackrc
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleClean +BundleInstall +qall
