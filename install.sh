@@ -11,6 +11,7 @@ ln -s dotfiles/tmux.conf .tmux.conf
 ln -s dotfiles/gitignore .gitignore
 ln -s dotfiles/gitconfig .gitconfig
 ln -s dotfiles/powerline-fonts .fonts
+ln -s dotfiles/Rprofile .Rprofile
 ln -s dotfiles/ackrc .ackrc
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
