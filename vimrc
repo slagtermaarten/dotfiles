@@ -71,6 +71,7 @@ set matchtime=3
 " set showbreak=↪
 set splitbelow
 set splitright
+set equalalways
 set colorcolumn=
 set grepprg=ack-grep\ -k
 " set t_Co=256
