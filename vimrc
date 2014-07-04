@@ -22,7 +22,7 @@ Bundle 'rsmenon/vim-mathematica'
 Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'scrooloose/nerdtree'
+" Bundle 'scrooloose/nerdtree'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'SirVer/ultisnips'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
@@ -78,7 +78,7 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-let NERDTreeChDirMode=0
+" let NERDTreeChDirMode=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 let vimrplugin_screenplugin = 0
 let g:mma_highlight_option = "solarized"
@@ -167,8 +167,8 @@ let mapleader = ","
 let maplocalleader = ","
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
+" map <C-n> :NERDTreeToggle<CR>
+" map <C-m> :NERDTreeFind<CR>
 cnoreabbrev wq w<bar>bd
 cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 " cnoreabbrev q bd
