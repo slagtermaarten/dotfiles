@@ -20,6 +20,8 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 
+vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
+
 # alias tmux="TERM=screen-256color-bce tmux"
 # File name aliases
 # alias -s pdf=evince

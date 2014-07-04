@@ -249,7 +249,7 @@ if has('gui_running')
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
     set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    " set lines=40 columns=80
+    set lines=60 columns=90
     set guioptions-=T
     set guioptions-=m
     set fileencoding=utf-8
