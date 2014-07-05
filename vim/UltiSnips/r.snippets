@@ -3,23 +3,35 @@ traceback()
 endsnippet
 
 snippet db "Debug"
-mtrace("$0")
+debug("$1")${0}
+endsnippet
+
+snippet dbo "Debug"
+debugonce("$1")${0}
 endsnippet
 
 snippet udb "Undebug"
-mtrace.off()
+undebug("$1")${0}
 endsnippet
 
 snippet el "Named element of list or named vector" i
-["${0}${VISUAL}"]
+["${1}${VISUAL}"]${0}
 endsnippet
 
 snippet elu "Unnamed element of list or named vector" i
-[["${0}${VISUAL}"]]
+[["${1}${VISUAL}"]]${0}
+endsnippet
+
+snippet br "Numerical element of list or vector" i
+[${1}${VISUAL}]${0}
+endsnippet
+
+snippet brr "Numerical element of list or vector" i
+[[${1}${VISUAL}]]${0}
 endsnippet
 
 snippet p
-print(${VISUAL}${0})
+print(${VISUAL}${1})${0}
 endsnippet
 
 snippet #! "Hashbang for Rscript (#!)" b
@@ -172,3 +184,10 @@ ${1}${VISUAL}
 ${0}
 endsnippet
 
+snippet sys "System call"
+system("${1}${VISUAL}")${0}
+endsnippet
+
+snippet pa "Paste call"
+paste(${1}${VISUAL}, sep="")${0}
+endsnippet

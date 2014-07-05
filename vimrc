@@ -23,15 +23,25 @@ Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'scrooloose/nerdtree'
-Bundle 'slagtermaarten/ultisnips'
-Bundle 'slagtermaarten/LaTeX-Box'
 Bundle 'Rip-Rip/clang_complete'
 Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'fs111/pydoc.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'honza/vim-snippets'
+" Bundle 'scrooloose/nerdtree'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'SirVer/ultisnips'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'honza/vim-snippets'
+" Bundle 'Rip-Rip/clang_complete'
+Bundle 'mileszs/ack.vim'
+Bundle 'vim-scripts/taglist.vim'
+Bundle 'fs111/pydoc.vim'
 
+" Bundle 'scrooloose/syntastic'
+" Bundle 'kien/ctrlp'
+" Bundle 'ervandew/supertab'
 " Bundle 'matze/vim-tex-fold'
 " Bundle 'klen/python-mode'
 " Bundle 'ivanov/vim-ipython'
@@ -68,6 +78,7 @@ set matchtime=3
 " set showbreak=↪
 set splitbelow
 set splitright
+set equalalways
 set colorcolumn=
 set grepprg=ack-grep\ -k
 " set t_Co=256
@@ -75,7 +86,7 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-let NERDTreeChDirMode=0
+" let NERDTreeChDirMode=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 let vimrplugin_screenplugin = 0
 let g:mma_highlight_option = "solarized"
@@ -89,7 +100,7 @@ let g:airline_section_b='%{strftime("%H:%M")}'
 let g:airline_section_y='BN %{bufnr("%")}'
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsUsePythonVersion=2
-let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
+" let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
 set tags+=$HOME/CompuCell3D/CompuCell3D/core
@@ -164,8 +175,8 @@ let mapleader = ","
 let maplocalleader = ","
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
+" map <C-n> :NERDTreeToggle<CR>
+" map <C-m> :NERDTreeFind<CR>
 cnoreabbrev wq w<bar>bd
 cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 " cnoreabbrev q bd
@@ -193,6 +204,7 @@ nnoremap ;n :n
 nnoremap ! :!
 nnoremap H ^
 nnoremap L $
+vnoremap H ^
 vnoremap L $
 nnoremap <silent> <leader>es :tabedit ~/dotfiles/aliases.sh<CR>
 nnoremap <silent> <leader>ec :tabedit ~/convenienceCC3D<CR>
@@ -220,11 +232,11 @@ vnoremap < <gv
 vnoremap > >gv
 nnoremap Q gqap
 vnoremap Q gq
-inoremap <c-d> <esc>ld$a
-nnoremap <c-d> dd
+" inoremap <c-d> <esc>ld$a
+" nnoremap <c-d> dd
 inoremap <c-q> <esc>gqipe
-inoremap <c-u> <esc>bviwUea
-nnoremap <c-u> viwUe
+" inoremap <c-u> <esc>bviwUea
+" nnoremap <c-u> viwUe
 nnoremap <leader>c :!clear <cr><cr>
 nnoremap <leader>j Jxxi,<esc>
 " map <tab> %
@@ -239,13 +251,13 @@ inoremap <C-p> <C-r>+
 " Gui, mouse, appearance {{{
 if has('gui_running')
     colorscheme solarized
-    nnoremap <C-h> :tabprev<CR>
+    noremap <C-h> :tabprev<CR>
+    noremap <C-l> :tabnext<CR>
     set guitablabel=%t
-    nnoremap <C-l> :tabnext<CR>
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
     set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    " set lines=40 columns=80
+    set lines=60 columns=90
     set guioptions-=T
     set guioptions-=m
     set fileencoding=utf-8
@@ -278,13 +290,13 @@ augroup pymode
 augroup end
 
 augroup filetypechecking
-    " au BufRead *.Rmd set ft=rmd
-    au BufRead *.m set ft=mma "Mathematica
-    au BufRead *.Rmd set ft=rmd
-    au BufRead *.R set ft=r
-    au BufRead *.tex set ft=tex
-    au BufRead *.tex let g:LatexBox_Folding=0
-    au BufRead *.tex set foldmethod=marker
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set ft=tex
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
 augroup end
 " }}}

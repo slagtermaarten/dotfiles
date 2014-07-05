@@ -1,0 +1,6 @@
+--color
+--sort-files
+--nohtml
+--nohtm
+# --pager=less -r
+--type-set=r=.R,.Rnw,.Rmd,.r

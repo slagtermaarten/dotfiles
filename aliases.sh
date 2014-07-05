@@ -20,6 +20,11 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 
+vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
+
+autoload -U zmv
+alias mmv='noglob zmv -W'
+
 # alias tmux="TERM=screen-256color-bce tmux"
 # File name aliases
 # alias -s pdf=evince

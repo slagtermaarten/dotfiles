@@ -48,17 +48,17 @@ editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Create an ACPI widget
-batterywidget = widget({ type = "textbox" })
-batterywidget.text = " | Battery | "
-batterywidgettimer = timer({ timeout = 5 })
-batterywidgettimer:add_signal("timeout",
-  function()
-    fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-    batterywidget.text = " |" .. fh:read("*l") .. " | "
-    fh:close()
-  end
-)
-batterywidgettimer:start()
+-- batterywidget = widget({ type = "textbox" })
+-- batterywidget.text = " | Battery | "
+-- batterywidgettimer = timer({ timeout = 5 })
+-- batterywidgettimer:add_signal("timeout",
+--   function()
+--     fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+--     batterywidget.text = " |" .. fh:read("*l") .. " | "
+--     fh:close()
+--   end
+-- )
+-- batterywidgettimer:start()
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -94,7 +94,7 @@ layouts =
 --}}
 tags = {
 names  = { "1", "2", "3", "4", "5", "6", "7", "8", "9"},
-layout = { layouts[8], layouts[8], layouts[8], layouts[8], layouts[8], layouts[8], layouts[8], layouts[8], layouts[8] }
+layout = { layouts[8], layouts[8], layouts[8], layouts[8], layouts[8], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -115,7 +115,7 @@ mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesom
                                     { "Debian", debian.menu.Debian_menu.Debian },
                                     { "open terminal", terminal },
                                     { "zzz", "zsh -c -i 'gksu pm-suspend'"},
-                                    { "shutdown", '/home/maarten/bin/shutdown.sh'}
+                                    { "shutdown", 'zsh -c -i "gksu shutdown 0"'}
                                   }
                         })
 
@@ -242,7 +242,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         memwidget,
-        batterywidget,
+        -- batterywidget,
         --gmailwidget,
         --mailwidget,
         --mygmail,
@@ -307,6 +307,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("sh /home/maarten/bin/extmon.sh") end),
+    awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("sh /home/maarten/bin/laptopmon.sh") end),
+    awful.key({ modkey, "Shift"   }, "l",     function () awful.util.spawn("xscreensaver-command --lock") end),
+    awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn("zsh -c -i 'gksu pm-suspend'") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn("chromium-browser") end),
     awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("/home/maarten/dotfiles/bin/intmon") end),
