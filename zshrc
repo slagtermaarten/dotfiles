@@ -32,6 +32,7 @@ plugins=(git debian vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
+source $HOME/dotfiles/syncaliases.sh
 
 bindkey -v
 
