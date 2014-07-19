@@ -48,17 +48,17 @@ editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Create an ACPI widget
--- batterywidget = widget({ type = "textbox" })
--- batterywidget.text = " | Battery | "
--- batterywidgettimer = timer({ timeout = 5 })
--- batterywidgettimer:add_signal("timeout",
---   function()
---     fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
---     batterywidget.text = " |" .. fh:read("*l") .. " | "
---     fh:close()
---   end
--- )
--- batterywidgettimer:start()
+batterywidget = widget({ type = "textbox" })
+batterywidget.text = " | Battery | "
+batterywidgettimer = timer({ timeout = 5 })
+batterywidgettimer:add_signal("timeout",
+  function()
+    fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+    batterywidget.text = " |" .. fh:read("*l") .. " | "
+    fh:close()
+  end
+)
+batterywidgettimer:start()
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -242,7 +242,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         memwidget,
-        -- batterywidget,
+        batterywidget,
         --gmailwidget,
         --mailwidget,
         --mygmail,
