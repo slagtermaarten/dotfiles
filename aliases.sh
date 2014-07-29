@@ -1,4 +1,5 @@
-alias ltr='ls -lhtr'
+alias lt='ls -lhtr'
+alias la='ls -lhtra'
 alias ealias='vim $HOME/dotfiles/aliases.sh'
 alias x='chmod +x'
 # alias geeknote='python $HOME/bin/geeknote/geeknote.py'
@@ -21,6 +22,7 @@ alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 
 vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
+viewpdf () { command evince "$@" & }
 
 autoload -U zmv
 alias mmv='noglob zmv -W'

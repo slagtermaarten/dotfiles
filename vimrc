@@ -250,7 +250,7 @@ if has('gui_running')
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
     set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    set lines=60 columns=90
+    set lines=50 columns=90
     set guioptions-=T
     set guioptions-=m
     set fileencoding=utf-8
@@ -286,8 +286,8 @@ augroup filetypechecking
     " au BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set ft=tex
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
