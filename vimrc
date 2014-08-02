@@ -22,15 +22,9 @@ Bundle 'rsmenon/vim-mathematica'
 Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'scrooloose/nerdtree'
-Bundle 'Rip-Rip/clang_complete'
-Bundle 'mileszs/ack.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'fs111/pydoc.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'honza/vim-snippets'
 " Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
+" Bundle 'jistr/vim-nerdtree-tabs'
+" Bundle 'scrooloose/syntastic'
 Bundle 'SirVer/ultisnips'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'honza/vim-snippets'
@@ -151,15 +145,14 @@ fun! StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-func! WordProcessorMode()
-    " setlocal formatoptions=1
-    " setlocal noexpandtab
-    " set formatoptions+="tpcqa"
-    setlocal spell spelllang=en_us
+fun! WordProcessorMode()
+    setlocal textwidth=80
+    set linebreak
+    setlocal formatoptions=1tcrqan
+    " setlocal spell spelllang=en_us,nl,medical
     set thesaurus+=~/mthesaur.txt
     " set complete+=s
 endfu
-com! WP call WordProcessorMode()
 
 fun! ResetSyntax()
     " TeX syntax tends to freeze, confusing everything to be in mathmode
@@ -167,6 +160,28 @@ fun! ResetSyntax()
     syntax off
     syntax on
 endfun
+
+" Move current tab into the specified direction.
+" @param direction -1 for left, 1 for right.
+function! TabMove(direction)
+    " get number of tab pages.
+    let ntp=tabpagenr("$")
+    " move tab, if necessary.
+    if ntp > 1
+        " get number of current tab page.
+        let ctpn=tabpagenr()
+        " move left.
+        if a:direction < 0
+            let index=((ctpn-1+ntp-1)%ntp)
+        else
+            let index=(ctpn%ntp)
+        endif
+
+        " move tab page.
+        execute "tabmove ".index
+    endif
+endfunction
+
 " }}}
 
 " Mappings {{{
@@ -206,6 +221,7 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
+com! WP call WordProcessorMode()
 nnoremap <silent> <leader>es :tabedit ~/dotfiles/aliases.sh<CR>
 nnoremap <silent> <leader>ec :tabedit ~/convenienceCC3D<CR>
 nnoremap <silent> <leader>ed :tabedit ~/dotfiles<CR>
@@ -253,11 +269,13 @@ if has('gui_running')
     colorscheme solarized
     noremap <C-h> :tabprev<CR>
     noremap <C-l> :tabnext<CR>
+    noremap <leader>j :call TabMove(-1)<CR>
+    noremap <leader>k :call TabMove(1)<CR>
     set guitablabel=%t
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
     set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    set lines=60 columns=90
+    " set lines=50 columns=90
     set guioptions-=T
     set guioptions-=m
     set fileencoding=utf-8
@@ -292,8 +310,8 @@ augroup end
 augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set ft=tex
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
@@ -304,6 +322,7 @@ augroup end
 " Abbreviations {{{
 iabbrev THe The
 iabbrev cc3 CompuCell3D
+iabbrev arr -->
 " }}}
 
 " SyntasticToggleMode

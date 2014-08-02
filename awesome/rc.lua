@@ -284,7 +284,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative(-1) end),
-    awful.key({                   }, "F12", function () awful.util.spawn("xscreensaver-command -lock") end),
+    awful.key({ modkey,           }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -307,15 +307,11 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
-    awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("sh /home/maarten/bin/extmon.sh") end),
-    awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("sh /home/maarten/bin/laptopmon.sh") end),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.util.spawn("xscreensaver-command --lock") end),
     awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn("zsh -c -i 'gksu pm-suspend'") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn("chromium-browser") end),
-    awful.key({ modkey, "Shift"   }, "i",     function () awful.util.spawn("/home/maarten/dotfiles/bin/intmon") end),
-    awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("/home/maarten/dotfiles/bin/extmon") end),
-    awful.key({ modkey,           }, "d",     function () awful.util.spawn("nautilus") end),
+    awful.key({ modkey,           }, "d",     function () awful.util.spawn("thunar") end),
+    awful.key({ modkey,           }, "p",     function () awful.util.spawn("mendeleydesktop") end),
     awful.key({ modkey,           }, "e",     function () awful.util.spawn("thunderbird") end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
 
@@ -464,8 +460,9 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- {{{ Autostarts
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once nm-applet")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once gnome-sound-applet")
-awful.util.spawn_with_shell("dropbox start")
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
+-- awful.util.spawn_with_shell("dropbox start")
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
+awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager

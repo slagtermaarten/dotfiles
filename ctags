@@ -1,0 +1,4 @@
+--langdef=Splus
+--langmap=Splus:.s.S.R.r.q.rmd
+--regex-Splus=/^[ \t]+"?([.A-Za-z][.A-Za-z0-9_]*)"?[\t]*<-[\t]*function/\1/
+--regex-Splus=/^"?([.A-Za-z][.A-Za-z0-9_]*)"?[ \t]*<-/\1/

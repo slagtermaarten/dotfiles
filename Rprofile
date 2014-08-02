@@ -1,4 +1,4 @@
-load.lib <- function(x) {
+load.fun <- function(x) {
     x <- as.character(substitute(x))
     if(isTRUE(x %in% .packages(all.available=TRUE))) {
         eval(parse(text=paste("require(", x, ")", sep="")))
@@ -8,10 +8,10 @@ load.lib <- function(x) {
     }
 }
 
-load.lib(knitr)
-library(reshape2)
-library(ggplot2)
-library(plyr)
+load.fun(knitr)
+load.fun(ggplot2)
+load.fun(reshape2)
+load.fun(plyr)
 
 r <- getOption("repos")
 r["CRAN"] <- "http://cran.xl-mirror.nl"

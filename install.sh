@@ -13,6 +13,7 @@ ln -s dotfiles/gitconfig .gitconfig
 ln -s dotfiles/powerline-fonts .fonts
 ln -s dotfiles/Rprofile .Rprofile
 ln -s dotfiles/ackrc .ackrc
+ln -s dotfiles/ctags .ctags
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleClean +BundleInstall +qall
