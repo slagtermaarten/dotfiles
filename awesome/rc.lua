@@ -94,7 +94,7 @@ layouts =
 --}}
 tags = {
 names  = { "1", "2", "3", "4", "5", "6", "7", "8", "9"},
-layout = { layouts[8], layouts[8], layouts[8], layouts[8], layouts[8], layouts[1], layouts[1], layouts[1], layouts[1] }
+layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -404,11 +404,13 @@ awful.rules.rules = {
     { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
-                     focus = false,
+                     focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { class = "Skype" }, 
+      properties = { size_hints_honor = false } },
     { rule = { class = "Compucell3d" },
       properties = { floating = true } },
     { rule = { class = "Pinentry" },
@@ -460,7 +462,7 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- {{{ Autostarts
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once nm-applet")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once gnome-sound-applet")
--- awful.util.spawn_with_shell("dropbox start")
+awful.util.spawn_with_shell("dropbox start")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
 awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
