@@ -242,10 +242,10 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         memwidget,
-        batterywidget,
-        --gmailwidget,
-        --mailwidget,
-        --mygmail,
+        -- batterywidget,
+        -- gmailwidget,
+        -- mailwidget,
+        -- mygmail,
         s == 1 and mysystray or nil,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
@@ -284,7 +284,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative( 1) end),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative(-1) end),
-    awful.key({ modkey,           }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
+    awful.key({ modkey, "Shift"   }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -409,7 +409,7 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
-    { rule = { class = "Skype" }, 
+    { rule = { class = "Skype" },
       properties = { size_hints_honor = false } },
     { rule = { class = "Compucell3d" },
       properties = { floating = true } },
@@ -466,6 +466,6 @@ awful.util.spawn_with_shell("dropbox start")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
 awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
 -- }}}
