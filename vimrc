@@ -17,22 +17,24 @@ Bundle 'L9'
 Bundle 'tComment'
 Bundle 'c.vim'
 Bundle 'Vim-R-plugin'
-Bundle 'wincent/Command-T'
 Bundle 'rsmenon/vim-mathematica'
 Bundle 'bling/vim-airline'
 Bundle 'sukima/xmledit'
-Bundle 'tsaleh/vim-matchit'
-" Bundle 'scrooloose/nerdtree'
-" Bundle 'jistr/vim-nerdtree-tabs'
-" Bundle 'scrooloose/syntastic'
+Bundle 'eshock/vim-matchit'
+Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'honza/vim-snippets'
-" Bundle 'Rip-Rip/clang_complete'
 Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'fs111/pydoc.vim'
+Bundle 'craigemery/vim-autotag'
+Bundle 'valloric/YouCompleteMe'
+Bundle 'scrooloose/NERDTree'
 
+
+" Bundle 'Rip-Rip/clang_complete'
+" Bundle 'wincent/Command-T'
 " Bundle 'scrooloose/syntastic'
 " Bundle 'kien/ctrlp'
 " Bundle 'ervandew/supertab'
@@ -80,9 +82,10 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-" let NERDTreeChDirMode=0
+" let NERDTreeChDirMod=0
 let g:nerdtree_tabs_open_on_gui_startup=0
-let vimrplugin_screenplugin = 0
+let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy = 1
 set encoding=utf-8
@@ -199,7 +202,10 @@ vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
-nnoremap te  :tabedit<Space>
+nnoremap gk :bn<cr>
+nnoremap gj :bp<cr>
+nnoremap gd :bd<cr>
+nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
@@ -209,10 +215,8 @@ nnoremap <leader>y :call ResetSyntax() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
 nnoremap ;ww :w<CR>
-nnoremap <C-h> :bprev<CR>
-nnoremap <C-l> :bnext<CR>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
-nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
+" nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
 nnoremap q; q:
 nnoremap ;q :q
 nnoremap ;n :n
@@ -222,20 +226,22 @@ nnoremap L $
 vnoremap H ^
 vnoremap L $
 com! WP call WordProcessorMode()
-nnoremap <silent> <leader>es :tabedit ~/dotfiles/aliases.sh<CR>
-nnoremap <silent> <leader>ec :tabedit ~/convenienceCC3D<CR>
-nnoremap <silent> <leader>ed :tabedit ~/dotfiles<CR>
-nnoremap <silent> <leader>eb :tabedit ~/dotfiles/bin<CR>
-nnoremap <silent> <leader>em :tabedit Makefile<CR>
-nnoremap <silent> <leader>ev :tabedit $MYVIMRC<CR>
-nnoremap <silent> <leader>eg :tabedit ~/.gitconfig<CR>
-nnoremap <silent> <leader>ea :tabedit ~/.config/awesome/rc.lua <CR>
-nnoremap <silent> <leader>et :tabedit ~/dotfiles/tmux.conf <CR>
-nnoremap <silent> <leader>ef :tabedit ~/.vim/custom/ftplugin <CR>
+" Have to be sure that this command won't be found in any plugins, so give it
+" a super goofy name: maartenedit
+nmap maartenedit  :e
+nmap <leader>es maartenedit ~/dotfiles/aliases.sh<CR>
+nmap <leader>ec maartenedit ~/current/<CR>
+nmap <leader>ed maartenedit ~/dotfiles<CR>
+nmap <leader>eb maartenedit ~/dotfiles/bin<CR>
+nmap <leader>em maartenedit Makefile<CR>
+nmap <leader>ev maartenedit $MYVIMRC<CR>
+nmap <leader>eg maartenedit ~/.gitconfig<CR>
+nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
+nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
+nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 nnoremap <silent> <leader>o :CommandTJump<CR>
 nnoremap <silent> <leader>sc :tabp<CR>
-nnoremap <silent> <leader>sv :so $MYVIMRC <CR> :syntax on <CR>
 nnoremap <C-DOWN> :call SmallerFont() <cr>
 nnoremap <C-UP> :call LargerFont() <cr>
 nnoremap <silent><leader>t :TlistToggle <cr>
@@ -258,17 +264,14 @@ nnoremap <leader>j Jxxi,<esc>
 " map <tab> %
 vnoremap <Leader>s :sort<CR>
 " Easy copy paste commands
-noremap <C-a> ggVG
-vnoremap <C-c> "+y
-noremap <C-p> i<C-r>+ <Esc>
-inoremap <C-p> <C-r>+
+noremap <leader>all ggVG
+vnoremap <leader>cop "+y
+noremap <leader>pas i<C-r>+ <Esc>
 " }}}
 
 " Gui, mouse, appearance {{{
 if has('gui_running')
     colorscheme solarized
-    noremap <C-h> :tabprev<CR>
-    noremap <C-l> :tabnext<CR>
     noremap <leader>j :call TabMove(-1)<CR>
     noremap <leader>k :call TabMove(1)<CR>
     set guitablabel=%t
