@@ -14,6 +14,7 @@ ln -s dotfiles/powerline-fonts .fonts
 ln -s dotfiles/Rprofile .Rprofile
 ln -s dotfiles/ackrc .ackrc
 ln -s dotfiles/ctags .ctags
+ln -s dotfiles/inputrc .inputrc
 
 git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleClean +BundleInstall +qall
