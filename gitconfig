@@ -18,3 +18,7 @@
 
 [pager]
     status = true
+
+[push]
+	default = simple
+

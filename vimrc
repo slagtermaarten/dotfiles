@@ -31,6 +31,7 @@ Bundle 'fs111/pydoc.vim'
 Bundle 'craigemery/vim-autotag'
 Bundle 'valloric/YouCompleteMe'
 Bundle 'scrooloose/NERDTree'
+Bundle 'octol/vim-cpp-enhanced-highlight'
 
 
 " Bundle 'Rip-Rip/clang_complete'
@@ -82,9 +83,12 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-" let NERDTreeChDirMod=0
+" let NERDTreeChDirMode=0
+let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy = 1
@@ -202,9 +206,10 @@ vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
-nnoremap gk :bn<cr>
-nnoremap gj :bp<cr>
+nnoremap gl :bnext<cr>
+nnoremap gh :bprev<cr>
 nnoremap gd :bd<cr>
+nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
@@ -293,8 +298,8 @@ endif
 " Autocommands{{{
 augroup randomautocmds
     autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
-    autocmd BufWinLeave *.* mkview
-    autocmd BufWinEnter *.* silent loadview
+    " autocmd BufWinLeave *.* mkview
+    " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost .vimrc source %
     autocmd BufEnter * silent! lcd %:p:h
