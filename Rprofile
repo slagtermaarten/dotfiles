@@ -52,3 +52,5 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 
     return(datac)
 }
+
+cur <- function() setwd("~/current/")
