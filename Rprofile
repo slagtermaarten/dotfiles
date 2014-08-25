@@ -53,4 +53,9 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
     return(datac)
 }
 
-cur <- function() setwd("~/current/")
+initFile <- "deps.R"
+
+cur <- function() {
+  setwd("~/current/")
+  if (file.exists(initFile)) source(initFile)
+}
