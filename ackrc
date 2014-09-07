@@ -2,6 +2,9 @@
 --sort-files
 --nohtml
 --nohtm
+--follow
+--group
 # --pager=less -r
 # --type-set=r=.R,.Rnw,.Rmd,.r
 --type-add=python=.R,.Rnw,.Rmd,.r
+--type-set=markdown=.md,.markdown
