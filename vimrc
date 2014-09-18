@@ -29,9 +29,10 @@ Bundle 'mileszs/ack.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'fs111/pydoc.vim'
 Bundle 'craigemery/vim-autotag'
-Bundle 'valloric/YouCompleteMe'
 Bundle 'scrooloose/NERDTree'
-
+Bundle 'reedes/vim-pencil'
+Bundle 'reedes/vim-wheel'
+Bundle 'valloric/YouCompleteMe'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -52,12 +53,12 @@ set showmode
 set bs=2
 set hidden
 set laststatus=2
-set tabstop=4
+set tabstop=2
 set expandtab
 set autoindent
 set hlsearch
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=2
+set sw=2
 set incsearch
 set nobackup
 set noswapfile
@@ -85,7 +86,7 @@ syntax enable
 " let NERDTreeChDirMod=0
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
-let NERDTreeHijackNetrw=1
+" let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy = 1
 set encoding=utf-8
@@ -191,19 +192,22 @@ endfunction
 let mapleader = ","
 " let maplocalleader = "\\"
 let maplocalleader = ","
+let g:pencil#wrapModeDefault = 'hard'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 " map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
-cnoreabbrev wq w<bar>bd
-cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
+" cnoreabbrev wq w<bar>bd
+" cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
+nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
+nnoremap <c-b> :CtrlPBuffer <cr>
 " cnoreabbrev q bd
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
-nnoremap gk :bn<cr>
-nnoremap gj :bp<cr>
+nnoremap gl :bn<cr>
+nnoremap gh :bp<cr>
 nnoremap gd :bd<cr>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
@@ -240,8 +244,8 @@ nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
 nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
-nnoremap <silent> <leader>o :CommandTJump<CR>
-nnoremap <silent> <leader>sc :tabp<CR>
+" nnoremap <silent> <leader>o :CommandTJump<CR>
+" nnoremap <silent> <leader>sc :tabp<CR>
 nnoremap <C-DOWN> :call SmallerFont() <cr>
 nnoremap <C-UP> :call LargerFont() <cr>
 nnoremap <silent><leader>t :TlistToggle <cr>
@@ -272,13 +276,13 @@ noremap <leader>pas i<C-r>+ <Esc>
 " Gui, mouse, appearance {{{
 if has('gui_running')
     colorscheme solarized
-    noremap <leader>j :call TabMove(-1)<CR>
-    noremap <leader>k :call TabMove(1)<CR>
+    " noremap <leader>j :call TabMove(-1)<CR>
+    " noremap <leader>k :call TabMove(1)<CR>
     set guitablabel=%t
     let g:airline_theme='solarized'
     let g:solarized_contrast="high"
     set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    " set lines=50 columns=90
+    set lines=50 columns=90
     set guioptions-=T
     set guioptions-=m
     set fileencoding=utf-8
@@ -291,10 +295,18 @@ endif
 " }}}
 
 " Autocommands{{{
+
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType textile call pencil#init()
+  autocmd FileType text call pencil#init({'wrap': 'hard'})
+augroup END
+
 augroup randomautocmds
     autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
-    autocmd BufWinLeave *.* mkview
-    autocmd BufWinEnter *.* silent loadview
+    " autocmd BufWinLeave *.* mkview
+    " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost .vimrc source %
     autocmd BufEnter * silent! lcd %:p:h
