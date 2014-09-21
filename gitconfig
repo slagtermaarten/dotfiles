@@ -1,24 +1,23 @@
 [user]
 	name = Maarten Slagter
 	email = slagter.maarten@gmail.com
-
 [alias]
-    st = status
-    ci = commit
-    br = branch
-    co = checkout
-    cob = checkout -b
-    df = diff
-    lg = log -p
-    ca = commit --amend
-    cam = commit -a -m
-    lg = log --graph --date=local --color
-    rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    ps = show --color --pretty=format:%b
-
+  st = status
+  ci = commit
+  cim = commit -m
+  br = branch
+  co = checkout
+  cob = checkout -b
+  df = diff
+  lg = log -p
+  ca = commit --amend
+  cam = commit -a -m
+  lg = log --graph --date=local --color
+  rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ps = show --color --pretty=format:%b
 [pager]
-    status = true
-
+  status = true
 [push]
 	default = simple
-
+[core]
+	editor = vim

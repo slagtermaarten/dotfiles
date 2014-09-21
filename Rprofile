@@ -1,22 +1,9 @@
-load.fun <- function(x) {
-    x <- as.character(substitute(x))
-    if(isTRUE(x %in% .packages(all.available=TRUE))) {
-        eval(parse(text=paste("require(", x, ")", sep="")))
-    } else {
-        update.packages()
-        eval(parse(text=paste("install.packages('", x, "')", sep="")))
-    }
-}
-
-load.fun(knitr)
-load.fun(ggplot2)
-load.fun(reshape2)
-load.fun(plyr)
-
+library(utils)
 r <- getOption("repos")
 r["CRAN"] <- "http://cran.xl-mirror.nl"
 options(repos = r)
 rm(r)
+options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
 summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
                       conf.interval=.95, .drop=TRUE) {
@@ -53,9 +40,18 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
     return(datac)
 }
 
-initFile <- "deps.R"
 
-cur <- function() {
-  setwd("~/current/")
-  if (file.exists(initFile)) source(initFile)
+load.fun <- function(x) {
+    x <- as.character(substitute(x))
+    if (isTRUE(x %in% .packages(all.available=TRUE))) {
+        eval(parse(text=paste("require(", x, ")", sep="")))
+    } else {
+        update.packages()
+        eval(parse(text=paste("install.packages('", x, "')", sep="")))
+    }
 }
+
+load.fun(dplyr)
+load.fun(knitr)
+load.fun(ggplot2)
+load.fun(reshape2)

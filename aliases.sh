@@ -21,6 +21,7 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 
+pwdc () { cd `pwd -P` }
 vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
 viewpdf () { command evince "$@" & }
 

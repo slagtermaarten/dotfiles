@@ -13,7 +13,9 @@ theme.wallpaper_cmd = { "awsetbg /home/maarten/dotfiles/awesome/zenburn/greentre
 -- }}}
 
 -- {{{ Styles
-theme.font      = "sans 8"
+theme.font = "Ubuntu 9"
+theme.font = "Sans 9"
+theme.font = "Meslo\ LG\ S\ DZ\ for\ Powerline\ 8"
 brightgreen = "#8BB381"
 
 -- {{{ Colors
