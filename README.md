@@ -1,3 +1,5 @@
 ## Maarten Slagter dotfiles
 
-Adjusted from thoughtbot/dotfiles, modified to my preference :)
+My configuration for my the Linux window manager I use ("Awesome" wm), the text
+editor I love (vim) and the terminal multiplexer I use (tmux). Additionally,
+configs for various other tools and some useful scripts.

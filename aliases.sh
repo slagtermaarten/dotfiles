@@ -20,10 +20,16 @@ alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
+alias gvim='UBUNTU_MENUPROXY= gvim'
 
-pwdc () { cd `pwd -P` }
+# Resolve symlink
+rs () { cd `pwd -P` }
 vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
 viewpdf () { command evince "$@" & }
+updatepandoc() {
+  cabal update
+  cabal install pandoc pandoc-citeproc
+}
 
 autoload -U zmv
 alias mmv='noglob zmv -W'

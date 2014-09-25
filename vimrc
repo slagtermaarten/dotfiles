@@ -32,7 +32,7 @@ Bundle 'craigemery/vim-autotag'
 Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-wheel'
-Bundle 'valloric/YouCompleteMe'
+" Bundle 'valloric/YouCompleteMe'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
