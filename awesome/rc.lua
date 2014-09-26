@@ -48,17 +48,17 @@ editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Create an ACPI widget
-batterywidget = widget({ type = "textbox" })
-batterywidget.text = " | Battery | "
-batterywidgettimer = timer({ timeout = 5 })
-batterywidgettimer:add_signal("timeout",
-  function()
-    fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
-    batterywidget.text = " |" .. fh:read("*l") .. " | "
-    fh:close()
-  end
-)
-batterywidgettimer:start()
+-- batterywidget = widget({ type = "textbox" })
+-- batterywidget.text = " | Battery | "
+-- batterywidgettimer = timer({ timeout = 5 })
+-- batterywidgettimer:add_signal("timeout",
+--   function()
+--     fh = assert(io.popen("acpi | cut -d, -f 2,3 -", "r"))
+--     batterywidget.text = " |" .. fh:read("*l") .. " | "
+--     fh:close()
+--   end
+-- )
+-- batterywidgettimer:start()
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -243,7 +243,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         memwidget,
-        batterywidget,
+        -- batterywidget,
         -- gmailwidget,
         -- mailwidget,
         -- mygmail,
@@ -426,6 +426,10 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Chromium-browser" },
       properties = { tag = tags[1][3] } },
+    { rule = { class = "firefox" },
+      properties = { tag = tags[1][3] } },
+    { rule = { class = "spotify" },
+      properties = { tag = tags[1][5] } },
     { rule = { class = "Thunderbird" },
       properties = { tag = tags[1][5] } }
 }
@@ -469,9 +473,10 @@ awful.util.spawn_with_shell("~/dotfiles/bin/run_once gnome-sound-applet")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 awful.util.spawn_with_shell("dropbox start")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
-awful.util.spawn_with_shell("xscreensaver -no-splash")
--- awful.util.spawn_with_shell('xautolock -time 30 -locker "sudo pm-suspend" &')
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
+awful.util.spawn_with_shell("dropbox start")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
--- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
 -- }}}

@@ -1,5 +1,5 @@
 # export PATH=$HOME/convenienceCC3D:$HOME/dotfiles/bin:${PATH}
-export PATH=$HOME/dotfiles/bin:${PATH}
+export PATH=$HOME/dotfiles/bin:$HOME/.cabal/bin:${PATH}
 # path=($^path(N))
 
 # export CUDA_HOME=/usr/local/cuda-5.0

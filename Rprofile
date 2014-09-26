@@ -1,8 +1,4 @@
 library(utils)
-r <- getOption("repos")
-r["CRAN"] <- "http://cran.xl-mirror.nl"
-options(repos = r)
-rm(r)
 options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
 summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
@@ -51,7 +47,5 @@ load.fun <- function(x) {
     }
 }
 
-load.fun(dplyr)
 load.fun(knitr)
 load.fun(ggplot2)
-load.fun(reshape2)
