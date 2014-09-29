@@ -1,8 +1,4 @@
 library(utils)
-# r <- getOption("repos")
-# r["CRAN"] <- "http://cran.xl-mirror.nl"
-# options(repos = r)
-# rm(r)
 options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
 summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
@@ -40,7 +36,6 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
     return(datac)
 }
 
-
 load.fun <- function(x) {
     x <- as.character(substitute(x))
     if (isTRUE(x %in% .packages(all.available=TRUE))) {
@@ -51,7 +46,6 @@ load.fun <- function(x) {
     }
 }
 
-load.fun(dplyr)
 load.fun(knitr)
 load.fun(ggplot2)
-load.fun(reshape1)
+load.fun(vimcom)
