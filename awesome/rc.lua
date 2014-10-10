@@ -43,6 +43,8 @@ end
 beautiful.init("/home/maarten/dotfiles/awesome/zenburn/theme.lua")
 
 browser = "firefox"
+filebrowser = "thunar"
+emailclient = "thunderbird"
 terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
@@ -94,7 +96,7 @@ layouts =
 --}}
 tags = {
 names  = { "1", "2", "3", "4", "5", "6", "7", "8", "9"},
-layout = { layouts[3], layouts[3], layouts[3], layouts[3], layouts[3], layouts[1], layouts[1], layouts[1], layouts[1] }
+layout = { layouts[3], layouts[3], layouts[3], layouts[3], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -310,12 +312,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "f",     function () awful.layout.set(layouts[1], null) end),
     awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn("zsh -c -i 'gksu pm-suspend'") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn(browser) end),
-    awful.key({ modkey,           }, "d",     function () awful.util.spawn("thunar") end),
+    awful.key({ modkey,           }, "d",     function () awful.util.spawn(filebrowser) end),
     awful.key({ modkey,           }, "p",     function () awful.util.spawn("mendeleydesktop") end),
-    awful.key({ modkey,           }, "e",     function () awful.util.spawn("thunderbird") end),
+    awful.key({ modkey,           }, "e",     function () awful.util.spawn(emailclient) end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
 
     -- Prompt
@@ -331,8 +334,9 @@ globalkeys = awful.util.table.join(
 )
 
 clientkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+    awful.key({ modkey, "Shift"   }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
+    awful.key({ modkey,           }, "q",      function (c) c:kill()                         end),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
@@ -429,9 +433,9 @@ awful.rules.rules = {
     { rule = { class = "firefox" },
       properties = { tag = tags[1][3] } },
     { rule = { class = "spotify" },
-      properties = { tag = tags[1][5] } },
+      properties = { floating = true, tag = tags[1][5] } },
     { rule = { class = "Thunderbird" },
-      properties = { tag = tags[1][5] } }
+      properties = { floating = true, tag = tags[1][5] } }
 }
 -- }}}
 
@@ -478,4 +482,5 @@ awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
+awful.util.spawn_with_shell("xmodmap ~/dotfiles/keymap") -- map CAPS to ESC
 -- }}}
