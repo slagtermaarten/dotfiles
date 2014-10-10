@@ -1,16 +1,16 @@
 extends r, md
 
 snippet rc "Code block"
-\`\`\`\{r, warning=FALSE}
+\`\`\`\{r, ${1}, warning=FALSE, echo=FALSE}
 ${0}${VISUAL}
 \`\`\`
 endsnippet
 
-snippet rcs "Code block"
+snippet rcs "Code block start"
 \`\`\`\{r, warning=FALSE}
 endsnippet
 
-snippet rce "Code block"
+snippet rce "Code block ending"
 \`\`\`
 endsnippet
 
