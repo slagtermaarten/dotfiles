@@ -1,6 +1,6 @@
 [user]
-	name = Maarten Slagter
-	email = slagter.maarten@gmail.com
+    name = Maarten Slagter
+    email = slagter.maarten@gmail.com
 [alias]
     st = status
     ci = commit
@@ -15,7 +15,12 @@
     lg = log --graph --date=local --color
     rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     ps = show --color --pretty=format:%b
+    ldiff = difftool -t latex 
 [pager]
     status = true
 [core]
 	editor = vim
+[difftool.latex]
+    cmd = git-latexdiff "$LOCAL" "$REMOTE"
+[difftool]
+    prompt = false
