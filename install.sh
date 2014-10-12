@@ -3,6 +3,7 @@ git pull --recurse-submodules
 
 cd $HOME
 ln -s dotfiles/bin .
+ln -s dotfiles/xprofile .xprofile
 ln -s dotfiles/vim .vim
 ln -s dotfiles/vimrc .vimrc
 ln -s dotfiles/gvimrc .gvimrc

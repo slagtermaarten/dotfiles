@@ -1,4 +1,6 @@
 alias lt='ls -lhtr'
+alias tlf='tail -f'
+alias e='$EDITOR'
 alias la='ls -lhtra'
 alias ealias='vim $HOME/dotfiles/aliases.sh'
 alias x='chmod +x'
@@ -14,15 +16,14 @@ alias ag='sudo apt-get install'
 
 alias -s md=vim
 alias -s tex=vim
-alias -s com=chromium-browser
-alias zz="sudo pm-suspend"
+alias -s com=firefox
 alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 alias gvim='UBUNTU_MENUPROXY= gvim'
+alias z='zsh'
 
-pwdc () { cd `pwd -P` }
 # Resolve symlink
 rs () { cd `pwd -P` }
 vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
@@ -40,3 +41,6 @@ alias mmv='noglob zmv -W'
 # alias -s pdf=evince
 # alias -s py=vi
 # alias -s sh=vi
+
+localaliases=(`pwd`/.aliases.local)
+[[ -f $localaliases ]] && source $localaliases

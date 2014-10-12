@@ -30,9 +30,6 @@ plugins=(git debian vi-mode autojump)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
-source $HOME/dotfiles/syncaliases.sh
-source ~/RandomWalkingTcells/utils
-source ~/dotfiles/cleanup.sh
 
 bindkey -v
 
@@ -48,5 +45,4 @@ function chpwd() {
 }
 
 autoload zmv
-
 # source ~/venv/*/activate

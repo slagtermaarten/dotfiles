@@ -2,8 +2,6 @@
 export PATH=$HOME/dotfiles/bin:$HOME/.cabal/bin:${PATH}
 # path=($^path(N))
 
-xmodmap $HOME/dotfiles/keymap
-
 # export CUDA_HOME=/usr/local/cuda-5.0
 # export CUDA_ROOT=/usr/local/cuda/bin
 # export LD_LIBRARY_PATH=${CUDA_HOME}/lib64
