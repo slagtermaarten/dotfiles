@@ -2,8 +2,6 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="gozilla"
 EDITOR=vim
 
-xmodmap $HOME/dotfiles/keymap
-
 eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`
 
@@ -28,7 +26,7 @@ eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git debian vi-mode)
+plugins=(git debian vi-mode autojump)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
