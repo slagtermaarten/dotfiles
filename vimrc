@@ -50,6 +50,7 @@ set pastetoggle=<F2>
 " set listchars
 set clipboard=unnamed
 set showmode
+set autoread
 set bs=2
 set hidden
 set laststatus=2
@@ -88,7 +89,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 " let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
-let g:mma_candy = 1
+let g:mma_candy=1
 set encoding=utf-8
 let g:airline_powerline_fonts=1
 let g:airline#extensions#bufferline#enabled=1
@@ -197,8 +198,6 @@ vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 " map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
-" cnoreabbrev wq w<bar>bd
-" cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
 " cnoreabbrev q bd
@@ -209,6 +208,7 @@ nnoremap k gk
 nnoremap gl :bn<cr>
 nnoremap gh :bp<cr>
 nnoremap gd :bd<cr>
+" command Wd write|bdelete
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
@@ -243,6 +243,7 @@ nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
 nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
+nmap <leader>nh :nohl<cr>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>

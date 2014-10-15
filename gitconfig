@@ -15,7 +15,7 @@
     lg = log --graph --date=local --color
     rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     ps = show --color --pretty=format:%b
-    ldiff = difftool -t latex 
+    ldiff = difftool -t latex
 [pager]
     status = true
 [core]
@@ -23,4 +23,5 @@
 [difftool.latex]
     cmd = git-latexdiff "$LOCAL" "$REMOTE"
 [difftool]
+    tool = gvimdiff
     prompt = false

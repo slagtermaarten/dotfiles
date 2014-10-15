@@ -48,6 +48,7 @@ emailclient = "thunderbird"
 terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
+finder = terminal .. " -e ranger"
 
 -- Create an ACPI widget
 -- batterywidget = widget({ type = "textbox" })
@@ -317,6 +318,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "d",     function () awful.util.spawn(filebrowser) end),
+    awful.key({ modkey,           }, "e",     function () awful.util.spawn(finder) end),
     awful.key({ modkey,           }, "p",     function () awful.util.spawn("mendeleydesktop") end),
     awful.key({ modkey,           }, "e",     function () awful.util.spawn(emailclient) end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),

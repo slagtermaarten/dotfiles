@@ -34,6 +34,10 @@ updatepandoc() {
 autoload -U zmv
 alias mmv='noglob zmv -W'
 
+# compareTex(fn) {
+#   latexdiff <(git show HEAD:$fn) $fn > tmp.tex
+#   pdflatex -interaction=nonstopmode tmp.tex
+# }
 # alias tmux="TERM=screen-256color-bce tmux"
 # File name aliases
 # alias -s pdf=evince
