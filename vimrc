@@ -175,7 +175,7 @@ endfunction
 let mapleader = ","
 " let maplocalleader = "\\"
 let maplocalleader = ","
-let g:pencil#wrapModeDefault = 'hard'   " or 'soft'
+let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 " map <C-n> :NERDTreeToggle<CR>
@@ -222,7 +222,7 @@ nmap <leader>ec maartenedit ~/current/<CR>
 nmap <leader>ed maartenedit ~/dotfiles<CR>
 nmap <leader>eb maartenedit ~/dotfiles/bin<CR>
 nmap <leader>em maartenedit Makefile<CR>
-nmap <leader>ev maartenedit $MYVIMRC<CR>
+nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
