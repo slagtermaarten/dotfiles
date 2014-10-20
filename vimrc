@@ -32,7 +32,7 @@ Bundle 'craigemery/vim-autotag'
 Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-wheel'
-" Bundle 'valloric/YouCompleteMe'
+Bundle 'valloric/YouCompleteMe'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -84,9 +84,11 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-" let NERDTreeChDirMod=0
-let g:nerdtree_tabs_open_on_gui_startup=0
+" let NERDTreeChDirMode=0
+let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 " let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
@@ -102,41 +104,22 @@ let g:UltiSnipsUsePythonVersion=2
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
-set tags+=$HOME/CompuCell3D/CompuCell3D/core
+" set tags+=$HOME/CompuCell3D/CompuCell3D/core
+" Set spellfile to location that is guaranteed to exist, can be symlinked to
+" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
+set spellfile=$HOME/.vim-spell-en.utf-8.add
+" Always use vertical diffs
+set diffopt+=vertical
+
+
+" syntastic settings
+let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 " }}}
 
 " Functions {{{
-let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
-let s:minfontsize = 6
-let s:maxfontsize = 16
-
-function! AdjustFontSize(amount)
-  if has("gui_gtk2") && has("gui_running")
-    let fontname = substitute(&guifont, s:pattern, '\1', '')
-    let cursize = substitute(&guifont, s:pattern, '\2', '')
-    let newsize = cursize + a:amount
-    if (newsize >= s:minfontsize) && (newsize <= s:maxfontsize)
-      let newfont = fontname . newsize
-      let &guifont = newfont
-    endif
-  else
-    echoerr "You need to run the GTK2 version of Vim to use this function."
-  endif
-endfunction
-
-function! LargerFont()
-  call AdjustFontSize(1)
-  " echom 'exec('set guifont?')'
-  set guifont?
-endfunction
-command! LargerFont call LargerFont()
-
-function! SmallerFont()
-  call AdjustFontSize(-1)
-  set guifont?
-endfunction
-command! SmallerFont call SmallerFont()
-
 " function! OpenCC3DSim()
 "   SyntasticToggleMode
 "   e dir/Simulation/*.py
@@ -193,14 +176,16 @@ endfunction
 let mapleader = ","
 " let maplocalleader = "\\"
 let maplocalleader = ","
-let g:pencil#wrapModeDefault = 'hard'   " or 'soft'
+let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 " map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
-nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
+"
+" cnoreabbrev wq w<bar>bd
+" cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
+" nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
-" cnoreabbrev q bd
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
@@ -208,11 +193,11 @@ nnoremap k gk
 nnoremap gl :bn<cr>
 nnoremap gh :bp<cr>
 nnoremap gd :bd<cr>
-" command Wd write|bdelete
+
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
-let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
+
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>c <c-_><c-_>
 nnoremap <leader>y :call ResetSyntax() <cr>
@@ -274,22 +259,7 @@ vnoremap <leader>cop "+y
 noremap <leader>pas i<C-r>+ <Esc>
 " }}}
 
-" Gui, mouse, appearance {{{
-if has('gui_running')
-    colorscheme solarized
-    " noremap <leader>j :call TabMove(-1)<CR>
-    " noremap <leader>k :call TabMove(1)<CR>
-    set guitablabel=%t
-    let g:airline_theme='solarized'
-    let g:solarized_contrast="high"
-    set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
-    set lines=50 columns=90
-    set guioptions-=T
-    set guioptions-=m
-    set fileencoding=utf-8
-    set enc=utf-8
-endif
-
+" Mouse {{{
 if has('mouse')
     set mouse=a
 endif
@@ -341,4 +311,7 @@ iabbrev cc3 CompuCell3D
 iabbrev arr -->
 " }}}
 
-" SyntasticToggleMode
+" Local config
+if filereadable($HOME . "/.vimrc.local")
+  source ~/.vimrc.local
+endif

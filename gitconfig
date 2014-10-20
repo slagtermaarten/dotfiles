@@ -19,9 +19,11 @@
 [pager]
     status = true
 [core]
-	editor = vim
+    editor = vim
 [difftool.latex]
     cmd = git-latexdiff "$LOCAL" "$REMOTE"
 [difftool]
     tool = gvimdiff
     prompt = false
+[push]
+    default = simple

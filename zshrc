@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="gozilla"
 EDITOR=vim
 
-# xmodmap $HOME/dotfiles/keymap
+setopt extended_blob
 
 eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`
@@ -28,13 +28,10 @@ eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git debian vi-mode autojump tmux)
+plugins=(git debian vi-mode autojump)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
-source $HOME/dotfiles/syncaliases.sh
-source ~/RandomWalkingTcells/utils
-source ~/dotfiles/cleanup.sh
 
 bindkey -v
 
@@ -50,7 +47,6 @@ function chpwd() {
 }
 
 autoload zmv
-
 autojump
 
 # source ~/venv/*/activate

@@ -97,7 +97,7 @@ layouts =
 --}}
 tags = {
 names  = { "1", "2", "3", "4", "5", "6", "7", "8", "9"},
-layout = { layouts[3], layouts[3], layouts[3], layouts[3], layouts[1], layouts[1], layouts[1], layouts[1], layouts[1] }
+layout = { layouts[3], layouts[3], layouts[3], layouts[3], layouts[3], layouts[1], layouts[1], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -319,8 +319,9 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "b",     function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "d",     function () awful.util.spawn(filebrowser) end),
     awful.key({ modkey,           }, "e",     function () awful.util.spawn(finder) end),
+    awful.key({ modkey,           }, "d",     function () awful.util.spawn("thunar") end),
     awful.key({ modkey,           }, "p",     function () awful.util.spawn("mendeleydesktop") end),
-    awful.key({ modkey,           }, "e",     function () awful.util.spawn(emailclient) end),
+    awful.key({ modkey,           }, "t",     function () awful.util.spawn(emailclient) end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
 
     -- Prompt
@@ -435,7 +436,11 @@ awful.rules.rules = {
     { rule = { class = "firefox" },
       properties = { tag = tags[1][3] } },
     { rule = { class = "spotify" },
+<<<<<<< HEAD
       properties = { floating = true, tag = tags[1][5] } },
+=======
+      properties = { tag = tags[1][5] } },
+>>>>>>> origin/Laptop
     { rule = { class = "Thunderbird" },
       properties = { floating = true, tag = tags[1][5] } }
 }
@@ -478,11 +483,19 @@ awful.util.spawn_with_shell("~/dotfiles/bin/run_once gnome-sound-applet")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 awful.util.spawn_with_shell("dropbox start")
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
+<<<<<<< HEAD
 awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell('xautolock -time 15 -locker "sudo pm-suspend" &')
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
 awful.util.spawn_with_shell("xmodmap ~/dotfiles/keymap") -- map CAPS to ESC
+=======
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
+>>>>>>> origin/Laptop
 -- }}}
