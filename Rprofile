@@ -10,3 +10,5 @@ load.fun <- function(x) {
         eval(parse(text=paste("install.packages('", x, "')", sep="")))
     }
 }
+
+library(vimcom)
