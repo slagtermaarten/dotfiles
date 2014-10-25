@@ -47,4 +47,5 @@ function chpwd() {
 }
 
 autoload zmv
+
 # source ~/venv/*/activate

@@ -182,6 +182,9 @@ kv.test(${1:x}, ${0:y})
 endsnippet
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/NKI
 snippet sys "System call"
 system("${1}${VISUAL}")${0}
 endsnippet
@@ -189,12 +192,19 @@ endsnippet
 snippet pa "Paste call"
 paste(${1}${VISUAL}, sep="")${0}
 endsnippet
+<<<<<<< HEAD
+       
 =======
+=======
+>>>>>>> origin/NKI
 snippet pt "System time + print statement"
 system.time(print(
 ${1}${VISUAL}
 ))
 ${0}
 endsnippet
+<<<<<<< HEAD
+=======
 
 >>>>>>> origin/Laptop
+>>>>>>> origin/NKI
