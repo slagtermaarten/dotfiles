@@ -42,7 +42,6 @@ end
 -- beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 beautiful.init("/home/maarten/dotfiles/awesome/zenburn/theme.lua")
 
-browser = "firefox"
 terminal = "gnome-terminal"
 editor = os.getenv("EDITOR") or "gvim"
 editor_cmd = terminal .. " -e " .. editor
@@ -298,12 +297,11 @@ globalkeys = awful.util.table.join(
         end),
 
     -- Standard program
-    awful.key({ modkey,           }, "s", function () awful.util.spawn(terminal) end),
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
+    awful.key({ modkey,           }, "s",     function () awful.util.spawn(terminal) end),
+    awful.key({ modkey, "Control" }, "r",     awesome.restart),
+    awful.key({ modkey, "Shift"   }, "q",     awesome.quit),
+    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
@@ -314,15 +312,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "e",     function () awful.util.spawn("zsh -c -i '~/dotfiles/bin/extmon'") end),
     -- awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn("zsh -c -i 'gksu pm-suspend'") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
-    awful.key({ modkey,           }, "b",     function () awful.util.spawn(browser) end),
+    awful.key({ modkey,           }, "b",     function () awful.util.spawn("zsh -c -i 'optirun firefox -P default -no-remote'") end),
     awful.key({ modkey,           }, "d",     function () awful.util.spawn("thunar") end),
-    awful.key({ modkey,           }, "p",     function () awful.util.spawn("mendeleydesktop") end),
-    awful.key({ modkey,           }, "e",     function () awful.util.spawn("thunderbird") end),
+    awful.key({ modkey,           }, "p",     function () awful.util.spawn("zsh -c -i 'optirun mendeleydesktop'") end),
+    awful.key({ modkey,           }, "e",     function () awful.util.spawn("zsh -c -i 'optirun firefox -new-window https://www.evernote.com/Home.action -P evernote -no-remote'") end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
-
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
