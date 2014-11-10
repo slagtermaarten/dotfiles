@@ -1,1 +1,8 @@
-sudo mount -t smbfs -o username=nki\\m.slagter //nki-avl/scratch /media/scratch
+#!/bin/bash
+
+# sudo mount -t smbfs -o username=nki\\m.slagter //nki-avl/scratch /media/scratch
+# sudo mount -t cifs -o username=nki\\m.slagter //nki-avl/scratch /media/scratch
+# mount_smbfs $HOST $DEST
+HOST=//nki-avl/scratch
+DEST=/media/scratch
+sudo mount -t cifs $HOST $DEST -o username=m.slagter
