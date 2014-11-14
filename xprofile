@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Map CAPS to ESC
+xmodmap $HOME/dotfiles/keymap

@@ -213,6 +213,9 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
+" Sync project to remote, define syncto and syncfrom functions in project folder
+nnoremap <leader>st :! zsh -ci syncto <CR>
+nnoremap <leader>sf :! zsh -ci syncfrom <CR>
 com! WP call WordProcessorMode()
 " Have to be sure that this command won't be found in any plugins, so give it
 " a super goofy name: maartenedit
@@ -230,14 +233,12 @@ nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
-nnoremap <C-DOWN> :call SmallerFont() <cr>
-nnoremap <C-UP> :call LargerFont() <cr>
 nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
 
 " nnoremap <silent> <leader>tn :tabn<CR>
 " nnoremap <silent> <leader>tp :tabp<CR>
-nnoremap <silent> <leader>a za
+" nnoremap <silent> <leader>a za
 vnoremap < <gv
 vnoremap > >gv
 nnoremap Q gqap
@@ -283,7 +284,7 @@ augroup randomautocmds
     au FocusLost * :silent! wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
-    " autocmd vimenter * if !argc() | NERDTree | endif
+    autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 augroup pymode
@@ -310,6 +311,7 @@ iabbrev arr -->
 " }}}
 
 " Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
+let g:localvimrc=fnamemodify('.vimrc.local', ':p')
+if filereadable(g:localvimrc)
+  execute "source" . g:localvimrc
 endif
