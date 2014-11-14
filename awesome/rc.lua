@@ -436,11 +436,7 @@ awful.rules.rules = {
     { rule = { class = "firefox" },
       properties = { tag = tags[1][3] } },
     { rule = { class = "spotify" },
-<<<<<<< HEAD
       properties = { floating = true, tag = tags[1][5] } },
-=======
-      properties = { tag = tags[1][5] } },
->>>>>>> origin/Laptop
     { rule = { class = "Thunderbird" },
       properties = { floating = true, tag = tags[1][5] } }
 }
@@ -488,14 +484,9 @@ awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard m
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
-<<<<<<< HEAD
 awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell('xautolock -time 15 -locker "sudo pm-suspend" &')
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
 awful.util.spawn_with_shell("xmodmap ~/dotfiles/keymap") -- map CAPS to ESC
-=======
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
->>>>>>> origin/Laptop
 -- }}}

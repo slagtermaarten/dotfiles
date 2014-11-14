@@ -2,7 +2,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="gozilla"
 EDITOR=vim
 
-setopt extended_blob
+# setopt extended_blob
 
 eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`

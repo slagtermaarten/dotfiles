@@ -32,7 +32,7 @@ Bundle 'craigemery/vim-autotag'
 Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-wheel'
-Bundle 'valloric/YouCompleteMe'
+" Bundle 'valloric/YouCompleteMe'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -86,9 +86,15 @@ syntax sync minlines=10
 syntax enable
 " let NERDTreeChDirMode=0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
-let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "/home/maarten/dotfiles/ycm_extra_conf.py"
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let vimrplugin_pandoc_args = "--toc -V lang=German"
+let vimrplugin_pandoc_args = "--toc"
+let vimrplugin_pandoc_args = ""
 " let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
@@ -100,7 +106,7 @@ let g:airline#extensions#tabline#left_alt_sep='|'
 let g:airline_section_b='%{strftime("%H:%M")}'
 let g:airline_section_y='BN %{bufnr("%")}'
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsUsePythonVersion=2
+" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
@@ -237,8 +243,8 @@ nnoremap <C-UP> :call LargerFont() <cr>
 nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
 
-" nnoremap <silent> <leader>tn :tabn<CR>
-" nnoremap <silent> <leader>tp :tabp<CR>
+nnoremap <silent> <leader>tn :tabn<CR>
+nnoremap <silent> <leader>tp :tabp<CR>
 nnoremap <silent> <leader>a za
 vnoremap < <gv
 vnoremap > >gv
@@ -271,7 +277,7 @@ augroup pencil
   autocmd!
   autocmd FileType markdown,mkd call pencil#init()
   autocmd FileType textile call pencil#init()
-  autocmd FileType text call pencil#init({'wrap': 'hard'})
+  autocmd FileType text call pencil#init({'wrap': 'soft'})
 augroup END
 
 augroup randomautocmds
@@ -315,3 +321,5 @@ iabbrev arr -->
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
 endif
+
+" SoftPencil

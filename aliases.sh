@@ -23,6 +23,7 @@ alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 alias gvim='UBUNTU_MENUPROXY= gvim'
 alias z='zsh'
+alias email='thunderbird'
 
 # Resolve symlink
 rs () { cd `pwd -P` }
