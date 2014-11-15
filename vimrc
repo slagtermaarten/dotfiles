@@ -33,6 +33,7 @@ Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-wheel'
 Bundle 'valloric/YouCompleteMe'
+Bundle 'christoomey/vim-tmux-navigator'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -88,7 +89,7 @@ let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-" let NERDTreeHijackNetrw=1
+let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy = 1
 set encoding=utf-8
@@ -178,7 +179,7 @@ let maplocalleader = ","
 let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-" map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
 " cnoreabbrev wq w<bar>bd
 " cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
@@ -278,13 +279,12 @@ augroup randomautocmds
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
-    autocmd! bufwritepost .vimrc source %
+    autocmd! bufwritepost ~/dotfiles/vimrc source %
     autocmd BufEnter * silent! lcd %:p:h
-    au Bufenter,BufNewFile,BufReadPost *.md set filetype=markdown
     au FocusLost * :silent! wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
-    autocmd vimenter * if !argc() | NERDTree | endif
+    " autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 augroup pymode
@@ -293,6 +293,7 @@ augroup pymode
 augroup end
 
 augroup filetypechecking
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
