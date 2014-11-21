@@ -1,6 +1,6 @@
 [user]
-  name = Maarten Slagter
-  email = slagter.maarten@gmail.com
+	name = Maarten Slagter
+	email = slagter.maarten@gmail.com
 [alias]
   st = status
   ci = commit

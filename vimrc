@@ -33,6 +33,7 @@ Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-wheel'
 Bundle 'valloric/YouCompleteMe'
+Bundle 'christoomey/vim-tmux-navigator'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -238,6 +239,9 @@ nnoremap <silent> <leader>bi :BundleInstall<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
 nnoremap <silent> <leader>tn :tabn<CR>
 nnoremap <silent> <leader>tp :tabp<CR>
+nnoremap <silent><leader>t :TlistToggle <cr>
+" nnoremap <leader>pa :! pandoc % | :! xclip
+
 vnoremap < <gv
 vnoremap > >gv
 nnoremap Q gqap
@@ -276,9 +280,8 @@ augroup randomautocmds
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
-    autocmd! bufwritepost .vimrc source %
+    autocmd! bufwritepost ~/dotfiles/vimrc source %
     autocmd BufEnter * silent! lcd %:p:h
-    au Bufenter,BufNewFile,BufReadPost *.md set filetype=markdown
     au FocusLost * :silent! wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
@@ -291,6 +294,7 @@ augroup pymode
 augroup end
 
 augroup filetypechecking
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r

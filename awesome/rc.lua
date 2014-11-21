@@ -246,7 +246,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         memwidget,
-        -- batterywidget,
+        batterywidget,
         -- gmailwidget,
         -- mailwidget,
         -- mygmail,
