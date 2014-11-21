@@ -11,4 +11,5 @@ load.fun <- function(x) {
     }
 }
 
-# load.fun(vimcom)
+load.fun(vimcom)
+library(colorout)

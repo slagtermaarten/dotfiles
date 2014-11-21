@@ -43,7 +43,7 @@ fi
 
 function chpwd() {
     emulate -L zsh
-    ls -a
+    ls -tr
 }
 
 autoload zmv

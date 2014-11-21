@@ -31,3 +31,8 @@ snippet mcom "Commented out"
 ${VISUAL}
 -->
 endsnippet
+
+snippet sal "Save and load"
+mySaveObject(${0})
+# ${0} <- myLoadObject(${0})
+endsnippet

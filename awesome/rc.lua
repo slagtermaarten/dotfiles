@@ -304,7 +304,6 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "s", function () awful.util.spawn(terminal) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
-
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -314,7 +313,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
     awful.key({ modkey,           }, "f",     function () awful.layout.set(layouts[1], null) end),
-    awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn("zsh -c -i 'gksu pm-suspend'") end),
+    -- awful.key({ modkey, "Shift"   }, "s",     function () awful.util.spawn("zsh -c -i 'gksu pm-suspend'") end),
     awful.key({ modkey,           }, "g",     function () awful.util.spawn("gvim") end),
     awful.key({ modkey,           }, "b",     function () awful.util.spawn(browser) end),
     awful.key({ modkey,           }, "d",     function () awful.util.spawn(filebrowser) end),
@@ -323,10 +322,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "p",     function () awful.util.spawn("mendeleydesktop") end),
     awful.key({ modkey,           }, "t",     function () awful.util.spawn(emailclient) end),
     awful.key({ modkey, "Control" }, "n",     awful.client.restore),
-
     -- Prompt
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
-
     awful.key({ modkey }, "x",
               function ()
                   awful.prompt.run({ prompt = "Run Lua code: " },
@@ -476,7 +473,7 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- {{{ Autostarts
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once nm-applet")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once gnome-sound-applet")
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 awful.util.spawn_with_shell("dropbox start")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
@@ -484,9 +481,9 @@ awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard m
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
-awful.util.spawn_with_shell("xscreensaver -no-splash")
+-- awful.util.spawn_with_shell("xscreensaver -no-splash")
 -- awful.util.spawn_with_shell('xautolock -time 15 -locker "sudo pm-suspend" &')
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
-awful.util.spawn_with_shell("xmodmap ~/dotfiles/keymap") -- map CAPS to ESC
+-- awful.util.spawn_with_shell("xmodmap ~/dotfiles/keymap") -- map CAPS to ESC
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
 -- }}}

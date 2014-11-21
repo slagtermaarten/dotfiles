@@ -1,24 +1,28 @@
-cd ~/dotfiles
+dir=~/dotfiles
+olddir=~/dotfiles_old
+dotfiles="tmux.conf xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv oh-my-zsh"
+
+cd $dir
 git pull --recurse-submodules
 
-cd $HOME
-ln -s dotfiles/bin .
-ln -s dotfiles/xprofile .xprofile
-ln -s dotfiles/vim .vim
-ln -s dotfiles/vimrc .vimrc
-ln -s dotfiles/gvimrc .gvimrc
-ln -s dotfiles/zshrc .zshrc
-ln -s dotfiles/zshenv .zshenv
-ln -s dotfiles/matplotlibrc .matplotlibrc
-ln -s dotfiles/tmux.conf .tmux.conf
-ln -s dotfiles/gitignore .gitignore
-ln -s dotfiles/gitconfig .gitconfig
-ln -s dotfiles/powerline-fonts .fonts
-ln -s dotfiles/Rprofile .Rprofile
-ln -s dotfiles/ackrc .ackrc
-ln -s dotfiles/ctags .ctags
-ln -s dotfiles/inputrc .inputrc
-ln -s dotfiles/ycm_extra_conf.py .ycm_extra_conf.py
+# create dotfiles_old in homedir
+echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
+mkdir -p $olddir
 
-git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+# change to the dotfiles directory
+echo -n "Changing to the $dir directory ..."
+cd $dir
+
+# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks from the homedir to any files in the ~/dotfiles directory specified in $files
+echo "Moving any existing dotfiles from ~ to $olddir ... "
+for file in $files; do
+    [[ -e ~/.$file ]] && mv ~/.$file ~/dotfiles_old/
+    echo "Creating symlink to $file in home directory."
+    ln -s $dir/$file ~/.$file
+done
+
+# git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 vim +BundleClean +BundleInstall +qall
+
+ln -s dotfiles/powerline-fonts ~/.fonts
+ln -s dotfiles/bin ~/bin

@@ -32,7 +32,7 @@ Bundle 'craigemery/vim-autotag'
 Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
 Bundle 'reedes/vim-wheel'
-" Bundle 'valloric/YouCompleteMe'
+Bundle 'valloric/YouCompleteMe'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -117,14 +117,12 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
 
-
 " syntastic settings
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 " }}}
-
 " Functions {{{
 " function! OpenCC3DSim()
 "   SyntasticToggleMode
@@ -175,7 +173,6 @@ function! TabMove(direction)
         execute "tabmove ".index
     endif
 endfunction
-
 " }}}
 
 " Mappings {{{
@@ -185,12 +182,10 @@ let maplocalleader = ","
 let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-" map <C-n> :NERDTreeToggle<CR>
+map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
-"
 " cnoreabbrev wq w<bar>bd
 " cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
-" nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
@@ -199,7 +194,7 @@ nnoremap k gk
 nnoremap gl :bn<cr>
 nnoremap gh :bp<cr>
 nnoremap gd :bd<cr>
-
+nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
@@ -220,6 +215,9 @@ nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
+" Sync project to remote, define syncto and syncfrom functions in project folder
+nnoremap <leader>st :! zsh -ci syncto <CR>
+nnoremap <leader>sf :! zsh -ci syncfrom <CR>
 com! WP call WordProcessorMode()
 " Have to be sure that this command won't be found in any plugins, so give it
 " a super goofy name: maartenedit
@@ -229,7 +227,7 @@ nmap <leader>ec maartenedit ~/current/<CR>
 nmap <leader>ed maartenedit ~/dotfiles<CR>
 nmap <leader>eb maartenedit ~/dotfiles/bin<CR>
 nmap <leader>em maartenedit Makefile<CR>
-nmap <leader>ev maartenedit $MYVIMRC<CR>
+nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
@@ -238,14 +236,8 @@ nmap <leader>nh :nohl<cr>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
-nnoremap <C-DOWN> :call SmallerFont() <cr>
-nnoremap <C-UP> :call LargerFont() <cr>
-nnoremap <silent><leader>t :TlistToggle <cr>
-" nnoremap <leader>pa :! pandoc % | :! xclip
-
 nnoremap <silent> <leader>tn :tabn<CR>
 nnoremap <silent> <leader>tp :tabp<CR>
-nnoremap <silent> <leader>a za
 vnoremap < <gv
 vnoremap > >gv
 nnoremap Q gqap
@@ -272,7 +264,6 @@ endif
 " }}}
 
 " Autocommands{{{
-
 augroup pencil
   autocmd!
   autocmd FileType markdown,mkd call pencil#init()
@@ -291,7 +282,7 @@ augroup randomautocmds
     au FocusLost * :silent! wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
-    " autocmd vimenter * if !argc() | NERDTree | endif
+    autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 augroup pymode
@@ -318,8 +309,7 @@ iabbrev arr -->
 " }}}
 
 " Local config
-if filereadable($HOME . "/.vimrc.local")
-  source ~/.vimrc.local
+let g:localvimrc=fnamemodify('.vimrc.local', ':p')
+if filereadable(g:localvimrc)
+  execute "source" . g:localvimrc
 endif
-
-" SoftPencil

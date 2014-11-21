@@ -1,29 +1,29 @@
 [user]
-    name = Maarten Slagter
-    email = slagter.maarten@gmail.com
+  name = Maarten Slagter
+  email = slagter.maarten@gmail.com
 [alias]
-    st = status
-    ci = commit
-    cim = commit -m
-    br = branch
-    co = checkout
-    cob = checkout -b
-    df = diff
-    lg = log -p
-    ca = commit --amend
-    cam = commit -a -m
-    lg = log --graph --date=local --color
-    rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    ps = show --color --pretty=format:%b
-    ldiff = difftool -t latex
+  st = status
+  ci = commit
+  cim = commit -m
+  br = branch
+  co = checkout
+  cob = checkout -b
+  df = diff
+  lg = log -p
+  ca = commit --amend
+  cam = commit -a -m
+  lg = log --graph --date=local --color
+  rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  ps = show --color --pretty=format:%b
+  ldiff = difftool -t latex
 [pager]
-    status = true
+  status = true
 [core]
-    editor = vim
+  editor = vim
 [difftool.latex]
-    cmd = git-latexdiff "$LOCAL" "$REMOTE"
+  cmd = git-latexdiff "$LOCAL" "$REMOTE"
 [difftool]
-    tool = gvimdiff
-    prompt = false
+  tool = gvimdiff
+  prompt = false
 [push]
-    default = simple
+  default = simple
