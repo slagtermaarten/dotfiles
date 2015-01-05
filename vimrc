@@ -14,26 +14,27 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'nelstrom/vim-markdown-folding'
 Bundle 'L9'
-Bundle 'tComment'
+Bundle 'tomtom/tcomment_vim'
 Bundle 'c.vim'
 Bundle 'Vim-R-plugin'
-Bundle 'rsmenon/vim-mathematica'
+" Bundle 'rsmenon/vim-mathematica'
 Bundle 'bling/vim-airline'
-Bundle 'sukima/xmledit'
+" Bundle 'sukima/xmledit'
 Bundle 'eshock/vim-matchit'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
+" Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'honza/vim-snippets'
-Bundle 'mileszs/ack.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'fs111/pydoc.vim'
-Bundle 'craigemery/vim-autotag'
+" Bundle 'mileszs/ack.vim'
+" Bundle 'vim-scripts/taglist.vim'
+" Bundle 'fs111/pydoc.vim'
+" Bundle 'craigemery/vim-autotag'
 Bundle 'scrooloose/NERDTree'
 Bundle 'reedes/vim-pencil'
-Bundle 'reedes/vim-wheel'
+" Bundle 'reedes/vim-wheel'
 Bundle 'valloric/YouCompleteMe'
 Bundle 'christoomey/vim-tmux-navigator'
+" Bundle 'tpope/vim-fugitive'
 
 " Bundle 'Rip-Rip/clang_complete'
 " Bundle 'wincent/Command-T'
@@ -85,6 +86,9 @@ set grepprg=ack-grep\ -k
 syntax sync minlines=10
 syntax enable
 " let NERDTreeChDirMode=0
+let vimrplugin_openpdf = 1
+map <silent> <LocalLeader>t :call RAction("tail")<CR>
+map <silent> <LocalLeader>h :call RAction("head")<CR>
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
@@ -197,7 +201,7 @@ nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
-
+inoremap ii <Esc>
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>c <c-_><c-_>
 nnoremap <leader>y :call ResetSyntax() <cr>
@@ -234,7 +238,7 @@ nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
-nnoremap <silent><leader>t :TlistToggle <cr>
+" nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
 
 " nnoremap <silent> <leader>tn :tabn<CR>
@@ -266,15 +270,7 @@ endif
 " }}}
 
 " Autocommands{{{
-
-augroup pencil
-  autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType textile call pencil#init()
-  autocmd FileType text call pencil#init({'wrap': 'soft'})
-augroup END
-
-augroup randomautocmds
+augroup variousautocmds
     autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
@@ -303,6 +299,11 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
 augroup end
+
+augroup pencil
+  autocmd!
+  autocmd FileType rmd,markdown,mkd,textile,text call pencil#init({'wrap': 'soft'})
+augroup END
 " }}}
 
 " Abbreviations {{{

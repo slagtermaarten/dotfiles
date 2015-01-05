@@ -28,6 +28,8 @@ set enc=utf-8
 let g:nerdtree_tabs_open_on_gui_startup=0
 
 " {{{ Font size manipulation
+nnoremap <C-DOWN> :call SmallerFont() <cr>
+nnoremap <C-UP> :call LargerFont() <cr>
 let s:pattern = '^\(.* \)\([1-9][0-9]*\)$'
 let s:minfontsize = 6
 let s:maxfontsize = 16
