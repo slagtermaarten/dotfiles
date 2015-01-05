@@ -9,10 +9,10 @@ alias x='chmod +x'
 # alias ytodo='$HOME/Dropbox/todo/`date +%d%m%y --date="yesterday"`.md'
 # alias gtodo='geeknote create --notebook todo --title `date +%d%m%y` --content "WRITE"'
 # alias etodo='geeknote edit --notebook todo --title `date +%d%m%y`'
-alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
+# alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
 alias bi='vim +BundleClean! +BundleInstall +qall'
 alias ff='find . -name'
-alias ag='sudo apt-get install'
+# alias ag='sudo apt-get install'
 
 alias -s md=vim
 alias -s tex=vim
@@ -23,15 +23,17 @@ alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
 alias gvim='UBUNTU_MENUPROXY= gvim'
 alias z='zsh'
+alias t='tmux'
 
 # Resolve symlink
 rs () { cd `pwd -P` }
-vi () { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
-viewpdf () { command evince "$@" & }
-updatepandoc() {
-  cabal update
-  cabal install pandoc pandoc-citeproc
-}
+vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
+vir () { command vim "$@" -S ~/dotfiles/bin/VimRSession.vim }
+# viewpdf () { command evince "$@" & }
+# updatepandoc() {
+#   cabal update
+#   cabal install pandoc pandoc-citeproc
+# }
 
 autoload -U zmv
 alias mmv='noglob zmv -W'
