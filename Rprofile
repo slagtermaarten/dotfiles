@@ -1,4 +1,4 @@
-library(utils)
+# library(utils)
 options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
 load.fun <- function(x) {
@@ -11,5 +11,5 @@ load.fun <- function(x) {
     }
 }
 
-load.fun(vimcom)
+library(vimcom)
 library(colorout)

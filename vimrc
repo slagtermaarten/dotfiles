@@ -87,16 +87,10 @@ syntax sync minlines=10
 syntax enable
 " let NERDTreeChDirMode=0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
-let g:ycm_global_ycm_extra_conf = "/home/maarten/dotfiles/ycm_extra_conf.py"
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
+let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-let vimrplugin_pandoc_args = "--toc -V lang=German"
-let vimrplugin_pandoc_args = "--toc"
-let vimrplugin_pandoc_args = ""
-" let NERDTreeHijackNetrw=1
+let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
 set encoding=utf-8
@@ -124,6 +118,7 @@ let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_f
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 " }}}
+
 " Functions {{{
 " function! OpenCC3DSim()
 "   SyntasticToggleMode
@@ -187,7 +182,9 @@ map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
 " cnoreabbrev wq w<bar>bd
 " cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
+nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
+" cnoreabbrev q bd
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
 nnoremap ; :
 nnoremap j gj
@@ -237,11 +234,14 @@ nmap <leader>nh :nohl<cr>
 nnoremap <silent> <leader>bi :BundleInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
-nnoremap <silent> <leader>tn :tabn<CR>
-nnoremap <silent> <leader>tp :tabp<CR>
-nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
 
+" nnoremap <silent><leader>t :TlistToggle <cr>
+" nnoremap <leader>pa :! pandoc % | :! xclip
+
+" nnoremap <silent> <leader>tn :tabn<CR>
+" nnoremap <silent> <leader>tp :tabp<CR>
+" nnoremap <silent> <leader>a za
 vnoremap < <gv
 vnoremap > >gv
 nnoremap Q gqap
