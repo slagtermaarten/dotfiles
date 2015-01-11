@@ -1,4 +1,7 @@
 #!/bin/bash
 
+# Set international keyboard
+setxkbmap -layout us -variant intl
+
 # Map CAPS to ESC
 xmodmap $HOME/dotfiles/keymap
