@@ -271,7 +271,8 @@ endif
 
 " Autocommands{{{
 augroup variousautocmds
-    autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
+    au BufWritePre <buffer> :call StripTrailingWhitespaces()
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD

@@ -21,6 +21,7 @@ alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias xclipc="xclip -selection c"
+alias int="~/dotfiles/bin/intmon"
 alias gvim='UBUNTU_MENUPROXY= gvim'
 alias z='zsh'
 alias t='tmux'

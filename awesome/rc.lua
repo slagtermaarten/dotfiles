@@ -71,16 +71,16 @@ layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier
+    -- awful.layout.suit.spiral,
+    -- awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    -- awful.layout.suit.fair,
+    -- awful.layout.suit.fair.horizontal,
+    -- awful.layout.suit.max,
+    -- awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.magnifier
 }
 -- }}}
 
@@ -93,7 +93,7 @@ layouts =
 --}}
 tags = {
 names  = { "1", "2", "3", "4", "5", "6", "7", "8", "9"},
-layout = { layouts[3], layouts[3], layouts[3], layouts[3], layouts[3], layouts[1], layouts[1], layouts[1], layouts[1] }
+layout = { layouts[2], layouts[1], layouts[2], layouts[2], layouts[2], layouts[2], layouts[2], layouts[1], layouts[1] }
 }
 for s = 1, screen.count() do
  -- Each screen has its own tag table.
@@ -110,11 +110,24 @@ myawesomemenu = {
    { "quit", awesome.quit }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "Debian", debian.menu.Debian_menu.Debian },
-                                    { "open terminal", terminal },
-                                    -- { "zzz", "bash zsh -c -i 'gksu pm-suspend'"},
-                                    { "zzz", "bash -c ~/dotfiles/bin/zzz" },
+appsmenu = {
+   { "terminal", terminal },
+   { "gvim", "gvim" },
+   { "files", "thunar" },
+   { "mendeley", "mendeleydesktop" },
+   { "email", "thunderbird" },
+   -- { "tmux", terminal .. "tmux" },
+   { "browser", "firefox" }
+}
+
+
+
+mymainmenu = awful.menu({ items = { 
+                                    { "apps", appsmenu, beautiful.awesome_icon },
+                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    -- { "debian", debian.menu.Debian_menu.Debian },
+                                    -- { "open terminal", terminal },
+                                    { "suspend", "bash -c ~/dotfiles/bin/zzz" },
                                     { "shutdown", 'bash -c ~/dotfiles/bin/myshutdown'}
                                   }
                         })
@@ -298,6 +311,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "s",     function () awful.util.spawn(terminal) end),
+    awful.key({ modkey,           }, "t",     function () awful.util.spawn(terminal .. "-e tmux attach") end),
     awful.key({ modkey, "Control" }, "r",     awesome.restart),
     awful.key({ modkey, "Shift"   }, "q",     awesome.quit),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact( 0.05)    end),
@@ -411,7 +425,7 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
     { rule = { class = "Skype" },
-      properties = { size_hints_honor = false } },
+      properties = { floating = true, size_hints_honor = false } },
     { rule = { class = "Compucell3d" },
       properties = { floating = true } },
     { rule = { class = "Pinentry" },
@@ -422,14 +436,14 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "Mathematica" },
       properties = { floating = true } },
-    { rule = { class = "Chromium-browser" },
-      properties = { tag = tags[1][3] } },
-    { rule = { class = "firefox" },
-      properties = { tag = tags[1][3] } },
-    { rule = { class = "spotify" },
+    { rule = { class = "Chrome" },
+      properties = { tag = tags[1][2] } },
+    { rule = { class = "Firefox" },
+      properties = { tag = tags[1][2] } },
+    { rule = { class = "Spotify" },
       properties = { tag = tags[1][5] } },
     { rule = { class = "Thunderbird" },
-      properties = { tag = tags[1][5] } }
+      properties = { tag = tags[1][3] } }
 }
 -- }}}
 
@@ -467,11 +481,13 @@ client.add_signal("unfocus", function(c) c.border_color = beautiful.border_norma
 -- {{{ Autostarts
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once nm-applet")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once gnome-sound-applet")
-awful.util.spawn_with_shell("dropbox start")
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once workrave")
+-- awful.util.spawn_with_shell("dropbox start")
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xfce4-power-manager") -- Battery monitor, etc.
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard manager
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
--- awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
+awful.util.spawn_with_shell("~/dotfiles/bin/run_once owncloud")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
 -- }}}
