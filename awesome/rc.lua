@@ -70,10 +70,10 @@ modkey = "Mod4"
 layouts =
 {
     awful.layout.suit.floating,
-    awful.layout.suit.tile,
+    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile,
     awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.spiral,
-    -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
     -- awful.layout.suit.tile.top,
     -- awful.layout.suit.fair,
@@ -116,6 +116,8 @@ appsmenu = {
    { "files", "thunar" },
    { "mendeley", "mendeleydesktop" },
    { "email", "thunderbird" },
+   { "tmux", terminal .. " -e tmux"},
+   { "tmux-attach", terminal .. " -e tmux attach"},
    -- { "tmux", terminal .. "tmux" },
    { "browser", "firefox" }
 }
@@ -123,12 +125,21 @@ appsmenu = {
 
 
 mymainmenu = awful.menu({ items = { 
-                                    { "apps", appsmenu, beautiful.awesome_icon },
-                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
+                                    -- { "apps", appsmenu, beautiful.awesome_icon },
+                                    { "terminal", terminal },
+                                    { "gvim", "gvim" },
+                                    { "files", "thunar" },
+                                    { "mendeley", "mendeleydesktop" },
+                                    { "email", "thunderbird" },
+                                    { "tmux", tmux_cmd },
+                                    { "tmux-attach", terminal .. " -e tmux attach"},
+                                    -- { "tmux", terminal .. "tmux" },
+                                    { "browser", "firefox" },
                                     -- { "debian", debian.menu.Debian_menu.Debian },
                                     -- { "open terminal", terminal },
+                                    { "awesome", myawesomemenu, beautiful.awesome_icon },
                                     { "suspend", "bash -c ~/dotfiles/bin/zzz" },
-                                    { "shutdown", 'bash -c ~/dotfiles/bin/myshutdown'}
+                                    { "shutdown", 'bash -c ~/dotfiles/bin/myshutdown' }
                                   }
                         })
 

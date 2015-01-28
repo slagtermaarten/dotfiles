@@ -55,12 +55,12 @@ set showmode
 set bs=2
 set hidden
 set laststatus=2
-set tabstop=2
+set tabstop=4
 set expandtab
 set autoindent
 set hlsearch
 set softtabstop=2
-set sw=2
+set sw=4
 set incsearch
 set nobackup
 set noswapfile
