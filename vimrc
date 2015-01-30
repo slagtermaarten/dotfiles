@@ -23,7 +23,7 @@ Bundle 'bling/vim-airline'
 Bundle 'eshock/vim-matchit'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
-" Bundle 'LaTeX-Box-Team/LaTeX-Box'
+Bundle 'LaTeX-Box-Team/LaTeX-Box'
 Bundle 'honza/vim-snippets'
 " Bundle 'mileszs/ack.vim'
 " Bundle 'vim-scripts/taglist.vim'
@@ -87,6 +87,7 @@ syntax sync minlines=10
 syntax enable
 " let NERDTreeChDirMode=0
 let vimrplugin_openpdf = 1
+let vimrplugin_vim_wd = 1
 map <silent> <LocalLeader>t :call RAction("tail")<CR>
 map <silent> <LocalLeader>h :call RAction("head")<CR>
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
@@ -196,7 +197,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gl :bn<cr>
 nnoremap gh :bp<cr>
-nnoremap gd :bd<cr>
+nnoremap gd :bn <bar> bd # <cr>
 nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>

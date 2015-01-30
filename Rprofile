@@ -11,8 +11,12 @@ load.fun <- function(x) {
     }
 }
 
-library(vimcom)
-library(colorout)
+if(interactive()){
+    library(colorout)
+    library(setwidth)
+    library(vimcom)
+}
+
 library(knitr)
 library(reshape2)
 

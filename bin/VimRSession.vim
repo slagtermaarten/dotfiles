@@ -1,6 +1,8 @@
 " Open R session
 exe "normal ,rf"
-call g:SendCmdToR("knit('" . expand('%:t') .  "')")
+exe "normal ,rd"
+call g:SendCmdToR("source('./.Rprofile')")
+" call g:SendCmdToR("knit('" . expand('%:t') .  "')")
 
 " Knit file, loading all variables into workspace
-exe "normal ,kp"
+exe "normal ,kn"
