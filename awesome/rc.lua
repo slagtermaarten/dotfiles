@@ -124,15 +124,15 @@ appsmenu = {
 
 
 
-mymainmenu = awful.menu({ items = { 
+mymainmenu = awful.menu({ items = {
                                     -- { "apps", appsmenu, beautiful.awesome_icon },
                                     { "terminal", terminal },
                                     { "gvim", "gvim" },
                                     { "files", "thunar" },
                                     { "mendeley", "mendeleydesktop" },
                                     { "email", "thunderbird" },
-                                    { "tmux", tmux_cmd },
-                                    { "tmux-attach", terminal .. " -e tmux attach"},
+                                    { "tmux", terminal .. " -e tmux" },
+                                    { "tmux-attach", terminal .. " -e 'tmux attach'"},
                                     -- { "tmux", terminal .. "tmux" },
                                     { "browser", "firefox" },
                                     -- { "debian", debian.menu.Debian_menu.Debian },
@@ -322,7 +322,7 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "s",     function () awful.util.spawn(terminal) end),
-    awful.key({ modkey,           }, "t",     function () awful.util.spawn(terminal .. "-e tmux attach") end),
+    awful.key({ modkey,           }, "t",     function () awful.util.spawn(terminal .. " -e tmux") end),
     awful.key({ modkey, "Control" }, "r",     awesome.restart),
     -- awful.key({ modkey, "Shift"   }, "q",     awesome.quit),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact( 0.05)    end),
@@ -360,7 +360,7 @@ clientkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "o",      awful.client.movetoscreen                        ),
     awful.key({ modkey, "Shift"   }, "r",      function (c) c:redraw()                       end),
-    awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+    -- awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
@@ -499,6 +499,6 @@ awful.util.spawn_with_shell("~/dotfiles/bin/run_once parcellite") -- clipboard m
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once spotify")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once thunderbird")
 awful.util.spawn_with_shell("~/dotfiles/bin/run_once xscreensaver -no-splash")
-awful.util.spawn_with_shell("~/dotfiles/bin/run_once owncloud")
+-- awful.util.spawn_with_shell("~/dotfiles/bin/run_once owncloud")
 -- awful.util.spawn_with_shell("~/dotfiles/bin/run_once vlc")
 -- }}}
