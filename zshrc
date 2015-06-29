@@ -4,7 +4,7 @@ EDITOR=vim
 
 # setopt extended_blob
 
-eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
+# eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`
 
 # Set to this to use case-sensitive completion

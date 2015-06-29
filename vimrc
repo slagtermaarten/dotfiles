@@ -1,49 +1,53 @@
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/custom
-call vundle#rc()
+call vundle#begin()
+set shell=/bin/bash
+
+" Plugins {{{
+Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
+" Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'L9'
+Plugin 'tComment'
+Plugin 'c.vim'
+Plugin 'Vim-R-plugin'
+Plugin 'rsmenon/vim-mathematica'
+Plugin 'bling/vim-airline'
+Plugin 'sukima/xmledit'
+Plugin 'eshock/vim-matchit'
+Plugin 'kien/ctrlp.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'honza/vim-snippets'
+Plugin 'mileszs/ack.vim'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'fs111/pydoc.vim'
+Plugin 'craigemery/vim-autotag'
+Plugin 'scrooloose/NERDTree'
+Plugin 'reedes/vim-pencil'
+Plugin 'reedes/vim-wheel'
+Plugin 'christoomey/vim-tmux-navigator'
+
+" Plugin 'valloric/YouCompleteMe'
+" Plugin 'Rip-Rip/clang_complete'
+" Plugin 'wincent/Command-T'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'kien/ctrlp'
+" Plugin 'ervandew/supertab'
+" Plugin 'matze/vim-tex-fold'
+" Plugin 'klen/python-mode'
+" Plugin 'ivanov/vim-ipython'
+" Plugin 'johndgiese/vipy'
+
+call vundle#end()
 filetype plugin indent on
-
-" Bundles {{{
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'L9'
-Bundle 'tComment'
-Bundle 'c.vim'
-Bundle 'Vim-R-plugin'
-Bundle 'rsmenon/vim-mathematica'
-Bundle 'bling/vim-airline'
-Bundle 'sukima/xmledit'
-Bundle 'eshock/vim-matchit'
-Bundle 'kien/ctrlp.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'honza/vim-snippets'
-Bundle 'mileszs/ack.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'fs111/pydoc.vim'
-Bundle 'craigemery/vim-autotag'
-Bundle 'scrooloose/NERDTree'
-Bundle 'reedes/vim-pencil'
-Bundle 'reedes/vim-wheel'
-Bundle 'valloric/YouCompleteMe'
-Bundle 'christoomey/vim-tmux-navigator'
-
-" Bundle 'Rip-Rip/clang_complete'
-" Bundle 'wincent/Command-T'
-" Bundle 'scrooloose/syntastic'
-" Bundle 'kien/ctrlp'
-" Bundle 'ervandew/supertab'
-" Bundle 'matze/vim-tex-fold'
-" Bundle 'klen/python-mode'
-" Bundle 'ivanov/vim-ipython'
-" Bundle 'johndgiese/vipy'
 " }}}
 
 " Settings {{{
@@ -231,7 +235,7 @@ nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
 nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
 nmap <leader>nh :nohl<cr>
-nnoremap <silent> <leader>bi :BundleInstall<CR>
+nnoremap <silent> <leader>bi :PluginInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
 " nnoremap <leader>pa :! pandoc % | :! xclip

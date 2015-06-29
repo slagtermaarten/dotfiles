@@ -10,21 +10,16 @@ alias x='chmod +x'
 # alias gtodo='geeknote create --notebook todo --title `date +%d%m%y` --content "WRITE"'
 # alias etodo='geeknote edit --notebook todo --title `date +%d%m%y`'
 # alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
-alias bi='vim +BundleClean! +BundleInstall +qall'
+alias bi='vim +PluginClean! +PluginInstall +qall'
 alias ff='find . -name'
 # alias ag='sudo apt-get install'
 
 alias -s md=vim
 alias -s tex=vim
 alias -s com=firefox
-alias rcfix="vimdiff /etc/xdg/awesome/rc.lua .config/awesome/rc.lua"
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
-alias xclipc="xclip -selection c"
-alias gvim='UBUNTU_MENUPROXY= gvim'
-alias z='zsh'
-alias email='thunderbird'
-alias t='tmux'
+alias vim='/usr/local/opt/vim/bin/vim'
 
 # Resolve symlink
 rs () { cd `pwd -P` }
