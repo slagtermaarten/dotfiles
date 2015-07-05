@@ -1,50 +1,52 @@
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/custom
-call vundle#rc()
+call vundle#begin()
+set shell=/bin/bash
+
+" Plugins {{{
+Plugin 'gmarik/Vundle.vim'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'nelstrom/vim-markdown-folding'
+Plugin 'L9'
+Plugin 'tComment'
+Plugin 'c.vim'
+Plugin 'Vim-R-plugin'
+Plugin 'rsmenon/vim-mathematica'
+Plugin 'bling/vim-airline'
+Plugin 'sukima/xmledit'
+Plugin 'eshock/vim-matchit'
+Plugin 'kien/ctrlp.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'LaTeX-Box-Team/LaTeX-Box'
+Plugin 'honza/vim-snippets'
+Plugin 'mileszs/ack.vim'
+Plugin 'vim-scripts/taglist.vim'
+Plugin 'fs111/pydoc.vim'
+Plugin 'craigemery/vim-autotag'
+Plugin 'scrooloose/NERDTree'
+Plugin 'reedes/vim-pencil'
+Plugin 'reedes/vim-wheel'
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'valloric/YouCompleteMe'
+
+" Plugin 'Rip-Rip/clang_complete'
+" Plugin 'wincent/Command-T'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'kien/ctrlp'
+" Plugin 'ervandew/supertab'
+" Plugin 'matze/vim-tex-fold'
+" Plugin 'klen/python-mode'
+" Plugin 'ivanov/vim-ipython'
+" Plugin 'johndgiese/vipy'
+
+call vundle#end()
 filetype plugin indent on
-
-" Bundles {{{
-Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'nelstrom/vim-markdown-folding'
-Bundle 'L9'
-Bundle 'tomtom/tcomment_vim'
-Bundle 'c.vim'
-Bundle 'Vim-R-plugin'
-" Bundle 'rsmenon/vim-mathematica'
-Bundle 'bling/vim-airline'
-" Bundle 'sukima/xmledit'
-Bundle 'eshock/vim-matchit'
-Bundle 'kien/ctrlp.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'LaTeX-Box-Team/LaTeX-Box'
-Bundle 'honza/vim-snippets'
-" Bundle 'mileszs/ack.vim'
-" Bundle 'vim-scripts/taglist.vim'
-" Bundle 'fs111/pydoc.vim'
-" Bundle 'craigemery/vim-autotag'
-Bundle 'scrooloose/NERDTree'
-Bundle 'reedes/vim-pencil'
-" Bundle 'reedes/vim-wheel'
-Bundle 'valloric/YouCompleteMe'
-Bundle 'christoomey/vim-tmux-navigator'
-" Bundle 'tpope/vim-fugitive'
-
-" Bundle 'Rip-Rip/clang_complete'
-" Bundle 'wincent/Command-T'
-" Bundle 'scrooloose/syntastic'
-" Bundle 'kien/ctrlp'
-" Bundle 'ervandew/supertab'
-" Bundle 'matze/vim-tex-fold'
-" Bundle 'klen/python-mode'
-" Bundle 'ivanov/vim-ipython'
-" Bundle 'johndgiese/vipy'
 " }}}
 
 " Settings {{{
@@ -52,15 +54,16 @@ set pastetoggle=<F2>
 " set listchars
 set clipboard=unnamed
 set showmode
+set autoread
 set bs=2
 set hidden
 set laststatus=2
-set tabstop=4
+set tabstop=2
 set expandtab
 set autoindent
 set hlsearch
 set softtabstop=2
-set sw=4
+set sw=2
 set incsearch
 set nobackup
 set noswapfile
@@ -86,17 +89,13 @@ set grepprg=ack-grep\ -k
 syntax sync minlines=10
 syntax enable
 " let NERDTreeChDirMode=0
-let vimrplugin_openpdf = 1
-let vimrplugin_vim_wd = 1
-map <silent> <LocalLeader>t :call RAction("tail")<CR>
-map <silent> <LocalLeader>h :call RAction("head")<CR>
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
-let g:mma_candy = 1
+let g:mma_candy=1
 set encoding=utf-8
 let g:airline_powerline_fonts=1
 let g:airline#extensions#bufferline#enabled=1
@@ -105,7 +104,7 @@ let g:airline#extensions#tabline#left_alt_sep='|'
 let g:airline_section_b='%{strftime("%H:%M")}'
 let g:airline_section_y='BN %{bufnr("%")}'
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsUsePythonVersion=2
+" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
@@ -115,7 +114,6 @@ set tags=./tags;$HOME
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
-
 
 " syntastic settings
 let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
@@ -174,7 +172,6 @@ function! TabMove(direction)
         execute "tabmove ".index
     endif
 endfunction
-
 " }}}
 
 " Mappings {{{
@@ -197,12 +194,12 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gl :bn<cr>
 nnoremap gh :bp<cr>
-nnoremap gd :bn <bar> bd # <cr>
+nnoremap gd :bd<cr>
 nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
-inoremap ii <Esc>
+
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>c <c-_><c-_>
 nnoremap <leader>y :call ResetSyntax() <cr>
@@ -236,9 +233,12 @@ nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
 nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
-nnoremap <silent> <leader>bi :BundleInstall<CR>
+nmap <leader>nh :nohl<cr>
+nnoremap <silent> <leader>bi :PluginInstall<CR>
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
+" nnoremap <leader>pa :! pandoc % | :! xclip
+
 " nnoremap <silent><leader>t :TlistToggle <cr>
 " nnoremap <leader>pa :! pandoc % | :! xclip
 
@@ -271,9 +271,15 @@ endif
 " }}}
 
 " Autocommands{{{
-augroup variousautocmds
-    au BufWritePre <buffer> :call StripTrailingWhitespaces()
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType textile call pencil#init()
+  autocmd FileType text call pencil#init({'wrap': 'soft'})
+augroup END
+
+augroup randomautocmds
+    autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
@@ -282,7 +288,7 @@ augroup variousautocmds
     au FocusLost * :silent! wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
-    " autocmd vimenter * if !argc() | NERDTree | endif
+    autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 augroup pymode
@@ -301,11 +307,6 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
 augroup end
-
-augroup pencil
-  autocmd!
-  autocmd FileType rmd,markdown,mkd,textile,text call pencil#init({'wrap': 'soft'})
-augroup END
 " }}}
 
 " Abbreviations {{{
