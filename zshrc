@@ -1,6 +1,6 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="gozilla"
-EDITOR=vim
+export EDITOR=vim
 
 # setopt extended_blob
 
@@ -48,4 +48,5 @@ function chpwd() {
 
 autoload zmv
 
+source ~/bin/tmuxinator.zsh
 # source ~/venv/*/activate

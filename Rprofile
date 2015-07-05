@@ -1,6 +1,10 @@
 # library(utils)
 options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
+githubinstalls <- function() {
+  devtools::install_github("jalvesaq/VimCom")
+}
+
 load.fun <- function(x) {
     x <- as.character(substitute(x))
     if (isTRUE(x %in% .packages(all.available=TRUE))) {
@@ -11,6 +15,7 @@ load.fun <- function(x) {
     }
 }
 
+
 if(interactive()){
     library(colorout)
     library(setwidth)
@@ -18,6 +23,5 @@ if(interactive()){
 }
 
 library(knitr)
-library(reshape2)
 
 # setHook('plot.new', function(...) par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01))
