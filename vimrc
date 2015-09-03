@@ -8,7 +8,7 @@ set shell=/bin/bash
 " Plugins {{{
 Plugin 'gmarik/vundle'
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -34,6 +34,7 @@ Plugin 'scrooloose/NERDTree'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'jalvesaq/R-Vim-runtime'
 
 " Plugin 'valloric/YouCompleteMe'
 " Plugin 'Rip-Rip/clang_complete'
@@ -104,8 +105,8 @@ let g:airline#extensions#bufferline#overwrite_variables=1
 let g:airline#extensions#tabline#left_alt_sep='|'
 let g:airline_section_b='%{strftime("%H:%M")}'
 let g:airline_section_y='BN %{bufnr("%")}'
-let g:UltiSnipsEditSplit="vertical"
-" let g:UltiSnipsUsePythonVersion=
+" let g:UltiSnipsEditSplit="vertical"
+"" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
@@ -302,11 +303,17 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set ft=tex
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
 " }}}
 
