@@ -12,14 +12,14 @@ alias x='chmod +x'
 # alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
 alias bi='vim +PluginClean! +PluginInstall +qall'
 alias ff='find . -name'
-# alias ag='sudo apt-get install'
+alias vim='~/Applications/mvim -v'
 
 alias -s md=vim
 alias -s tex=vim
 alias -s com=firefox
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
-alias vim='/usr/local/opt/vim/bin/vim'
+# alias vim='~/usr/local/opt/vim/bin/vim'
 
 # Resolve symlink
 rs () { cd `pwd -P` }

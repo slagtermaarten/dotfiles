@@ -1,4 +1,6 @@
-# library(utils)
+library(utils)
+library(devtools)
+library(knitr)
 options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
 load.fun <- function(x) {

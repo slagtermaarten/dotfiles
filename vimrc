@@ -1,53 +1,7 @@
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/custom
-call vundle#begin()
-set shell=/bin/bash
 
-" Plugins {{{
-Plugin 'gmarik/vundle'
-Plugin 'gmarik/Vundle.vim'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'nelstrom/vim-markdown-folding'
-Plugin 'L9'
-Plugin 'tComment'
-Plugin 'c.vim'
-Plugin 'Vim-R-plugin'
-Plugin 'rsmenon/vim-mathematica'
-Plugin 'bling/vim-airline'
-Plugin 'sukima/xmledit'
-Plugin 'eshock/vim-matchit'
-Plugin 'kien/ctrlp.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'honza/vim-snippets'
-Plugin 'mileszs/ack.vim'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'fs111/pydoc.vim'
-Plugin 'craigemery/vim-autotag'
-Plugin 'scrooloose/NERDTree'
-Plugin 'reedes/vim-pencil'
-Plugin 'reedes/vim-wheel'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'jalvesaq/R-Vim-runtime'
-
-" Plugin 'valloric/YouCompleteMe'
-" Plugin 'Rip-Rip/clang_complete'
-" Plugin 'wincent/Command-T'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'kien/ctrlp'
-" Plugin 'ervandew/supertab'
-" Plugin 'matze/vim-tex-fold'
-" Plugin 'klen/python-mode'
-" Plugin 'ivanov/vim-ipython'
-" Plugin 'johndgiese/vipy'
-
-call vundle#end()
 filetype plugin indent on
 " }}}
 
@@ -92,19 +46,7 @@ syntax sync minlines=10
 syntax enable
 " let NERDTreeChDirMode=0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
-let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let NERDTreeHijackNetrw=1
-let g:mma_highlight_option = "solarized"
-let g:mma_candy=1
 set encoding=utf-8
-let g:airline_powerline_fonts=1
-let g:airline#extensions#bufferline#enabled=1
-let g:airline#extensions#bufferline#overwrite_variables=1
-let g:airline#extensions#tabline#left_alt_sep='|'
-let g:airline_section_b='%{strftime("%H:%M")}'
-let g:airline_section_y='BN %{bufnr("%")}'
 " let g:UltiSnipsEditSplit="vertical"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
@@ -180,10 +122,6 @@ endfunction
 let mapleader = ","
 " let maplocalleader = "\\"
 let maplocalleader = ","
-let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
-vmap <Space> <Plug>RDSendSelection
-nmap <Space> <Plug>RDSendLine
-map <C-n> :NERDTreeToggle<CR>
 " map <C-m> :NERDTreeFind<CR>
 " cnoreabbrev wq w<bar>bd
 " cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
@@ -319,7 +257,6 @@ augroup end
 
 " Abbreviations {{{
 iabbrev THe The
-iabbrev cc3 CompuCell3D
 iabbrev arr -->
 " }}}
 

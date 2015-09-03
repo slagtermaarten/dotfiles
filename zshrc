@@ -1,6 +1,6 @@
 ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="gozilla"
-EDITOR=vim
+export EDITOR=vim
 
 # setopt extended_blob
 
@@ -28,7 +28,7 @@ EDITOR=vim
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git debian vi-mode autojump)
+plugins=(git autojump)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
@@ -50,3 +50,8 @@ autoload zmv
 autojump
 
 # source ~/venv/*/activate
+
+source ~/bin/tmuxinator.zsh
+
+# PERL_MB_OPT="--install_base \"/Users/m.slagter/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/Users/m.slagter/perl5"; export PERL_MM_OPT;

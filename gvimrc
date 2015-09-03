@@ -21,6 +21,7 @@ set guitablabel=%t
 let g:airline_theme='solarized'
 let g:solarized_contrast="high"
 set guifont=Meslo\ LG\ S\ DZ\ for\ Powerline\ 10
+set guifont=Monaco\ for\ Powerline:h12
 " set lines=50 columns=90
 set fileencoding=utf-8
 set enc=utf-8
