@@ -20,6 +20,7 @@ alias -s com=firefox
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias vim='/usr/local/opt/vim/bin/vim'
+alias ster='ssh m.slagter@steroid'
 
 # Resolve symlink
 rs () { cd `pwd -P` }

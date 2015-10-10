@@ -287,10 +287,11 @@ augroup randomautocmds
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost ~/dotfiles/vimrc source %
     autocmd BufEnter * silent! lcd %:p:h
-    au FocusLost * :silent! wall
+    " au FocusLost * :silent! wall
+    au FocusLost * :wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
-    autocmd vimenter * if !argc() | NERDTree | endif
+    " autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
 augroup pymode
@@ -308,12 +309,22 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal nowrap
     au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
     au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
     au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
     au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.csv setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.csv setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.maf setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.maf setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal list
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal nowrap
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
 " }}}
 
