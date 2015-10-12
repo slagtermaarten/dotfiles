@@ -19,7 +19,7 @@ Plugin 'tComment'
 Plugin 'c.vim'
 Plugin 'Vim-R-plugin'
 Plugin 'rsmenon/vim-mathematica'
-Plugin 'bling/vim-airline'
+" Plugin 'bling/vim-airline'
 Plugin 'sukima/xmledit'
 Plugin 'eshock/vim-matchit'
 Plugin 'kien/ctrlp.vim'
@@ -35,6 +35,7 @@ Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jalvesaq/R-Vim-runtime'
+Plugin 'epeli/slimux'
 
 " Plugin 'valloric/YouCompleteMe'
 " Plugin 'Rip-Rip/clang_complete'
@@ -99,12 +100,12 @@ let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
 set encoding=utf-8
-let g:airline_powerline_fonts=1
-let g:airline#extensions#bufferline#enabled=1
-let g:airline#extensions#bufferline#overwrite_variables=1
-let g:airline#extensions#tabline#left_alt_sep='|'
-let g:airline_section_b='%{strftime("%H:%M")}'
-let g:airline_section_y='BN %{bufnr("%")}'
+" let g:airline_powerline_fonts=1
+" let g:airline#extensions#bufferline#enabled=1
+" let g:airline#extensions#bufferline#overwrite_variables=1
+" let g:airline#extensions#tabline#left_alt_sep='|'
+" let g:airline_section_b='%{strftime("%H:%M")}'
+" let g:airline_section_y='BN %{bufnr("%")}'
 " let g:UltiSnipsEditSplit="vertical"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
@@ -200,7 +201,15 @@ nnoremap gd :bd<cr>
 nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
-nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
+noremap <silent> <leader>sy :SyntasticToggleMode<cr>
+
+" Slimex mappings {{{
+map <Leader>sc :SlimuxREPLConfigure<CR>
+map <Leader>ss :SlimuxREPLSendLine<CR>
+vmap <Leader>ss :SlimuxREPLSendSelection<CR>
+map <Leader>a :SlimuxShellLast<CR>
+map <Leader>k :SlimuxSendKeysLast<CR>
+" }}}
 
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>c <c-_><c-_>
