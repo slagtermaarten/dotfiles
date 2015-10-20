@@ -204,8 +204,7 @@ nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
 noremap <silent> <leader>sy :SyntasticToggleMode<cr>
 
 " Slimex mappings {{{
-map <Leader>sc :SlimuxREPLConfigure<CR>
-map <Leader>ss :SlimuxREPLSendLine<CR>
+map <Leader><space> :SlimuxREPLSendLine<CR> <bar> j
 vmap <Leader>ss :SlimuxREPLSendSelection<CR>
 map <Leader>a :SlimuxShellLast<CR>
 map <Leader>k :SlimuxSendKeysLast<CR>

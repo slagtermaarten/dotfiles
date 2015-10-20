@@ -21,10 +21,13 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias vim='/usr/local/opt/vim/bin/vim'
 alias ster='ssh m.slagter@steroid'
+alias para='ssh m.slagter@paranoid'
+
+rm () { mv "$@" ~/Trash/ }
 
 # Resolve symlink
 rs () { cd `pwd -P` }
-vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
+# vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
 vir () { command vim "$@" -S ~/dotfiles/bin/VimRSession.vim }
 # viewpdf () { command evince "$@" & }
 # updatepandoc() {

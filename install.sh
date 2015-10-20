@@ -20,3 +20,5 @@ vim +BundleClean +BundleInstall +qall
 
 ln -s dotfiles/powerline-fonts ~/.fonts
 ln -s dotfiles/bin ~/bin/
+
+mkdir -p ~/Trash/
