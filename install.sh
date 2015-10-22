@@ -2,6 +2,14 @@ dir=~/dotfiles
 olddir=~/dotfiles_old
 dotfiles="tmux.conf xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv oh-my-zsh"
 
+# install homebrew and packages
+if [[ $(uname) -eq Darwin ]]; then
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  for i in `cat my_brews`; do
+    brew install $i;
+  done;
+fi
+
 cd $dir
 git submodule init
 git submodule update
@@ -23,10 +31,3 @@ ln -s dotfiles/bin ~/bin/
 
 mkdir -p ~/Trash/
 
-# install homebrew
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-# install packages
-if [[ $(uname) -eq Darwin]]; then
-  for i in `cat my_brews`; do
-    brew install $i;
-  done;

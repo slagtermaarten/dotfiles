@@ -1,6 +1,8 @@
 ack
+autojump
 cscope
 ctags
+git
 httpie
 libevent
 macvim
@@ -8,6 +10,7 @@ mongodb
 moreutils
 openssl
 parallel
+readline
 ssh-copy-id
 tmux
 vim
