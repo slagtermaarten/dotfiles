@@ -22,3 +22,11 @@ ln -s dotfiles/powerline-fonts ~/.fonts
 ln -s dotfiles/bin ~/bin/
 
 mkdir -p ~/Trash/
+
+# install homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# install packages
+if [[ $(uname) -eq Darwin]]; then
+  for i in `cat my_brews`; do
+    brew install $i;
+  done;
