@@ -36,9 +36,9 @@ Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'epeli/slimux'
-
-" Plugin 'valloric/YouCompleteMe'
 " Plugin 'Rip-Rip/clang_complete'
+Plugin 'valloric/YouCompleteMe'
+
 " Plugin 'wincent/Command-T'
 " Plugin 'scrooloose/syntastic'
 " Plugin 'kien/ctrlp'

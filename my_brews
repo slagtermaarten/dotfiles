@@ -1,6 +1,7 @@
 ack
 autojump
 cscope
+cmake
 ctags
 git
 httpie
