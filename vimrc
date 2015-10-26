@@ -205,7 +205,7 @@ noremap <silent> <leader>sy :SyntasticToggleMode<cr>
 
 " Slimex mappings {{{
 map <Leader><space> :SlimuxREPLSendLine<CR> <bar> j
-vmap <Leader>ss :SlimuxREPLSendSelection<CR>
+vmap <Leader><space> :SlimuxREPLSendSelection<CR>
 map <Leader>a :SlimuxShellLast<CR>
 map <Leader>k :SlimuxSendKeysLast<CR>
 " }}}
