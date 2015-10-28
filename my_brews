@@ -1,7 +1,8 @@
 ack
 autojump
-cscope
+brew-cask
 cmake
+cscope
 ctags
 git
 httpie
@@ -12,6 +13,7 @@ moreutils
 openssl
 parallel
 readline
+reattach-to-user-namespace
 ssh-copy-id
 tmux
 vim
