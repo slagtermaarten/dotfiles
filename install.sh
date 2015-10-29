@@ -27,8 +27,8 @@ mkdir -p ~/.vim/bundle/
 git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 vim +PluginClean +PluginInstall +qall
 
-ln -s dotfiles/powerline-fonts ~/.fonts
-ln -s dotfiles/bin ~/bin/
+ln -s ~/dotfiles/powerline-fonts ~/.fonts
+ln -s ~/dotfiles/bin ~/bin/
 
 mkdir -p ~/Trash/
 

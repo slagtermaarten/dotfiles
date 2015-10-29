@@ -49,4 +49,7 @@ alias mmv='noglob zmv -W'
 # alias -s sh=vi
 
 localaliases=(`pwd`/.aliases.local)
-[[ -f $localaliases ]] && source $localaliases
+if [[ -f $localaliases ]] then
+  echo "Sourcing local aliases"
+  source $localaliases
+fi
