@@ -16,14 +16,15 @@ alias ff='find . -name'
 
 alias -s md=vim
 alias -s tex=vim
-alias -s com=firefox
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias vim='/usr/local/opt/vim/bin/vim'
 alias ster='ssh m.slagter@steroid'
 alias para='ssh m.slagter@paranoid'
+alias awkt="awk -F'\t'"
 
 rm () { mv "$@" ~/Trash/ }
+alias rmr='rm'
 
 # Resolve symlink
 rs () { cd `pwd -P` }
