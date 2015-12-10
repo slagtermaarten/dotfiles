@@ -1,6 +1,11 @@
-# export PATH=$HOME/convenienceCC3D:$HOME/dotfiles/bin:${PATH}
-export PATH=$HOME/dotfiles/bin:$HOME/.cabal/bin:${PATH}
+case ":$PATH:" in
+  *:$HOME/bin:*) ;;     # do nothing if $PATH already contains $HOME/bin
+  *) PATH=$HOME/bin:$PATH ;;  # in every other case, add it to the front
+esac
+export PATH=$HOME/.cabal/bin:/usr/local/bin:${PATH}
+export EDITOR=vim
 export SHELL=/usr/bin/zsh
+bindkey -M vicmd v edit-command-line
 # path=($^path(N))
 
 # export CUDA_HOME=/usr/local/cuda-5.0
