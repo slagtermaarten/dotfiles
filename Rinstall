@@ -1,8 +1,0 @@
-install.packages("devtools")
-
-devtools::install_github("jalvesaq/VimCom")
-devtools::install_github("jalvesaq/colorout")
-
-if (!require("pacman")) install.packages("pacman")
-
-# vim: set ft=R:

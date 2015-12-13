@@ -1,15 +1,13 @@
 # library(utils)
 options(repos=structure(c(CRAN="http://cran-mirror.cs.uu.nl/")))
 
-load.fun <- function(x) {
-    x <- as.character(substitute(x))
-    if (isTRUE(x %in% .packages(all.available=TRUE))) {
-        eval(parse(text=paste("require(", x, ")", sep="")))
-    } else {
-        update.packages()
-        eval(parse(text=paste("install.packages('", x, "')", sep="")))
-    }
+wideScreen <- function(howWide=Sys.getenv("COLUMNS")) {
+  options(width=as.integer(howWide))
 }
 
-library(vimcom)
-library(colorout)
+if (!require("devtools")) install.packages("devtools")
+if (!require("vimcom")) devtools::install_github("jalvesaq/VimCom")
+if (!require("colorout")) devtools::install_github("jalvesaq/colorout")
+if (!require("pacman")) install.packages("pacman")
+
+# vim: set ft=r:
