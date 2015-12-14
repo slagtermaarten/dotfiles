@@ -36,3 +36,5 @@ cd ~/.vim/bundle/YouCompleteMe
 ./install.py --clang-completer
 
 cd $dir
+
+defaults write org.R-project.R force.LANG en_US.UTF-8
