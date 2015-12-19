@@ -38,6 +38,7 @@ Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'epeli/slimux'
 " Plugin 'Rip-Rip/clang_complete'
 Plugin 'valloric/YouCompleteMe'
+Plugin 'godlygeek/tabular'
 
 " Plugin 'wincent/Command-T'
 " Plugin 'scrooloose/syntastic'
@@ -59,6 +60,7 @@ set clipboard=unnamed
 set showmode
 set autoread
 set bs=2
+set ruler
 set hidden
 set laststatus=2
 set tabstop=2
@@ -91,6 +93,9 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
+set background=light
+" colorscheme solarized
+
 " let NERDTreeChDirMode=0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
@@ -189,6 +194,7 @@ map <C-n> :NERDTreeToggle<CR>
 " cnoreabbrev wq w<bar>bd
 " cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
 nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
+nnoremap <leader>cp :let @+ = expand("%:p")<cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
 " cnoreabbrev q bd
 vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
@@ -201,11 +207,15 @@ nnoremap gd :bd<cr>
 nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
 nnoremap <leader>ex :e .<cr>
 nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
+nnoremap <silent> qq :q!
 noremap <silent> <leader>sy :SyntasticToggleMode<cr>
 
 " Slimex mappings {{{
 map <Leader><space> :SlimuxREPLSendLine<CR> <bar> j
+map <Leader>s :SlimuxREPLSendLine<CR>
 vmap <Leader><space> :SlimuxREPLSendSelection<CR>
+map <Leader>aa :SlimuxREPLSendBuffer<CR>
+map <Leader>pp :SlimuxREPLSendParagraph<CR>
 map <Leader>a :SlimuxShellLast<CR>
 map <Leader>k :SlimuxSendKeysLast<CR>
 " }}}
@@ -267,11 +277,19 @@ inoremap <c-q> <esc>gqipe
 nnoremap <leader>c :!clear <cr><cr>
 nnoremap <leader>j Jxxi,<esc>
 " map <tab> %
-vnoremap <Leader>s :sort<CR>
+" vnoremap <Leader>s :sort<CR>
 " Easy copy paste commands
 noremap <leader>all ggVG
 vnoremap <leader>cop "+y
 noremap <leader>pas i<C-r>+ <Esc>
+" if exists(":Tabularize")
+"   " nmap <Leader>a= :Tabularize /=<CR>
+"   " vmap <Leader>a= :Tabularize /=<CR>
+"   " nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>ta :Tabularize /\t<CR>
+nmap <Leader>ta :Tabularize /\t<CR>
+" endif
+
 " }}}
 
 " Mouse {{{
