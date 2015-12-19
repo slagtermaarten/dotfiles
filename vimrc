@@ -190,9 +190,7 @@ let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 map <C-n> :NERDTreeToggle<CR>
-" map <C-m> :NERDTreeFind<CR>
-" cnoreabbrev wq w<bar>bd
-" cnoreabbrev bq bp<bar>sp<bar>bn<bar>bd
+map <C-m> :NERDTreeFind<CR>
 nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <leader>cp :let @+ = expand("%:p")<cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
