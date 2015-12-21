@@ -94,7 +94,9 @@ set grepprg=ack-grep\ -k
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-set background=light
+set background=dark
+set t_Co=256
+colorscheme smyck
 " colorscheme solarized
 
 " let NERDTreeChDirMode=0
