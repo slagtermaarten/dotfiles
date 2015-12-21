@@ -8,7 +8,14 @@ factorlevels() {
   awk -F"\t" '{a[$2]++;} END {for (k in a) print k, a[k]};' $1
 }
 
-inspect() {
-  column -ts "$(printf '\t')" | less -S
+tabcol() {
+  column -ts "$(printf '\t')"
 }
 
+inspect() {
+  tabcol $1 | less -S
+}
+
+extractline() {
+  awk -v ln=$2 'NR == ln {print $0; exit}' $1
+}
