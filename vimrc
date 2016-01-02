@@ -4,7 +4,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/custom
 call vundle#begin()
 set shell=/bin/bash
-
 " Plugins {{{
 Plugin 'gmarik/vundle'
 Plugin 'gmarik/Vundle.vim'
@@ -17,6 +16,7 @@ Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'L9'
 Plugin 'tComment'
 Plugin 'c.vim'
+Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'Vim-R-plugin'
 Plugin 'rsmenon/vim-mathematica'
 Plugin 'sukima/xmledit'
@@ -29,21 +29,20 @@ Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'fs111/pydoc.vim'
 Plugin 'craigemery/vim-autotag'
-Plugin 'scrooloose/NERDTree'
+" Plugin 'scrooloose/NERDTree'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'epeli/slimux'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-vinegar'
 
 " Plugin 'Rip-Rip/clang_complete'
 " Plugin 'bling/vim-airline'
 " Plugin 'wincent/Command-T'
 " Plugin 'scrooloose/syntastic'
-" Plugin 'kien/ctrlp'
 " Plugin 'ervandew/supertab'
 " Plugin 'matze/vim-tex-fold'
 " Plugin 'klen/python-mode'
@@ -88,7 +87,7 @@ set splitbelow
 set splitright
 set equalalways
 set colorcolumn=
-set grepprg=ack-grep\ -k
+set grepprg=ack\ -k
 " set t_Co=256
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
@@ -104,7 +103,7 @@ let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-let NERDTreeHijackNetrw=1
+" let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
 set encoding=utf-8
@@ -139,6 +138,12 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 "   e dir/Simulation/*.py
 "   echomsg "Ran my command"
 " endfunction
+"
+fun! GetGitCommit()
+    " let l = !git log
+    let l = system("git log | awk 'NR == 1 {printf \"%s\", $2; exit;}'")
+    return l
+endfunction
 
 fun! StripTrailingWhitespaces()
     let l = line(".")
@@ -192,8 +197,8 @@ let maplocalleader = ","
 let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
+" map <C-n> :NERDTreeToggle<CR>
+" map <C-m> :NERDTreeFind<CR>
 nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <leader>cp :let @+ = expand("%:p")<cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
@@ -358,8 +363,11 @@ augroup end
 " Abbreviations {{{
 iabbrev THe The
 iabbrev cc3 CompuCell3D
-iabbrev arr -->
+iabbrev arrow -->
+iabbrev <expr> dts strftime("%c")
+iabbrev <expr> gitc GetGitCommit()
 " }}}
+
 
 " Local config
 let g:localvimrc=fnamemodify('.vimrc.local', ':p')
