@@ -29,7 +29,7 @@ Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'fs111/pydoc.vim'
 Plugin 'craigemery/vim-autotag'
-" Plugin 'scrooloose/NERDTree'
+Plugin 'scrooloose/NERDTree'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -98,12 +98,12 @@ set t_Co=256
 colorscheme smyck
 " colorscheme solarized
 
-" let NERDTreeChDirMode=0
+let NERDTreeChDirMode=0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-" let NERDTreeHijackNetrw=1
+let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
 set encoding=utf-8
@@ -196,8 +196,8 @@ let maplocalleader = ","
 let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-" map <C-n> :NERDTreeToggle<CR>
-" map <C-m> :NERDTreeFind<CR>
+map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeFind<CR>
 nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
 nnoremap <leader>cp :let @+ = expand("%:p")<cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
