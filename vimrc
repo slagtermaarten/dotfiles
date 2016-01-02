@@ -140,7 +140,6 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 " endfunction
 "
 fun! GetGitCommit()
-    " let l = !git log
     let l = system("git log | awk 'NR == 1 {printf \"%s\", $2; exit;}'")
     return l
 endfunction
@@ -255,6 +254,7 @@ nmap <leader>ed maartenedit ~/dotfiles<CR>
 nmap <leader>eb maartenedit ~/dotfiles/bin<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
+nmap <leader>sv :source ~/dotfiles/vimrc<CR>
 nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
@@ -294,6 +294,8 @@ noremap <leader>pas i<C-r>+ <Esc>
 "   " nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>ta :Tabularize /\t<CR>
 nmap <Leader>ta :Tabularize /\t<CR>
+nnoremap <leader>gca :Git commit --amend<CR>
+nnoremap <leader>gst :Gstatus<CR>
 " endif
 
 " }}}
