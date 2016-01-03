@@ -37,7 +37,7 @@ Plugin 'epeli/slimux'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-vinegar'
+" Plugin 'tpope/vim-vinegar'
 
 " Plugin 'Rip-Rip/clang_complete'
 " Plugin 'bling/vim-airline'
@@ -130,6 +130,7 @@ let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_f
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:snips_author="Maarten Slagter"
 " }}}
 
 " Functions {{{
@@ -139,11 +140,6 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 "   echomsg "Ran my command"
 " endfunction
 "
-fun! GetGitCommit()
-    let l = system("git log | awk 'NR == 1 {printf \"%s\", $2; exit;}'")
-    return l
-endfunction
-
 fun! StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
@@ -366,8 +362,6 @@ augroup end
 iabbrev THe The
 iabbrev cc3 CompuCell3D
 iabbrev arrow -->
-iabbrev <expr> dts strftime("%c")
-iabbrev <expr> gitc GetGitCommit()
 " }}}
 
 

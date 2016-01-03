@@ -5,3 +5,7 @@ Netherlands Cancer Institute
 Amsterdam, the Netherlands
 m.slagter@nki.nl
 endsnippet
+
+snippet gitcom 
+	`git log | awk 'NR == 1 {printf \"%s\", $2; exit;}`
+endsnippet
