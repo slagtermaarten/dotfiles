@@ -149,11 +149,11 @@ endfunction
 
 fun! WordProcessorMode()
     setlocal textwidth=80
-    set linebreak
-    setlocal formatoptions=1tcrqan
-    " setlocal spell spelllang=en_us,nl,medical
-    set thesaurus+=~/mthesaur.txt
-    " set complete+=s
+    setlocal linebreak
+    setlocal formatoptions=tcroqwanvblm1j
+    setlocal spell spelllang=en_us,nl,medical
+    " set thesaurus+=~/mthesaur.txt
+    set complete+=s
 endfu
 
 fun! ResetSyntax()
