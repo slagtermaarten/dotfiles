@@ -189,9 +189,17 @@ snippet pa "Paste call"
 paste(${1}${VISUAL}, sep="")${0}
 endsnippet
 
-snippet pt "System time + print statement"
+snippet timeprint "System time + print statement"
 system.time(print(
 ${1}${VISUAL}
 ))
 ${0}
+endsnippet
+
+snippet round "Round numerical value"
+round(${1}${VISUAL}, digits = ${0:2})
+endsnippet
+
+snippet signif "Round numerical value"
+signif(${1}${VISUAL}, digits = ${0:2})
 endsnippet
