@@ -1,5 +1,6 @@
 setlocal linebreak
 setlocal textwidth=90
-set commentstring=#\ %s
 
-map <silent> <LocalLeader>r :call g:SendCmdToR('library(rmarkdown); rmarkdown::render("' . expand("%:t") . '")') <CR>
+nnoremap <buffer> <S-k> :call g:SendCmdToR('?' . expand("<cword>")) <CR>
+nnoremap <S-,> <buffer> :call g:SendCmdToR('q') <CR>
+nnoremap <silent> <buffer> <LocalLeader>rr :call g:SendCmdToR('rmarkdown::render("' . expand("%:t") . '")') <CR>
