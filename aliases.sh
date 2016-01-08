@@ -22,9 +22,7 @@ alias vim='/usr/local/opt/vim/bin/vim'
 alias ster='ssh m.slagter@steroid'
 alias para='ssh m.slagter@paranoid'
 alias awkt="awk -F'\t'"
-
-rm () { mv "$@" ~/Trash/ }
-alias rmr='rm'
+alias ..="cd .."
 
 # Resolve symlink
 rs () { cd `pwd -P` }

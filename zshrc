@@ -46,6 +46,17 @@ function chpwd() {
     ls -tr
 }
 
+function rm() {
+    local go_ahead
+    read -q "Are you sure you don't want to use trash-put? [y/N]"
+    echo ""
+    if [[ "$go_ahead" = "y" ]]; then
+        /bin/rm $*
+    else
+        /usr/bin/env trash-put $*
+    fi
+}
+
 autoload zmv
 # autojump
 #
