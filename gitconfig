@@ -16,6 +16,8 @@
   rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   ps = show --color --pretty=format:%b
   ldiff = difftool -t latex
+  po = push origin
+  pof = push -f origin
 [pager]
   status = true
 [core]
