@@ -11,6 +11,7 @@
   df = diff
   lg = log -p
   fix = commit --amend
+  fixa = commit --all --amend
   cam = commit -a -m
   lg = log --graph --date=local --color
   rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
