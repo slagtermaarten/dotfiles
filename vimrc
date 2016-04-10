@@ -4,6 +4,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/custom
 call vundle#begin()
 set shell=/bin/bash
+
+
 " Plugins {{{
 Plugin 'gmarik/vundle'
 Plugin 'gmarik/Vundle.vim'
@@ -16,8 +18,6 @@ Plugin 'nelstrom/vim-markdown-folding'
 Plugin 'L9'
 Plugin 'tComment'
 Plugin 'c.vim'
-Plugin 'jalvesaq/R-Vim-runtime'
-Plugin 'Vim-R-plugin'
 Plugin 'rsmenon/vim-mathematica'
 Plugin 'sukima/xmledit'
 Plugin 'eshock/vim-matchit'
@@ -29,7 +29,6 @@ Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'fs111/pydoc.vim'
 Plugin 'craigemery/vim-autotag'
-Plugin 'scrooloose/NERDTree'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
@@ -37,8 +36,12 @@ Plugin 'epeli/slimux'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-fugitive'
+Plugin 'Vim-R-plugin'
+Plugin 'jalvesaq/R-Vim-runtime'
+Plugin 'chiedo/vim-dr-replace'
+" Plugin 'jalvesaq/Nvim-R'
 " Plugin 'tpope/vim-vinegar'
-
+" Plugin 'scrooloose/NERDTree'
 " Plugin 'Rip-Rip/clang_complete'
 " Plugin 'bling/vim-airline'
 " Plugin 'wincent/Command-T'
@@ -63,12 +66,12 @@ set bs=2
 set ruler
 set hidden
 set laststatus=2
-set tabstop=2
+set tabstop=4
 set expandtab
 set autoindent
 set hlsearch
-set softtabstop=2
-set sw=2
+" set softtabstop=4
+set sw=0
 set incsearch
 set nobackup
 set noswapfile
@@ -87,7 +90,6 @@ set splitbelow
 set splitright
 set equalalways
 set colorcolumn=
-set grepprg=ack\ -k
 " set t_Co=256
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
@@ -96,17 +98,20 @@ syntax enable
 set background=dark
 set t_Co=256
 colorscheme smyck
+" colorscheme southernlights
 " colorscheme solarized
 
-let NERDTreeChDirMode=0
+" let g:netrw_liststyle=3
+" let NERDTreeChDirMode=0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
-let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-let NERDTreeHijackNetrw=1
+" let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
-set encoding=utf-8
+" set encoding=utf-8
+
 " let g:airline_powerline_fonts=1
 " let g:airline#extensions#bufferline#enabled=1
 " let g:airline#extensions#bufferline#overwrite_variables=1
@@ -118,7 +123,6 @@ set encoding=utf-8
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
-" set tags+=$HOME/CompuCell3D/CompuCell3D/core
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
 set spellfile=$HOME/.vim-spell-en.utf-8.add
@@ -126,7 +130,8 @@ set spellfile=$HOME/.vim-spell-en.utf-8.add
 set diffopt+=vertical
 
 " syntastic settings
-let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],'passive_filetypes': []}
+let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],
+                          \ 'passive_filetypes': []}
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
@@ -140,28 +145,55 @@ let g:snips_author="Maarten Slagter"
 "   echomsg "Ran my command"
 " endfunction
 "
-fun! StripTrailingWhitespaces()
+
+function! InspectDataFile()
+    setlocal list
+    setlocal nowrap
+endfunction
+
+function! StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
     %s/\s\+$//e
     call cursor(l, c)
 endfunction
 
-fun! WordProcessorMode()
+function! WordProcessorMode()
     setlocal textwidth=80
     setlocal linebreak
-    setlocal formatoptions=tcroqwanvblm1j
-    setlocal spell spelllang=en_us,nl,medical
-    " set thesaurus+=~/mthesaur.txt
-    set complete+=s
-endfu
+    " Auto-wrap using textwidth, both text and comments
+    setlocal formatoptions=tc
+    " Automatically insert current comment leader
+    setlocal formatoptions+=ro
+    setlocal formatoptions+=qw
+    setlocal formatoptions+=b
+    setlocal formatoptions+=m
+    setlocal formatoptions+=1j
+    setlocal formatoptions+=2
+    setlocal formatoptions+=an
+    setlocal spell spelllang=en_us,nl
+    " setlocal thesaurus+=~/mthesaur.txt
+    setlocal complete+=s
+endfunction
 
-fun! ResetSyntax()
+function! TsvViewerMode()
+    setlocal nowrap
+    setlocal number
+    setlocal noexpandtab
+    setlocal list
+    setlocal nostartofline
+    " :Tabularize /,
+    :Tabularize /\v\t|,/
+    " :Tabularize /;
+    " :% s/,/\t/g
+endfunction
+
+function! ResetSyntax()
     " TeX syntax tends to freeze, confusing everything to be in mathmode
     echom "Syntax reset!"
     syntax off
     syntax on
-endfun
+endfunction
 
 " Move current tab into the specified direction.
 " @param direction -1 for left, 1 for right.
@@ -187,67 +219,60 @@ endfunction
 
 " Mappings {{{
 let mapleader = ","
-" let maplocalleader = "\\"
 let maplocalleader = ","
 let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
-map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
-nnoremap gk :bp<bar>sp<bar>bn<bar>bd <cr>
-nnoremap <leader>cp :let @+ = expand("%:p")<cr>
+nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
-" cnoreabbrev q bd
-vnoremap <F4> y:execute "%s/".escape(@",'[]/')."//gc"<Left><Left><Left><Left>
+
 nnoremap ; :
 nnoremap j gj
 nnoremap k gk
-nnoremap gl :bn<cr>
-nnoremap gh :bp<cr>
-nnoremap gd :bd<cr>
-nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
-nnoremap <leader>ex :e .<cr>
-nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
-nnoremap <silent> qq :q!
-noremap <silent> <leader>sy :SyntasticToggleMode<cr>
+" nnoremap <silent> gk :bp<bar>sp<bar>bn<bar>bd <cr>
+" nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
+nnoremap <silent> gd :bw<cr>
+nnoremap <silent> gk :bw!<cr>
+nnoremap <silent> <leader>qq :q!<cr>
+nnoremap ;q :q<cr>
 
-" Slimex mappings {{{
-map <Leader><space> :SlimuxREPLSendLine<CR> <bar> j
-map <Leader>s :SlimuxREPLSendLine<CR>
-vmap <Leader><space> :SlimuxREPLSendSelection<CR>
-map <Leader>aa :SlimuxREPLSendBuffer<CR>
-map <Leader>pp :SlimuxREPLSendParagraph<CR>
-map <Leader>a :SlimuxShellLast<CR>
-map <Leader>k :SlimuxSendKeysLast<CR>
-" }}}
+nnoremap <silent> gl :bn<cr>
+nnoremap <silent> gh :bp<cr>
+nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
+nnoremap q; q:
+nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
+" clean tabs of surrounding whitespaces
+nnoremap <leader>ct :% s/\s*\t\s*/\t/g<CR>
 
 nnoremap <leader>m :wa <cr> :make <cr>
-nnoremap <leader>c <c-_><c-_>
 nnoremap <leader>y :call ResetSyntax() <cr>
+nnoremap <leader>tv :call TsvViewerMode() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
 nnoremap ;ww :w<CR>
+
+" Explore local directory
+nnoremap <leader>ex :e .<cr>
 nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" nnoremap <leader>el :Lexplore %:p:h<CR>
+nnoremap <leader>el :CtrlP %:p:h<CR>
 " nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
-nnoremap q; q:
-nnoremap ;q :q
+
+nnoremap <leader>gca :Gcommit --amend<CR>
 nnoremap ;n :n
 nnoremap ! :!
-nnoremap H ^
-nnoremap L $
-vnoremap H ^
-vnoremap L $
+" nnoremap H ^
+" vnoremap L $
 " Sync project to remote, define syncto and syncfrom functions in project folder
-nnoremap <leader>st :! zsh -ci syncto <CR>
-nnoremap <leader>sf :! zsh -ci syncfrom <CR>
-com! WP call WordProcessorMode()
+command! WP call WordProcessorMode()
+nmap maartenedit  :e
 " Have to be sure that this command won't be found in any plugins, so give it
 " a super goofy name: maartenedit
 nmap maartenedit  :e
 nmap <leader>es maartenedit ~/dotfiles/aliases.sh<CR>
-nmap <leader>ec maartenedit ~/current/<CR>
-nmap <leader>ed maartenedit ~/dotfiles<CR>
-nmap <leader>eb maartenedit ~/dotfiles/bin<CR>
+nmap <leader>ec :CtrlP ~/dotfiles/vim/custom/<CR>
+nmap <leader>ed :CtrlP ~/dotfiles<CR>
+nnoremap <leader>eb :split ~/labbook.md<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>sv :source ~/dotfiles/vimrc<CR>
@@ -315,8 +340,8 @@ augroup randomautocmds
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
-    autocmd! bufwritepost ~/dotfiles/vimrc source %
-    autocmd BufEnter * silent! lcd %:p:h
+    autocmd! bufwritepost ~/dotfiles/vimrc source ~/dotfiles/vimrc
+    " autocmd BufEnter * silent! lcd %:p:h
     " au FocusLost * :silent! wall
     au FocusLost * :wall
     " Resize splits when the window is resized
@@ -324,37 +349,33 @@ augroup randomautocmds
     " autocmd vimenter * if !argc() | NERDTree | endif
 augroup END
 
-augroup pymode
-    au Bufenter,BufNewFile,BufReadPost *.py let g:pymode = 0
-    au Bufenter,BufNewFile,BufReadPost *.py map <Leader>de oimport pudb; pudb.set_trace()  # BREAKPOINT<C-c>
-augroup end
-
 augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set ft=tex
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
     au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv setlocal nowrap
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.csv setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.csv setlocal nowrap
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.maf setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.maf setlocal nowrap
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal list
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.txt setlocal nowrap
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf :call InspectDataFile()
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.bed :call InspectDataFile()
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv :call InspectDataFile()
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.csv :call InspectDataFile()
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.maf :call InspectDataFile()
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
+augroup end
+
+augroup notR
+  noremap <space> :SlimuxREPLSendLine<CR> <bar> j
+  map <Leader>l :SlimuxREPLSendLine<CR>
+  vmap <space> :SlimuxREPLSendSelection<CR> | :
+  " | :SlimuxSendKeys Enter <CR>
+  noremap <Leader>aa :SlimuxREPLSendBuffer<CR>
+  noremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+  " noremap <Leader>a :SlimuxShellLast<CR>
+  noremap <Leader>k :SlimuxSendKeysLast<CR>
 augroup end
 " }}}
 
@@ -364,6 +385,26 @@ iabbrev cc3 CompuCell3D
 iabbrev arrow -->
 " }}}
 
+" Toggle Vexplore with Ctrl-E
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+" map <silent> <C-n> :call ToggleVExplorer()<CR>
 
 " Local config
 let g:localvimrc=fnamemodify('.vimrc.local', ':p')
