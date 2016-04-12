@@ -21,7 +21,7 @@ Plugin 'c.vim'
 Plugin 'rsmenon/vim-mathematica'
 Plugin 'sukima/xmledit'
 Plugin 'eshock/vim-matchit'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'honza/vim-snippets'
@@ -136,6 +136,10 @@ let g:syntastic_mode_map = {'mode': 'passive', 'active_filetypes': [],
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:snips_author="Maarten Slagter"
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+if executable('ag')
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+endif
 " }}}
 
 " Functions {{{
@@ -220,6 +224,7 @@ endfunction
 " Mappings {{{
 let mapleader = ","
 let maplocalleader = ","
+map ' `
 let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
@@ -234,7 +239,6 @@ nnoremap k gk
 nnoremap <silent> gd :bw<cr>
 nnoremap <silent> gk :bw!<cr>
 nnoremap <silent> <leader>qq :q!<cr>
-nnoremap ;q :q<cr>
 
 nnoremap <silent> gl :bn<cr>
 nnoremap <silent> gh :bp<cr>
@@ -249,7 +253,8 @@ nnoremap <leader>y :call ResetSyntax() <cr>
 nnoremap <leader>tv :call TsvViewerMode() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
-nnoremap ;ww :w<CR>
+nnoremap ;w :w<CR>
+nnoremap ;aw :wa<CR>
 
 " Explore local directory
 nnoremap <leader>ex :e .<cr>
@@ -368,14 +373,13 @@ augroup filetypechecking
 augroup end
 
 augroup notR
-  noremap <space> :SlimuxREPLSendLine<CR> <bar> j
-  map <Leader>l :SlimuxREPLSendLine<CR>
-  vmap <space> :SlimuxREPLSendSelection<CR> | :
-  " | :SlimuxSendKeys Enter <CR>
-  noremap <Leader>aa :SlimuxREPLSendBuffer<CR>
-  noremap <Leader>pp :SlimuxREPLSendParagraph<CR>
-  " noremap <Leader>a :SlimuxShellLast<CR>
-  noremap <Leader>k :SlimuxSendKeysLast<CR>
+  nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
+  nnoremap <Leader>l :SlimuxREPLSendLine<CR>
+  nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
+  nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+  nnoremap <Leader>bq :SlimuxSendKeys 'Q' <CR> <bar> :SlimuxSendKeys 'Enter'<CR>
+  nnoremap <Leader>c :SlimuxSendKeys 'C-C'<CR>
+  vnoremap <space> :SlimuxREPLSendSelection<CR> <bar> :SlimuxSendKeys 'Enter'<CR>
 augroup end
 " }}}
 
@@ -410,4 +414,10 @@ endfunction
 let g:localvimrc=fnamemodify('.vimrc.local', ':p')
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
+endif
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
