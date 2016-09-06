@@ -28,7 +28,7 @@ EDITOR=vim
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vim debian)
+plugins=(git vim)
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
@@ -46,16 +46,16 @@ function chpwd() {
     ls -tr
 }
 
-function rm() {
-    local go_ahead
-    read -q "Are you sure you don't want to use trash-put? [y/N]"
-    echo ""
-    if [[ "$go_ahead" = "y" ]]; then
-        /bin/rm $*
-    else
-        /usr/bin/env trash-put $*
-    fi
-}
+# function rm() {
+#     local go_ahead
+#     read -q "go_ahead?Are you sure you don't want to use trash-put? [y/N]"
+#     echo ""
+#     if [[ "$go_ahead" = "y" ]]; then
+#         /bin/rm $*
+#     else
+#         /usr/bin/env trash-put $*
+#     fi
+# }
 
 autoload zmv
 # autojump
@@ -65,8 +65,8 @@ set -k
 
 # source ~/venv/*/activate
 
-PATH="/Users/maartenslagter/perl5/bin${PATH+:}${PATH}"; export PATH;
-PERL5LIB="/Users/maartenslagter/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/maartenslagter/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/maartenslagter/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/maartenslagter/perl5"; export PERL_MM_OPT;
+# PATH="/Users/maartenslagter/perl5/bin${PATH+:}${PATH}"; export PATH;
+# PERL5LIB="/Users/maartenslagter/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
+# PERL_LOCAL_LIB_ROOT="/Users/maartenslagter/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
+# PERL_MB_OPT="--install_base \"/Users/maartenslagter/perl5\""; export PERL_MB_OPT;
+# PERL_MM_OPT="INSTALL_BASE=/Users/maartenslagter/perl5"; export PERL_MM_OPT;

@@ -1,3 +1,7 @@
+au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set ft=tex
+au Bufenter,BufNewFile,BufReadPost,BufRead *.tex let g:LatexBox_Folding=0
+au Bufenter,BufNewFile,BufReadPost,BufRead *.tex set foldmethod=marker
+
 setlocal errorformat=%f:%l:\ %m,%f:%l-%\\d%\\+:\ %m
 if filereadable('Makefile')
     setlocal makeprg=make
@@ -22,9 +26,10 @@ let g:surround_{char2nr('s')} = "\\sub{\r}"
 let g:surround_{char2nr('m')} = "% {{{\n\r\n % }}}"
 
 function! ViewPdf()
-    exec "! evince " . substitute(bufname("%"),"tex","pdf", "") . "&"
+    execute "! evince " . substitute(bufname("%"),"tex","pdf", "") . "&"
 endfunction
 noremap <buffer> <leader> e :call ViewPdf() <cr>
 
 set colorcolumn=
 set linebreak
+call WordProcessorMode()

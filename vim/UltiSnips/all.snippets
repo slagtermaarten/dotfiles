@@ -6,6 +6,6 @@ Amsterdam, the Netherlands
 m.slagter@nki.nl
 endsnippet
 
-snippet gitcom 
-	`git log | awk 'NR == 1 {printf \"%s\", $2; exit;}`
+snippet gc "Shortened git commit" 
+`git log --abbrev-commit | awk 'NR == 1 {print $2}'`
 endsnippet

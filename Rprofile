@@ -10,4 +10,6 @@ if (!require("vimcom")) devtools::install_github("jalvesaq/VimCom")
 if (!require("colorout")) devtools::install_github("jalvesaq/colorout")
 if (!require("pacman")) install.packages("pacman")
 
+rootFolder <- path.expand(file.path('~/antigenic_space'))
 # vim: set ft=r:
+

@@ -12,6 +12,7 @@
   lg = log -p
   fix = commit --amend
   fixa = commit --all --amend
+  ca = commit -a
   cam = commit -a -m
   lg = log --graph --date=local --color
   rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -22,7 +23,7 @@
 [pager]
   status = true
 [core]
-  editor = vim
+	editor = vim
 [difftool.latex]
   cmd = git-latexdiff "$LOCAL" "$REMOTE"
 [difftool]

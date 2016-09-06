@@ -5,12 +5,11 @@ set rtp+=~/.vim/custom
 call vundle#begin()
 set shell=/bin/bash
 
-
 " Plugins {{{
-Plugin 'gmarik/vundle'
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'altercation/vim-colors-solarized'
@@ -23,7 +22,7 @@ Plugin 'sukima/xmledit'
 Plugin 'eshock/vim-matchit'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'SirVer/ultisnips'
-Plugin 'LaTeX-Box-Team/LaTeX-Box'
+" Plugin 'LaTeX-Box-Team/LaTeX-Box'
 Plugin 'honza/vim-snippets'
 Plugin 'mileszs/ack.vim'
 Plugin 'vim-scripts/taglist.vim'
@@ -32,13 +31,17 @@ Plugin 'craigemery/vim-autotag'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'epeli/slimux'
-Plugin 'valloric/YouCompleteMe'
+Plugin 'jpalardy/vim-slime'
+" Plugin 'epeli/slimux'
+" Plugin 'valloric/YouCompleteMe'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Vim-R-plugin'
 Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'chiedo/vim-dr-replace'
+Plugin 'rking/ag.vim'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 " Plugin 'jalvesaq/Nvim-R'
 " Plugin 'tpope/vim-vinegar'
 " Plugin 'scrooloose/NERDTree'
@@ -66,12 +69,11 @@ set bs=2
 set ruler
 set hidden
 set laststatus=2
-set tabstop=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set autoindent
 set hlsearch
-" set softtabstop=4
-set sw=0
 set incsearch
 set nobackup
 set noswapfile
@@ -91,13 +93,13 @@ set splitright
 set equalalways
 set colorcolumn=
 " set t_Co=256
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
 set background=dark
 set t_Co=256
-colorscheme smyck
+" colorscheme smyck
 " colorscheme southernlights
 " colorscheme solarized
 
@@ -110,7 +112,19 @@ let g:ycm_key_list_previous_completion=[]
 " let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
+let vimrplugin_assign=0
 " set encoding=utf-8
+
+" Sending stuff to tmux panes {{{
+" let g:slimux_select_from_current_window=1
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+vnoremap <space> SlimeRegionSend
+nnoremap <leader>p :SlimeParagraphSend
+nnoremap <space> :SlimeSend
+" nnoremap <c-c>v     <Plug>SlimeConfig
+"}}}
 
 " let g:airline_powerline_fonts=1
 " let g:airline#extensions#bufferline#enabled=1
@@ -123,8 +137,6 @@ let g:mma_candy=1
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=./tags;$HOME
-" Set spellfile to location that is guaranteed to exist, can be symlinked to
-" Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -138,7 +150,15 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:snips_author="Maarten Slagter"
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor\ -G\ libs
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+  nnoremap <leader>sw :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 endif
 " }}}
 
@@ -180,16 +200,25 @@ function! WordProcessorMode()
     setlocal complete+=s
 endfunction
 
-function! TsvViewerMode()
+function! ViewerMode()
     setlocal nowrap
     setlocal number
     setlocal noexpandtab
     setlocal list
     setlocal nostartofline
+endfunction
+
+function! TsvViewerMode()
+    call ViewerMode()
     " :Tabularize /,
-    :Tabularize /\v\t|,/
+    :Tabularize /\t/
     " :Tabularize /;
     " :% s/,/\t/g
+endfunction
+
+function! CsvViewerMode()
+    call ViewerMode()
+    :Tabularize /,/
 endfunction
 
 function! ResetSyntax()
@@ -229,16 +258,15 @@ let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
+nnoremap <c-m> :CtrlPMRUFiles <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
-
 nnoremap ; :
 nnoremap j gj
-nnoremap k gk
-" nnoremap <silent> gk :bp<bar>sp<bar>bn<bar>bd <cr>
+" nnoremap k gk
+nnoremap <silent> gk :bp<bar>sp<bar>bn<bar>bd <cr>
 " nnoremap gk :bp <bar> sp <bar> silent! bn <bar> bd <CR>
-nnoremap <silent> gd :bw<cr>
+nnoremap <silent> gd :bn <bar> bd #<cr>
 nnoremap <silent> gk :bw!<cr>
-nnoremap <silent> <leader>qq :q!<cr>
 
 nnoremap <silent> gl :bn<cr>
 nnoremap <silent> gh :bp<cr>
@@ -248,6 +276,7 @@ nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 " clean tabs of surrounding whitespaces
 nnoremap <leader>ct :% s/\s*\t\s*/\t/g<CR>
 
+nnoremap <leader>cdp :cd ~/current_project <CR>
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>y :call ResetSyntax() <cr>
 nnoremap <leader>tv :call TsvViewerMode() <cr>
@@ -258,26 +287,29 @@ nnoremap ;aw :wa<CR>
 
 " Explore local directory
 nnoremap <leader>ex :e .<cr>
-nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+" nnoremap <leader>ccd :cd %:p:h<CR>:pwd<CR>
 " nnoremap <leader>el :Lexplore %:p:h<CR>
 nnoremap <leader>el :CtrlP %:p:h<CR>
 " nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
+" Get filename of current buffer into clipboard
+nmap <leader>fs :let @*=expand("%")<CR>
+nmap <leader>fl :let @*=expand("%:p")<CR>
 
-nnoremap <leader>gca :Gcommit --amend<CR>
 nnoremap ;n :n
 nnoremap ! :!
 " nnoremap H ^
 " vnoremap L $
 " Sync project to remote, define syncto and syncfrom functions in project folder
 command! WP call WordProcessorMode()
+command! Gfix :Gcommit --amend
 nmap maartenedit  :e
 " Have to be sure that this command won't be found in any plugins, so give it
 " a super goofy name: maartenedit
-nmap maartenedit  :e
+nmap maartenedit  :split
 nmap <leader>es maartenedit ~/dotfiles/aliases.sh<CR>
 nmap <leader>ec :CtrlP ~/dotfiles/vim/custom/<CR>
 nmap <leader>ed :CtrlP ~/dotfiles<CR>
-nnoremap <leader>eb :split ~/labbook.md<CR>
+nnoremap <leader>eb :split ~/labbook.Rmd<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>sv :source ~/dotfiles/vimrc<CR>
@@ -313,17 +345,27 @@ nnoremap <leader>j Jxxi,<esc>
 " Easy copy paste commands
 noremap <leader>all ggVG
 vnoremap <leader>cop "+y
-noremap <leader>pas i<C-r>+ <Esc>
+nnoremap <leader>pas :set !paste <bar> i<C-r>+ <Esc> <bar>
 " if exists(":Tabularize")
 "   " nmap <Leader>a= :Tabularize /=<CR>
 "   " vmap <Leader>a= :Tabularize /=<CR>
 "   " nmap <Leader>a: :Tabularize /:\zs<CR>
 vmap <Leader>ta :Tabularize /\t<CR>
 nmap <Leader>ta :Tabularize /\t<CR>
-nnoremap <leader>gca :Git commit --amend<CR>
-nnoremap <leader>gst :Gstatus<CR>
+" I've developed a great aesthetic preference for single brackets over double
+" brackets (mostly working on R code for the moment)
+nnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
+vnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
+" Increment all numbers by 1 on current line
+nnoremap <leader>in :s/\d\+/\=(submatch(0)+1)/g<CR> <bar> :nohl <CR>
 " endif
+nnoremap <leader>stw :call StripTrailingWhitespaces() <CR>
 
+" }}}
+
+" {{{ Git/fugitive mappings
+nnoremap <Leader>st :Gstatus<CR>
+nnoremap <leader>ca :Git commit --amend<CR>
 " }}}
 
 " Mouse {{{
@@ -340,18 +382,23 @@ augroup pencil
   autocmd FileType text call pencil#init({'wrap': 'soft'})
 augroup END
 
-augroup randomautocmds
+augroup misc_autocmds
+    " autocmd! BufRead * call FollowSymlink() | :call SetProjectRoot()
     autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost ~/dotfiles/vimrc source ~/dotfiles/vimrc
+
+    autocmd! BufReadPost * if line("'\"") > 1 && line("'\"") <=
+      \ line("$") | exe "normal! g'\"" | endif
     " autocmd BufEnter * silent! lcd %:p:h
     " au FocusLost * :silent! wall
     au FocusLost * :wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
     " autocmd vimenter * if !argc() | NERDTree | endif
+    autocmd Filetype gitcommit setlocal textwidth=72
 augroup END
 
 augroup filetypechecking
@@ -372,16 +419,84 @@ augroup filetypechecking
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
 
-augroup notR
-  nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
-  nnoremap <Leader>l :SlimuxREPLSendLine<CR>
-  nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
-  nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
-  nnoremap <Leader>bq :SlimuxSendKeys 'Q' <CR> <bar> :SlimuxSendKeys 'Enter'<CR>
-  nnoremap <Leader>c :SlimuxSendKeys 'C-C'<CR>
-  vnoremap <space> :SlimuxREPLSendSelection<CR> <bar> :SlimuxSendKeys 'Enter'<CR>
-augroup end
+" augroup genericSlimux
+"   nnoremap <Leader>sc : SlimuxGlobalConfigure<CR>
+"   nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
+"   vnoremap <space> :SlimuxREPLSendSelection<CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   " nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
+"   " nunmap <Leader>ll
+"   nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
+"   nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+"
+"   " Place commands currently worked on in devel.R, move those to tests when
+"   " finished
+"   nnoremap <Leader>ed :split ~/antigenic_space/maarten-analyses/devel.Rmd<CR>
+"   " nnoremap <Leader>de :wa <bar>
+"   "   \ :call SlimuxSendKeys('source("~/antigenic_space/maarten\-analyses\/devel.R")')
+"   "   \ <CR> <bar>:SlimuxSendKeys 'Enter'<CR>
+"   " nnoremap <Leader>de :wa <bar>
+"   "   \ :SlimuxSendKeys 'source("~/antigenic_space/maarten\-analyses\/devel.R")'
+"   "   \ <CR> <bar>:SlimuxSendKeys 'Enter'<CR>
+"   " Operation cancel
+"   nnoremap <Leader>oc :SlimuxSendKeys 'C-C'<CR>
+"   " nnoremap <Leader>mh :execute "SlimuxSendKeys '?expand("<cword>")'"<CR>
+"
+"   fu! GetRHelp()
+"     let l:helpquery = expand("<cword>")
+"     echo l:helpquery
+"     execute "SlimuxSendKeys '?" . l:helpquery . "'" <CR> <bar> :SlimuxSendKeys 'Enter'<CR>
+"   endfu
+"   command! CallRHelp :call GetRHelp()
+"
+"   " Debugging commands
+"   nnoremap <Leader>tb :SlimuxSendKeys 'traceback()' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>qq :SlimuxSendKeys 'q' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>dq :SlimuxSendKeys 'Q' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>dn :SlimuxSendKeys 'n' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>dc :SlimuxSendKeys 'c' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>dw :SlimuxSendKeys 'where' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>ls :SlimuxSendKeys 'ls()' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   nnoremap <Leader>wa :SlimuxSendKeys 'warnings()' <CR> <bar>
+"     \ :SlimuxSendKeys 'Enter'<CR>
+"   " nnoremap <Leader>tt :SlimuxSendKeys 'devtools::test(\\')' <CR> <bar>
+"   "   \ :SlimuxSendKeys 'Enter'<CR>
+" augroup end
 " }}}
+
+
+" follow symlinked file
+function! FollowSymlink()
+  let current_file = expand('%:p')
+  " check if file type is a symlink
+  if getftype(current_file) == 'link'
+    " if it is a symlink resolve to the actual file path
+    "   and open the actual file
+    let actual_file = resolve(current_file)
+    silent! execute 'file ' . actual_file
+  end
+endfunction
+
+" set working directory to git project root
+" or directory of current file if not git project
+function! SetProjectRoot()
+  " default to the current file's directory
+  lcd %:p:h
+  let git_dir = system("git rev-parse --show-toplevel")
+  " See if the command output starts with 'fatal' (if it does, not in a git repo)
+  let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
+  " if git project, change local directory to git project root
+  if empty(is_not_git_dir)
+    lcd `=git_dir`
+  endif
+endfunction
 
 " Abbreviations {{{
 iabbrev THe The
@@ -389,35 +504,9 @@ iabbrev cc3 CompuCell3D
 iabbrev arrow -->
 " }}}
 
-" Toggle Vexplore with Ctrl-E
-function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      Vexplore
-      let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
-" map <silent> <C-n> :call ToggleVExplorer()<CR>
-
 " Local config
 let g:localvimrc=fnamemodify('.vimrc.local', ':p')
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
 
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif

@@ -1,7 +1,11 @@
 extends r, md
 
+snippet rf "Inline r fragment"
+\`r ${1}\` ${0}
+endsnippet
+
 snippet rc "Code block"
-\`\`\`\{r, ${1}, warning=FALSE, echo=FALSE}
+\`\`\`\{r, ${1}warning=FALSE, echo=FALSE}
 ${0}${VISUAL}
 \`\`\`
 endsnippet
@@ -24,7 +28,12 @@ ${VISUAL}
 -->
 endsnippet
 
-snippet sal "Save and load"
-mySaveObject(${0})
-# ${0} <- myLoadObject(${0})
+snippet title "Rmd title block"
+---
+title: "${1:Analysis of}"
+author: "`print g:snips_author`"
+output: ${2:html}_document:
+	toc: true
+---
 endsnippet
+

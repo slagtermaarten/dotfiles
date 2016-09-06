@@ -1,3 +1,7 @@
+snippet bro "browser invocation"
+browser()${0} 
+endsnippet
+
 snippet tb
 traceback()
 endsnippet
@@ -98,7 +102,7 @@ function(${1:x}) ${0}
 endsnippet
 
 snippet ret "Return call"
-return(${0})
+return(${0}${VISUAL})
 endsnippet
 
 snippet df "Data frame"
@@ -153,6 +157,10 @@ snippet ggp "ggplot2 plot"
 ggplot(${1:data}, aes(${0:aesthetics}))
 endsnippet
 
+snippet gga "add to ggplot2 plot"
+${1:p1} <- ${1:p1} + ${0}
+endsnippet
+
 snippet fis "Fisher test"
 fisher.test(${1:x}, ${0:y})
 endsnippet
@@ -186,7 +194,7 @@ system("${1}${VISUAL}")${0}
 endsnippet
 
 snippet pa "Paste call"
-paste(${1}${VISUAL}, sep="")${0}
+paste(${1}${VISUAL}, sep = "")${0}
 endsnippet
 
 snippet timeprint "System time + print statement"
@@ -202,4 +210,31 @@ endsnippet
 
 snippet signif "Round numerical value"
 signif(${1}${VISUAL}, digits = ${0:2})
+endsnippet
+
+snippet ar "Assignment operator"
+<- ${0} 
+endsnippet
+
+snippet tc "TryCatch"
+tryCatch(${1}${VISUAL}, 
+         error = function(e) ${2:{ print(e); browser() }}) ${0}
+endsnippet
+
+snippet ser "serializer"
+serializer(${1}${VISUAL}) 
+endsnippet
+
+snippet rox "ROxygen function header"
+#' ${1}
+#'
+#'
+endsnippet
+
+snippet inv "Invisible return"
+invisible(${1}${VISUAL})
+endsnippet
+
+snippet isna "Test for NA"
+is.na(${1}${VISUAL})
 endsnippet

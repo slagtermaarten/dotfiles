@@ -21,6 +21,8 @@ alias pynb="ipython notebook --pylab"
 alias vim='/usr/local/opt/vim/bin/vim'
 alias ster='ssh m.slagter@steroid'
 alias para='ssh m.slagter@paranoid'
+alias med='ssh m.slagter@medoid'
+alias void='ssh m.slagter@void'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
 
@@ -33,6 +35,13 @@ vir () { command vim "$@" -S ~/dotfiles/bin/VimRSession.vim }
 #   cabal update
 #   cabal install pandoc pandoc-citeproc
 # }
+
+
+mergepdf () {
+  outputfile=shift
+  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$outputfile $@
+}
+
 
 autoload -U zmv
 alias mmv='noglob zmv -W'
