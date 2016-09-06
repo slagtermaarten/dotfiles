@@ -1,6 +1,6 @@
 dir=~/dotfiles
 olddir=~/dotfiles_old
-dotfiles="tmux.conf xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv oh-my-zsh vim-spell-en.utf-8.add"
+dotfiles="tmux.conf tmux xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv oh-my-zsh vim-spell-en.utf-8.add"
 
 # install homebrew and packages
 cd $dir
