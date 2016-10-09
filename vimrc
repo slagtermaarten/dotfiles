@@ -31,15 +31,15 @@ Plugin 'craigemery/vim-autotag'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
-" Plugin 'jpalardy/vim-slime'
-Plugin 'epeli/slimux'
+Plugin 'jpalardy/vim-slime'
+" Plugin 'epeli/slimux'
 " Plugin 'valloric/YouCompleteMe'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Vim-R-plugin'
 Plugin 'jalvesaq/R-Vim-runtime'
 Plugin 'chiedo/vim-dr-replace'
-Plugin 'rking/ag.vim'
+" Plugin 'rking/ag.vim'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 " Plugin 'jalvesaq/Nvim-R'
@@ -117,14 +117,13 @@ let vimrplugin_assign=0
 
 " Sending stuff to tmux panes {{{
 " let g:slimux_select_from_current_window=1
-if exists('SlimeSend')
+if exists('g:loaded_slime')
+  " echo "slime loaded"
   let g:slime_target = "tmux"
   let g:slime_paste_file = tempname()
   let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
-  vnoremap <space> SlimeRegionSend
-  nnoremap <leader>p :SlimeParagraphSend
-  nnoremap <space> :SlimeSend
-  " nnoremap <c-c>v     <Plug>SlimeConfig
+  nmap <leader>l :SlimeSend<CR>
+  vmap <leader>l :SlimeSend<CR>
 endif
 "}}}
 
@@ -425,15 +424,15 @@ augroup filetypechecking
 augroup end
 
 augroup genericSlimux
-  if exists('SlimuxGlobalConfigure')
-    nnoremap <Leader>sc : SlimuxGlobalConfigure<CR>
-    nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
-    vnoremap <space> :SlimuxREPLSendSelection<CR> <bar>
-      \ :SlimuxSendKeys 'Enter'<CR>
-    nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
-    " nunmap <Leader>ll
-    nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
-    nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+  if exists(':SlimuxGlobalConfigure')
+    nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
+    " nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
+    " vnoremap <space> :SlimuxREPLSendSelection<CR> <bar>
+    "   \ :SlimuxSendKeys 'Enter'<CR>
+    " nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
+    " " nunmap <Leader>ll
+    " nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
+    " nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
   endif
 augroup end
 
