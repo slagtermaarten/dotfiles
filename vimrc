@@ -31,8 +31,8 @@ Plugin 'craigemery/vim-autotag'
 Plugin 'reedes/vim-pencil'
 Plugin 'reedes/vim-wheel'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'jpalardy/vim-slime'
-" Plugin 'epeli/slimux'
+" Plugin 'jpalardy/vim-slime'
+Plugin 'epeli/slimux'
 " Plugin 'valloric/YouCompleteMe'
 Plugin 'godlygeek/tabular'
 Plugin 'tpope/vim-fugitive'
@@ -78,7 +78,7 @@ set incsearch
 set nobackup
 set noswapfile
 set noerrorbells
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html
 set undolevels=700
 set history=700
 set wildmenu
@@ -117,13 +117,15 @@ let vimrplugin_assign=0
 
 " Sending stuff to tmux panes {{{
 " let g:slimux_select_from_current_window=1
-let g:slime_target = "tmux"
-let g:slime_paste_file = tempname()
-let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
-vnoremap <space> SlimeRegionSend
-nnoremap <leader>p :SlimeParagraphSend
-nnoremap <space> :SlimeSend
-" nnoremap <c-c>v     <Plug>SlimeConfig
+if exists('SlimeSend')
+  let g:slime_target = "tmux"
+  let g:slime_paste_file = tempname()
+  let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+  vnoremap <space> SlimeRegionSend
+  nnoremap <leader>p :SlimeParagraphSend
+  nnoremap <space> :SlimeSend
+  " nnoremap <c-c>v     <Plug>SlimeConfig
+endif
 "}}}
 
 " let g:airline_powerline_fonts=1
@@ -194,7 +196,9 @@ function! WordProcessorMode()
     setlocal formatoptions+=m
     setlocal formatoptions+=1j
     setlocal formatoptions+=2
-    setlocal formatoptions+=an
+    setlocal formatoptions+=n
+    "" Automatic (paragraph and text width) formatting
+    setlocal formatoptions+=a
     setlocal spell spelllang=en_us,nl
     " setlocal thesaurus+=~/mthesaur.txt
     setlocal complete+=s
@@ -377,9 +381,10 @@ endif
 " Autocommands{{{
 augroup pencil
   autocmd!
-  autocmd FileType markdown,mkd call pencil#init()
+  " autocmd FileType markdown,mkd call pencil#init()
+  autocmd FileType markdown,mkd call pencil#init({'wrap': 'hard'})
   autocmd FileType textile call pencil#init()
-  autocmd FileType text call pencil#init({'wrap': 'soft'})
+  autocmd FileType text call pencil#init({'wrap': 'hard'})
 augroup END
 
 augroup misc_autocmds
@@ -419,16 +424,20 @@ augroup filetypechecking
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
 
-" augroup genericSlimux
-"   nnoremap <Leader>sc : SlimuxGlobalConfigure<CR>
-"   nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
-"   vnoremap <space> :SlimuxREPLSendSelection<CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   " nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
-"   " nunmap <Leader>ll
-"   nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
-"   nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
-"
+augroup genericSlimux
+  if exists('SlimuxGlobalConfigure')
+    nnoremap <Leader>sc : SlimuxGlobalConfigure<CR>
+    nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
+    vnoremap <space> :SlimuxREPLSendSelection<CR> <bar>
+      \ :SlimuxSendKeys 'Enter'<CR>
+    nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
+    " nunmap <Leader>ll
+    nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
+    nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+  endif
+augroup end
+
+" augroup genericSlimux2
 "   " Place commands currently worked on in devel.R, move those to tests when
 "   " finished
 "   nnoremap <Leader>ed :split ~/antigenic_space/maarten-analyses/devel.Rmd<CR>
