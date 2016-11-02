@@ -1,62 +1,59 @@
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/custom
-call vundle#begin()
 set shell=/bin/bash
 
 " Plugins {{{
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'nelstrom/vim-markdown-folding'
-Plugin 'L9'
-Plugin 'tComment'
-Plugin 'c.vim'
-Plugin 'rsmenon/vim-mathematica'
-Plugin 'sukima/xmledit'
-Plugin 'eshock/vim-matchit'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'SirVer/ultisnips'
-" Plugin 'LaTeX-Box-Team/LaTeX-Box'
-Plugin 'honza/vim-snippets'
-Plugin 'mileszs/ack.vim'
-Plugin 'vim-scripts/taglist.vim'
-Plugin 'fs111/pydoc.vim'
-Plugin 'craigemery/vim-autotag'
-Plugin 'reedes/vim-pencil'
-Plugin 'reedes/vim-wheel'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'jpalardy/vim-slime'
-" Plugin 'epeli/slimux'
-" Plugin 'valloric/YouCompleteMe'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-fugitive'
-Plugin 'Vim-R-plugin'
-Plugin 'jalvesaq/R-Vim-runtime'
-Plugin 'chiedo/vim-dr-replace'
-" Plugin 'rking/ag.vim'
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'vim-pandoc/vim-pandoc-syntax'
-" Plugin 'jalvesaq/Nvim-R'
-" Plugin 'tpope/vim-vinegar'
-" Plugin 'scrooloose/NERDTree'
-" Plugin 'Rip-Rip/clang_complete'
-" Plugin 'bling/vim-airline'
-" Plugin 'wincent/Command-T'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'ervandew/supertab'
-" Plugin 'matze/vim-tex-fold'
-" Plugin 'klen/python-mode'
-" Plugin 'ivanov/vim-ipython'
-" Plugin 'johndgiese/vipy'
-
-call vundle#end()
-filetype plugin indent on
+call plug#begin('~/.vim/plugged')
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
+Plug 'L9'
+Plug 'tComment'
+Plug 'c.vim', { 'for' : 'c' }
+Plug 'rsmenon/vim-mathematica'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'sukima/xmledit'
+Plug 'eshock/vim-matchit'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'mileszs/ack.vim'
+Plug 'vim-scripts/taglist.vim'
+Plug 'fs111/pydoc.vim'
+Plug 'craigemery/vim-autotag'
+Plug 'reedes/vim-pencil'
+Plug 'reedes/vim-wheel'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash'] }
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-fugitive'
+Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
+Plug 'chiedo/vim-dr-replace'
+Plug 'rking/ag.vim'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+" Plug 'Vim-R-plugin'
+" Plug 'jalvesaq/R-Vim-runtime'
+" Plug 'valloric/YouCompleteMe'
+" Plug 'jpalardy/vim-slime'
+" Plug 'LaTeX-Box-Team/LaTeX-Box'
+" Plug 'jalvesaq/Nvim-R'
+" Plug 'tpope/vim-vinegar'
+" Plug 'scrooloose/NERDTree'
+" Plug 'Rip-Rip/clang_complete'
+" Plug 'bling/vim-airline'
+" Plug 'wincent/Command-T'
+" Plug 'scrooloose/syntastic'
+" Plug 'ervandew/supertab'
+" Plug 'matze/vim-tex-fold'
+" Plug 'klen/python-mode'
+" Plug 'ivanov/vim-ipython'
+" Plug 'johndgiese/vipy'
+call plug#end()
 " }}}
 
 " Settings {{{
@@ -78,7 +75,7 @@ set incsearch
 set nobackup
 set noswapfile
 set noerrorbells
-set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html,*.Rdata,*.Rds
 set undolevels=700
 set history=700
 set wildmenu
@@ -97,7 +94,7 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-set background=dark
+set background=light
 set t_Co=256
 " colorscheme smyck
 " colorscheme southernlights
@@ -105,6 +102,8 @@ set t_Co=256
 
 " let g:netrw_liststyle=3
 " let NERDTreeChDirMode=0
+let R_in_buffer = 0
+let R_in_buffer = 0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
@@ -113,17 +112,18 @@ let g:ycm_key_list_previous_completion=[]
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
 let vimrplugin_assign=0
+set guifont=Monaco:h13
 " set encoding=utf-8
 
 " Sending stuff to tmux panes {{{
-" let g:slimux_select_from_current_window=1
 if exists('g:loaded_slime')
+  let g:slimux_select_from_current_window=1
   " echo "slime loaded"
   let g:slime_target = "tmux"
   let g:slime_paste_file = tempname()
   let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
-  nmap <leader>l :SlimeSend<CR>
-  vmap <leader>l :SlimeSend<CR>
+  xmap <leader>sl :SlimeSend<CR>
+  " vmap <leader>d :SlimeSend<CR>
 endif
 "}}}
 
@@ -315,7 +315,7 @@ nmap <leader>ed :CtrlP ~/dotfiles<CR>
 nnoremap <leader>eb :split ~/labbook.Rmd<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
-nmap <leader>sv :source ~/dotfiles/vimrc<CR>
+nmap <leader>sv :source ~/.vimrc<CR>
 nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
@@ -363,7 +363,18 @@ vnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
 nnoremap <leader>in :s/\d\+/\=(submatch(0)+1)/g<CR> <bar> :nohl <CR>
 " endif
 nnoremap <leader>stw :call StripTrailingWhitespaces() <CR>
-
+nnoremap <c-h> <c-w><c-h>
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap Y "tY
+nnoremap y "ty
+vnoremap y "ty
+nnoremap P "tP
+nnoremap p "tp
+vnoremap p "tp
+nnoremap d "td
+vnoremap d "td
 " }}}
 
 " {{{ Git/fugitive mappings
@@ -387,7 +398,8 @@ augroup pencil
 augroup END
 
 augroup misc_autocmds
-    " autocmd! BufRead * call FollowSymlink() | :call SetProjectRoot()
+    " autocmd! BufRead,BufEnter,BufWritePost *.R *.Rmd *.md call FollowSymlink() |
+    "       \ :call SetProjectRoot()
     autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
@@ -426,13 +438,12 @@ augroup end
 augroup genericSlimux
   if exists(':SlimuxGlobalConfigure')
     nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
-    " nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
-    " vnoremap <space> :SlimuxREPLSendSelection<CR> <bar>
-    "   \ :SlimuxSendKeys 'Enter'<CR>
-    " nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
-    " " nunmap <Leader>ll
-    " nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
-    " nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+    nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
+    vnoremap <space> :SlimuxREPLSendSelection<CR>
+      " \ <bar> :SlimuxSendKeys 'Enter'<CR>
+    nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
+    nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
+    nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
   endif
 augroup end
 
@@ -479,6 +490,9 @@ augroup end
 " augroup end
 " }}}
 
+let g:table_mode_corner_corner="+"
+let g:table_mode_header_fillchar="="
+let g:netrw_keepdir = 0
 
 " follow symlinked file
 function! FollowSymlink()
@@ -505,6 +519,7 @@ function! SetProjectRoot()
     lcd `=git_dir`
   endif
 endfunction
+nnoremap <silent> <leader>pr :call SetProjectRoot()<CR>
 
 " Abbreviations {{{
 iabbrev THe The
@@ -513,7 +528,7 @@ iabbrev arrow -->
 " }}}
 
 " Local config
-let g:localvimrc=fnamemodify('.vimrc.local', ':p')
+let g:localvimrc = fnamemodify('.vimrc.local', ':p')
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
