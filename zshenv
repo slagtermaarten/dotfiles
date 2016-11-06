@@ -8,7 +8,7 @@ esac
 export PATH=$HOME/anaconda/bin:$HOME/.cabal/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/sbin:$PATH"
 export CDPATH=~/antigenic_space:$CDPATH
-export EDITOR=vim
+export EDITOR=nvim
 export SHELL=/usr/bin/zsh
 bindkey -M vicmd v edit-command-line
 # path=($^path(N))

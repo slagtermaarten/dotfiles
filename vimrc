@@ -10,40 +10,39 @@ Plug 'tpope/vim-unimpaired'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
 Plug 'L9'
 Plug 'tComment'
-Plug 'c.vim', { 'for' : 'c' }
-Plug 'rsmenon/vim-mathematica'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'sukima/xmledit'
 Plug 'eshock/vim-matchit'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
 Plug 'SirVer/ultisnips'
+Plug 'godlygeek/tabular'
+" Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
-Plug 'mileszs/ack.vim'
 Plug 'vim-scripts/taglist.vim'
 Plug 'fs111/pydoc.vim'
 Plug 'craigemery/vim-autotag'
-Plug 'reedes/vim-pencil'
+Plug 'reedes/vim-pencil', { 'on' : ['SoftPencil', 'HardPencil'] }
+Plug 'tpope/vim-fugitive'
 Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash'] }
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-fugitive'
-Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
+Plug 'c.vim', { 'for' : ['c', 'cpp'] }
 Plug 'chiedo/vim-dr-replace'
-Plug 'rking/ag.vim'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-" Plug 'Vim-R-plugin'
-" Plug 'jalvesaq/R-Vim-runtime'
+Plug 'rking/ag.vim', { 'on' : 'Ag' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
+Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
+Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
+Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
+Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
+Plug 'sukima/xmledit', { 'for' : 'xml' }
+Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash'] }
+Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
+Plug 'moll/vim-bbye'
+
 " Plug 'valloric/YouCompleteMe'
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
-" Plug 'jalvesaq/Nvim-R'
 " Plug 'tpope/vim-vinegar'
-" Plug 'scrooloose/NERDTree'
 " Plug 'Rip-Rip/clang_complete'
 " Plug 'bling/vim-airline'
 " Plug 'wincent/Command-T'
@@ -57,7 +56,6 @@ call plug#end()
 " }}}
 
 " Settings {{{
-set pastetoggle=<F2>
 " set listchars
 set clipboard=unnamed
 set showmode
@@ -100,15 +98,19 @@ set t_Co=256
 " colorscheme southernlights
 " colorscheme solarized
 
-" let g:netrw_liststyle=3
-" let NERDTreeChDirMode=0
+" set vim-r-plugin to indent in a sane way
+let r_indent_align_args = 1
+let r_indent_ess_comments = 0
+let r_indent_ess_compatible = 0
+let g:netrw_liststyle=3
+let NERDTreeChDirMode=0
 let R_in_buffer = 0
 let R_in_buffer = 0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-" let NERDTreeHijackNetrw=1
+let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
 let g:mma_candy=1
 let vimrplugin_assign=0
@@ -263,6 +265,7 @@ nmap <Space> <Plug>RDSendLine
 nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
 nnoremap <c-m> :CtrlPMRUFiles <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
+nnoremap <c-n> :NERDTreeToggle<CR>
 nnoremap ; :
 nnoremap j gj
 " nnoremap k gk
@@ -367,14 +370,18 @@ nnoremap <c-h> <c-w><c-h>
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
-nnoremap Y "tY
-nnoremap y "ty
-vnoremap y "ty
-nnoremap P "tP
-nnoremap p "tp
-vnoremap p "tp
-nnoremap d "td
-vnoremap d "td
+" }}}
+
+" Copying and pasting {{{
+set pastetoggle=<F2>
+" nnoremap Y "tY
+" nnoremap y "ty
+" vnoremap y "ty
+" nnoremap P "tP
+" nnoremap p "tp
+" vnoremap p "tp
+" nnoremap d "td
+" vnoremap d "td
 " }}}
 
 " {{{ Git/fugitive mappings
@@ -533,3 +540,4 @@ if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
 
+cd ~/antigenic_space
