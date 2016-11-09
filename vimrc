@@ -5,6 +5,7 @@ set shell=/bin/bash
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -57,7 +58,9 @@ call plug#end()
 
 " Settings {{{
 " set listchars
-set clipboard=unnamed
+" if $TMUX == ''
+" set clipboard=unnamed
+" endif
 set showmode
 set autoread
 set bs=2
@@ -523,6 +526,7 @@ function! SetProjectRoot()
   let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
   " if git project, change local directory to git project root
   if empty(is_not_git_dir)
+    " echo 'changing directory to top level of git directory'
     lcd `=git_dir`
   endif
 endfunction
@@ -536,8 +540,12 @@ iabbrev arrow -->
 
 " Local config
 let g:localvimrc = fnamemodify('.vimrc.local', ':p')
+call SetProjectRoot()
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
+source ~/antigenic_space/.vimrc.local
 
-cd ~/antigenic_space
+nnoremap <leader>per :e ~/antigenic_space/libs/fasanalysis/R
+nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
+nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses

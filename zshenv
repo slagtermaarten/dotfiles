@@ -1,5 +1,6 @@
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+# skip_global_compinit=1
 
 case ":$PATH:" in
   *:$HOME/bin:*) ;;     # do nothing if $PATH already contains $HOME/bin
@@ -7,7 +8,8 @@ case ":$PATH:" in
 esac
 export PATH=$HOME/anaconda/bin:$HOME/.cabal/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/sbin:$PATH"
-export CDPATH=~/antigenic_space:$CDPATH
+export PATH="$HOME/antigenic_space/bin:$PATH"
+# export CDPATH=~/antigenic_space:$CDPATH
 export EDITOR=nvim
 export SHELL=/usr/bin/zsh
 bindkey -M vicmd v edit-command-line

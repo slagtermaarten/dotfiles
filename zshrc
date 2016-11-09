@@ -1,5 +1,5 @@
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="gozilla"
+# ZSH=$HOME/.oh-my-zsh
+# ZSH_THEME="gozilla"
 
 # setopt extended_blob
 
@@ -27,9 +27,9 @@ ZSH_THEME="gozilla"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git vim)
+# plugins=(git vim)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
 
 bindkey -v
@@ -56,10 +56,13 @@ function chpwd() {
 #     fi
 # }
 
-autoload zmv
+# autoload zmv
 # autojump
 #
 
 set -k
-
 # source ~/venv/*/activate
+
+# Custom prompt without bloat from oh-my-zsh (see here for opts
+# http://www.nparikh.org/unix/prompt.php#zsh)
+PROMPT="%B%2/%b%_ ~ "

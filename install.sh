@@ -23,9 +23,13 @@ for file in $dotfiles; do
     ln -s $dir/$file ~/.$file
 done
 
-mkdir -p ~/.vim/bundle/
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginClean +PluginInstall +qall
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+#     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# mkdir -p ~/.vim/bundle/
+# vim +PluginClean +PluginInstall +qall
 
 ln -s ~/dotfiles/powerline-fonts ~/.fonts
 ln -s ~/dotfiles/bin ~/bin/
