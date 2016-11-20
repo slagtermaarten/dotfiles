@@ -27,6 +27,23 @@ alias void='ssh m.slagter@void'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
 
+headless_browser() {
+  URL=${1}
+  echo $URL
+  if [ "$(uname)" = 'Darwin' ]; then
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=$URL
+  else
+    ## Assume platform is Linux
+    google-chrome --app=$URL
+  fi
+}
+
+alias rvoid='headless_browser "http://void:8787"'
+alias rmed='headless_browser "http://medoid:8787"'
+alias rpara='headless_browser "http://paranoid:8787"'
+alias rster='headless_browser "http://ster:8787"'
+
+
 # Resolve symlink
 rs () { cd `pwd -P` }
 # vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
@@ -62,3 +79,7 @@ if [[ -f $localaliases ]]; then
   echo "Sourcing local aliases"
   source $localaliases
 fi
+
+rs() {
+  rsync -avz "m.slagter@paranoid:${1}" "${2}"
+}

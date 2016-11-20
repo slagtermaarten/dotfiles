@@ -8,6 +8,8 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+Plug 'mileszs/ack.vim'
+" Plug 'rking/ag.vim', { 'on' : 'Ag' }
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'altercation/vim-colors-solarized'
@@ -20,15 +22,13 @@ Plug 'godlygeek/tabular'
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
 Plug 'vim-scripts/taglist.vim'
-Plug 'fs111/pydoc.vim'
+Plug 'fs111/pydoc.vim', { 'for' : 'python' }
 Plug 'craigemery/vim-autotag'
-Plug 'reedes/vim-pencil', { 'on' : ['SoftPencil', 'HardPencil'] }
+Plug 'reedes/vim-pencil' ", { 'on' : ['SoftPencil', 'HardPencil'] }
 Plug 'tpope/vim-fugitive'
 Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'c.vim', { 'for' : ['c', 'cpp'] }
-Plug 'chiedo/vim-dr-replace'
-Plug 'rking/ag.vim', { 'on' : 'Ag' }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
 Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
@@ -36,10 +36,12 @@ Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
 Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
 Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
 Plug 'sukima/xmledit', { 'for' : 'xml' }
-Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash'] }
+" Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
+Plug 'epeli/slimux'
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 
+" Plug 'chiedo/vim-dr-replace'
 " Plug 'valloric/YouCompleteMe'
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -89,7 +91,9 @@ set matchtime=3
 set splitbelow
 set splitright
 set equalalways
-set colorcolumn=
+set colorcolumn=80
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
 " set t_Co=256
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
@@ -103,8 +107,8 @@ set t_Co=256
 
 " set vim-r-plugin to indent in a sane way
 let r_indent_align_args = 1
-let r_indent_ess_comments = 0
-let r_indent_ess_compatible = 0
+let r_indent_ess_comments = 1
+let r_indent_ess_compatible = 1
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_in_buffer = 0
@@ -119,6 +123,12 @@ let g:mma_candy=1
 let vimrplugin_assign=0
 set guifont=Monaco:h13
 " set encoding=utf-8
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-i> :TmuxNavigatePrevious<cr>
 
 " Sending stuff to tmux panes {{{
 if exists('g:loaded_slime')
@@ -126,7 +136,7 @@ if exists('g:loaded_slime')
   " echo "slime loaded"
   let g:slime_target = "tmux"
   let g:slime_paste_file = tempname()
-  let g:slime_default_config = {"socket_name": "default", "target_pane": "1"}
+  let g:slime_defaull_config = {"socket_name": "default", "target_pane": "1"}
   xmap <leader>sl :SlimeSend<CR>
   " vmap <leader>d :SlimeSend<CR>
 endif
@@ -156,6 +166,8 @@ let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:snips_author="Maarten Slagter"
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor\ -G\ libs
 
@@ -203,7 +215,7 @@ function! WordProcessorMode()
     setlocal formatoptions+=n
     "" Automatic (paragraph and text width) formatting
     setlocal formatoptions+=a
-    setlocal spell spelllang=en_us,nl
+    setlocal spell spelllang=en_us
     " setlocal thesaurus+=~/mthesaur.txt
     setlocal complete+=s
 endfunction
@@ -318,7 +330,7 @@ nmap maartenedit  :split
 nmap <leader>es maartenedit ~/dotfiles/aliases.sh<CR>
 nmap <leader>ec :CtrlP ~/dotfiles/vim/custom/<CR>
 nmap <leader>ed :CtrlP ~/dotfiles<CR>
-nnoremap <leader>eb :split ~/labbook.Rmd<CR>
+nnoremap <leader>eb :split ~/antigenic_space/maarten-analyses/labbook.md<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>sv :source ~/.vimrc<CR>
@@ -369,10 +381,10 @@ vnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
 nnoremap <leader>in :s/\d\+/\=(submatch(0)+1)/g<CR> <bar> :nohl <CR>
 " endif
 nnoremap <leader>stw :call StripTrailingWhitespaces() <CR>
-nnoremap <c-h> <c-w><c-h>
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
+" nnoremap <c-h> <c-w><c-h>
+" nnoremap <c-j> <c-w><c-j>
+" nnoremap <c-k> <c-w><c-k>
+" nnoremap <c-l> <c-w><c-l>
 " }}}
 
 " Copying and pasting {{{
@@ -449,56 +461,14 @@ augroup genericSlimux
   if exists(':SlimuxGlobalConfigure')
     nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
     nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
-    vnoremap <space> :SlimuxREPLSendSelection<CR>
-      " \ <bar> :SlimuxSendKeys 'Enter'<CR>
+    vnoremap <space> :SlimuxREPLSendSelection<CR> <bar> \
+      SlimuxSendKeys ' ' <CR>
     nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
     nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
     nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
   endif
 augroup end
 
-" augroup genericSlimux2
-"   " Place commands currently worked on in devel.R, move those to tests when
-"   " finished
-"   nnoremap <Leader>ed :split ~/antigenic_space/maarten-analyses/devel.Rmd<CR>
-"   " nnoremap <Leader>de :wa <bar>
-"   "   \ :call SlimuxSendKeys('source("~/antigenic_space/maarten\-analyses\/devel.R")')
-"   "   \ <CR> <bar>:SlimuxSendKeys 'Enter'<CR>
-"   " nnoremap <Leader>de :wa <bar>
-"   "   \ :SlimuxSendKeys 'source("~/antigenic_space/maarten\-analyses\/devel.R")'
-"   "   \ <CR> <bar>:SlimuxSendKeys 'Enter'<CR>
-"   " Operation cancel
-"   nnoremap <Leader>oc :SlimuxSendKeys 'C-C'<CR>
-"   " nnoremap <Leader>mh :execute "SlimuxSendKeys '?expand("<cword>")'"<CR>
-"
-"   fu! GetRHelp()
-"     let l:helpquery = expand("<cword>")
-"     echo l:helpquery
-"     execute "SlimuxSendKeys '?" . l:helpquery . "'" <CR> <bar> :SlimuxSendKeys 'Enter'<CR>
-"   endfu
-"   command! CallRHelp :call GetRHelp()
-"
-"   " Debugging commands
-"   nnoremap <Leader>tb :SlimuxSendKeys 'traceback()' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>qq :SlimuxSendKeys 'q' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>dq :SlimuxSendKeys 'Q' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>dn :SlimuxSendKeys 'n' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>dc :SlimuxSendKeys 'c' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>dw :SlimuxSendKeys 'where' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>ls :SlimuxSendKeys 'ls()' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   nnoremap <Leader>wa :SlimuxSendKeys 'warnings()' <CR> <bar>
-"     \ :SlimuxSendKeys 'Enter'<CR>
-"   " nnoremap <Leader>tt :SlimuxSendKeys 'devtools::test(\\')' <CR> <bar>
-"   "   \ :SlimuxSendKeys 'Enter'<CR>
-" augroup end
-" }}}
 
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
@@ -522,7 +492,8 @@ function! SetProjectRoot()
   " default to the current file's directory
   lcd %:p:h
   let git_dir = system("git rev-parse --show-toplevel")
-  " See if the command output starts with 'fatal' (if it does, not in a git repo)
+  " See if the command output starts with 'fatal' (if it does, not in a git
+  " repo)
   let is_not_git_dir = matchstr(git_dir, '^fatal:.*')
   " if git project, change local directory to git project root
   if empty(is_not_git_dir)
@@ -540,7 +511,7 @@ iabbrev arrow -->
 
 " Local config
 let g:localvimrc = fnamemodify('.vimrc.local', ':p')
-call SetProjectRoot()
+" call SetProjectRoot()
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
@@ -549,3 +520,4 @@ source ~/antigenic_space/.vimrc.local
 nnoremap <leader>per :e ~/antigenic_space/libs/fasanalysis/R
 nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
 nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
+" DoMatchParen
