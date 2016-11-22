@@ -68,3 +68,4 @@ set -k
 PROMPT="%B%2/%b%_ ~ "
 
 autoload -U compinit && compinit
+
