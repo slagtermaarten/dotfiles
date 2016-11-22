@@ -112,7 +112,8 @@ let r_indent_ess_compatible = 1
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_in_buffer = 0
-let R_in_buffer = 0
+let R_applescript = 0
+let R_tmux_split = 1
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]

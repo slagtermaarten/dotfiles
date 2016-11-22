@@ -66,3 +66,5 @@ set -k
 # Custom prompt without bloat from oh-my-zsh (see here for opts
 # http://www.nparikh.org/unix/prompt.php#zsh)
 PROMPT="%B%2/%b%_ ~ "
+
+autoload -U compinit && compinit

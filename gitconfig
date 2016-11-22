@@ -24,10 +24,21 @@
   status = true
 [core]
 	editor = vim
+	whitespace = trailing-space,space-before-tab
 [difftool.latex]
   cmd = git-latexdiff "$LOCAL" "$REMOTE"
 [difftool]
-  tool = gvimdiff
+  tool = vimdiff
   prompt = false
 [push]
-  default = simple
+	default = tracking
+[color]
+	ui = auto
+[diff]
+	renames = copies
+[branch]
+	autosetupmerge = true
+[rerere]
+	enabled = true
+[merge]
+	stat = true
