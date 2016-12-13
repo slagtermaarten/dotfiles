@@ -2,24 +2,30 @@
 	name = Maarten Slagter
 	email = slagter.maarten@gmail.com
 [alias]
-  st = status
+  a = add
+  au = add -u
+  br = branch
   ci = commit
   cm = commit -m
-  br = branch
   co = checkout
   cob = checkout -b
   df = diff
-  lg = log -p
+  st = status
+  rbi = rebase -i
+  rba = rebase --abort
+  rbc = rebase --continue
   fix = commit --amend
   fixa = commit --all --amend
   ca = commit -a
   cam = commit -a -m
-  lg = log --graph --date=local --color
+  lg = log -p
+  lgc = log --graph --date=local --color
   rlg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   ps = show --color --pretty=format:%b
   ldiff = difftool -t latex
   po = push origin
   pof = push -f origin
+  s = status
 [pager]
   status = true
 [core]
