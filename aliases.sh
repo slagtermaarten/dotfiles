@@ -1,3 +1,14 @@
+headless_browser() {
+  URL=${1}
+  echo $URL
+  if [ "$(uname)" = 'Darwin' ]; then
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=$URL
+  else
+    ## Assume platform is Linux
+    google-chrome --app=$URL
+  fi
+}
+
 alias lt='ls -lhtr'
 alias tlf='tail -f'
 alias e='$EDITOR'
@@ -13,7 +24,6 @@ alias x='chmod +x'
 alias bi='$EDITOR +PluginClean! +PluginInstall +qall'
 alias ff='find . -name'
 # alias ag='sudo apt-get install'
-
 alias -s md=$EDITOR
 alias -s tex=$EDITOR
 alias pylab="ipython qtconsole --pylab"
@@ -26,17 +36,8 @@ alias med='ssh m.slagter@medoid'
 alias void='ssh m.slagter@void'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
-
-headless_browser() {
-  URL=${1}
-  echo $URL
-  if [ "$(uname)" = 'Darwin' ]; then
-    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=$URL
-  else
-    ## Assume platform is Linux
-    google-chrome --app=$URL
-  fi
-}
+alias g="git"
+alias grf="git diff -name-only | uniq | xargs $EDITOR"
 
 alias rvoid='headless_browser "http://void:8787"'
 alias rmed='headless_browser "http://medoid:8787"'
@@ -83,3 +84,8 @@ fi
 rs() {
   rsync -avz "m.slagter@paranoid:${1}" "${2}"
 }
+
+gr() {
+  cd $(git rev-parse --show-toplevel)
+}
+
