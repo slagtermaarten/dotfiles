@@ -465,6 +465,7 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv :call InspectDataFile()
     au Bufenter,BufNewFile,BufReadPost,BufRead *.csv :call InspectDataFile()
     au Bufenter,BufNewFile,BufReadPost,BufRead *.maf :call InspectDataFile()
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.snakefile :set filetype=python
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
