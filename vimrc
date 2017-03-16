@@ -9,6 +9,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'mileszs/ack.vim'
+" Plug 'vim-scripts/vim-auto-save'
 " Plug 'rking/ag.vim', { 'on' : 'Ag' }
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
@@ -17,7 +18,7 @@ Plug 'L9'
 Plug 'tComment'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp' ] }
 Plug 'godlygeek/tabular'
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -37,7 +38,7 @@ Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
 Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
 Plug 'sukima/xmledit', { 'for' : 'xml' }
 " Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
-Plug 'epeli/slimux'
+Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine']}
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 
@@ -92,10 +93,11 @@ set splitbelow
 set splitright
 set equalalways
 set colorcolumn=80
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-" set t_Co=256
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+"
+let hostname=system('hostname -s')
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ [%{hostname}]\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
@@ -114,12 +116,13 @@ let NERDTreeChDirMode=0
 let R_in_buffer = 0
 let R_applescript = 0
 let R_tmux_split = 1
+let R_assign = 0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
-let NERDTreeHijackNetrw=1
 let g:mma_highlight_option = "solarized"
+let NERDTreeHijackNetrw=1
 let g:mma_candy=1
 let vimrplugin_assign=0
 set guifont=Monaco:h13
@@ -129,15 +132,15 @@ nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-i> :TmuxNavigatePrevious<cr>
+" nnoremap <silent> <C-i> :TmuxNavigatePrevious<cr>
 
+let g:slimux_select_from_current_window = 1
+" echo "slime loaded"
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+let g:slime_defaull_config = {"socket_name": "default", "target_pane": "1"}
 " Sending stuff to tmux panes {{{
 if exists('g:loaded_slime')
-  let g:slimux_select_from_current_window=1
-  " echo "slime loaded"
-  let g:slime_target = "tmux"
-  let g:slime_paste_file = tempname()
-  let g:slime_defaull_config = {"socket_name": "default", "target_pane": "1"}
   xmap <leader>sl :SlimeSend<CR>
   " vmap <leader>d :SlimeSend<CR>
 endif
@@ -181,7 +184,7 @@ if executable('ag')
 endif
 " }}}
 
-" Functions {{{
+" Functions 
 " function! OpenCC3DSim()
 "   SyntasticToggleMode
 "   e dir/Simulation/*.py
@@ -197,7 +200,7 @@ endfunction
 function! StripTrailingWhitespaces()
     let l = line(".")
     let c = col(".")
-    %s/\s\+$//e
+    % s/\s\+$//e
     call cursor(l, c)
 endfunction
 
@@ -216,9 +219,10 @@ function! WordProcessorMode()
     setlocal formatoptions+=n
     "" Automatic (paragraph and text width) formatting
     setlocal formatoptions+=a
-    setlocal spell spelllang=en_us
+    " setlocal spell spelllang=en_us
     " setlocal thesaurus+=~/mthesaur.txt
     setlocal complete+=s
+    call pencil#init({'wrap': 'hard'})
 endfunction
 
 function! ViewerMode()
@@ -232,6 +236,8 @@ endfunction
 function! TsvViewerMode()
     call ViewerMode()
     " :Tabularize /,
+    "
+    match OverLength //
     :Tabularize /\t/
     " :Tabularize /;
     " :% s/,/\t/g
@@ -269,7 +275,7 @@ function! TabMove(direction)
         execute "tabmove ".index
     endif
 endfunction
-" }}}
+" 
 
 " Mappings {{{
 let mapleader = ","
@@ -302,6 +308,7 @@ nnoremap <leader>cdp :cd ~/current_project <CR>
 nnoremap <leader>m :wa <cr> :make <cr>
 nnoremap <leader>y :call ResetSyntax() <cr>
 nnoremap <leader>tv :call TsvViewerMode() <cr>
+nnoremap <leader>cv :call CsvViewerMode() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
 nnoremap ;w :w<CR>
@@ -316,6 +323,7 @@ nnoremap <leader>el :CtrlP %:p:h<CR>
 " Get filename of current buffer into clipboard
 nmap <leader>fs :let @*=expand("%")<CR>
 nmap <leader>fl :let @*=expand("%:p")<CR>
+nnoremap<leader>gs :
 
 nnoremap ;n :n
 nnoremap ! :!
@@ -331,7 +339,6 @@ nmap maartenedit  :split
 nmap <leader>es maartenedit ~/dotfiles/aliases.sh<CR>
 nmap <leader>ec :CtrlP ~/dotfiles/vim/custom/<CR>
 nmap <leader>ed :CtrlP ~/dotfiles<CR>
-nnoremap <leader>eb :split ~/antigenic_space/maarten-analyses/labbook.md<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>sv :source ~/.vimrc<CR>
@@ -367,7 +374,8 @@ nnoremap <leader>j Jxxi,<esc>
 " Easy copy paste commands
 noremap <leader>all ggVG
 vnoremap <leader>cop "+y
-nnoremap <leader>pas :set !paste <bar> i<C-r>+ <Esc> <bar>
+nmap <leader>pas <esc>:set paste <CR> i<C-r>+ <Esc> 
+""<bar> :set nopaste<cr>
 " if exists(":Tabularize")
 "   " nmap <Leader>a= :Tabularize /=<CR>
 "   " vmap <Leader>a= :Tabularize /=<CR>
@@ -401,8 +409,13 @@ set pastetoggle=<F2>
 " }}}
 
 " {{{ Git/fugitive mappings
-nnoremap <Leader>st :Gstatus<CR>
-nnoremap <leader>ca :Git commit --amend<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <leader>gf :Git commit --amend<CR>
+" Stage changes and ammend previous commit one go
+nnoremap <leader>ga :Gwrite <bar> Git commit --amend<CR>
 " }}}
 
 " Mouse {{{
@@ -415,20 +428,19 @@ endif
 augroup pencil
   autocmd!
   " autocmd FileType markdown,mkd call pencil#init()
-  autocmd FileType markdown,mkd call pencil#init({'wrap': 'hard'})
+  " autocmd FileType markdown,mkd call pencil#init({'wrap': 'hard'})
   autocmd FileType textile call pencil#init()
   autocmd FileType text call pencil#init({'wrap': 'hard'})
 augroup END
 
+
 augroup misc_autocmds
     " autocmd! BufRead,BufEnter,BufWritePost *.R *.Rmd *.md call FollowSymlink() |
     "       \ :call SetProjectRoot()
-    autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
     " autocmd BufWinLeave *.* mkview
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost ~/dotfiles/vimrc source ~/dotfiles/vimrc
-
     autocmd! BufReadPost * if line("'\"") > 1 && line("'\"") <=
       \ line("$") | exe "normal! g'\"" | endif
     " autocmd BufEnter * silent! lcd %:p:h
@@ -439,6 +451,7 @@ augroup misc_autocmds
     " autocmd vimenter * if !argc() | NERDTree | endif
     autocmd Filetype gitcommit setlocal textwidth=72
 augroup END
+
 
 augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
@@ -458,15 +471,35 @@ augroup filetypechecking
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
 
+
+function! s:GetVisual() range
+    let reg_save = getreg('"')
+    let regtype_save = getregtype('"')
+    let cb_save = &clipboard
+    set clipboard&
+
+    silent normal! ""gvy
+    let selection = getreg('"')
+
+    if exists("g:slimux_restore_selection_after_visual") && g:slimux_restore_selection_after_visual == 1
+        " restore the selection, this only works if we don't change
+        " pane selection buffer
+        silent normal! gv
+    endif
+    call setreg('"', reg_save, regtype_save)
+    let &clipboard = cb_save
+    return selection
+endfunction
+command! -range=% -bar -nargs=* MySlimuxREPLSendSelection call SlimuxSendCode(s:GetVisual() . "\n")
+
 augroup genericSlimux
   if exists(':SlimuxGlobalConfigure')
     nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
-    nnoremap <space> :SlimuxREPLSendLine<CR> <bar> j
-    vnoremap <space> :SlimuxREPLSendSelection<CR> <bar> \
-      SlimuxSendKeys ' ' <CR>
-    nnoremap <Leader>ll :SlimuxREPLSendLine<CR>
-    nnoremap <Leader>aa :SlimuxREPLSendBuffer<CR>
-    nnoremap <Leader>pp :SlimuxREPLSendParagraph<CR>
+    nnoremap <silent> <space> :SlimuxREPLSendLine<CR>
+    vnoremap <silent> <space> :MySlimuxREPLSendSelection<CR> 
+    nnoremap <silent> <Leader>ll :SlimuxREPLSendLine<CR>
+    nnoremap <silent> <leader>aa :SlimuxREPLSendBuffer<CR> <CR>
+    nnoremap <silent> <Leader>pp :SlimuxREPLSendParagraph<CR>
   endif
 augroup end
 
@@ -502,7 +535,21 @@ function! SetProjectRoot()
     lcd `=git_dir`
   endif
 endfunction
+
+
+" set working directory to git project root
+" or directory of current file if not git project
+function! ProjectOpen()
+  :call SetProjectRoot()
+  :e
+endfunction
+
+
 nnoremap <silent> <leader>pr :call SetProjectRoot()<CR>
+nnoremap <silent> <leader>pf :cd %:p:h<CR>
+nnoremap <silent> <leader>pe :call ProjectOpen()<CR>
+nnoremap <silent> <leader>fr :lcd %:p:h <CR>
+nnoremap <silent> <leader>dt :! rm %.tmp.R<CR>
 
 " Abbreviations {{{
 iabbrev THe The
@@ -518,7 +565,7 @@ if filereadable(g:localvimrc)
 endif
 source ~/antigenic_space/.vimrc.local
 
-nnoremap <leader>per :e ~/antigenic_space/libs/fasanalysis/R
-nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
-nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
+" nnoremap <leader>per :e ~/antigenic_space/libs/fasanalysis/R
+" nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
+" nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
 " DoMatchParen

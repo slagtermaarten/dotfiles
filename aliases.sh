@@ -10,6 +10,7 @@ headless_browser() {
 }
 
 alias lt='ls -lhtr'
+alias ls='ls -tr'
 alias tlf='tail -f'
 alias e='$EDITOR'
 alias la='ls -lhtra'
@@ -36,8 +37,10 @@ alias med='ssh m.slagter@medoid'
 alias void='ssh m.slagter@void'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
+## Git shortcuts
 alias g="git"
-alias grf="git diff -name-only | uniq | xargs $EDITOR"
+## Git  merge fix
+alias gmf="git diff --name-only | uniq | xargs $EDITOR"
 
 alias rvoid='headless_browser "http://void:8787"'
 alias rmed='headless_browser "http://medoid:8787"'
@@ -88,4 +91,3 @@ rs() {
 gr() {
   cd $(git rev-parse --show-toplevel)
 }
-

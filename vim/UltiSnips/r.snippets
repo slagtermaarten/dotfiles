@@ -56,49 +56,49 @@ endsnippet
 
 snippet if "If statement"
 if (${1}) {
-    ${0}
+  ${0}${VISUAL}
 }
 endsnippet
 
 snippet eif "Else-If statement"
 else if (${1}) {
-    ${0}
+  ${0}${VISUAL}
 }
 
 snippet el "Else statement"
 else {
-    ${0}
+  ${0}${VISUAL}
 }
 endsnippet
 
 snippet ife "if .. else"
 if (${1}) {
-    ${2}
+  ${2}${VISUAL}
 } else {
-    ${3}
+  ${3}${VISUAL}
 }
 endsnippet
 
 snippet wh "while loop"
 while(${1}) {
-    ${2}
+  ${2}${VISUAL}
 }
 endsnippet
 
 snippet for "for loop"
 for (${1:item} in ${2:list}) {
-    ${3}
+  ${3}${VISUAL}
 }
 endsnippet
 
 snippet fun "Function definition"
 ${1:name} <- function (${2}) {
-    ${0}
+  ${0}${VISUAL}
 }
 endsnippet
 
 snippet af "Anonymous function"
-function(${1:x}) ${0}
+function(${1:x}) ${0}${VISUAL}
 endsnippet
 
 snippet ret "Return call"
@@ -110,51 +110,53 @@ ${1:name}[${2:rows}, ${0:cols}]
 endsnippet
 
 snippet c "c function"
-c(${0:items})
+c(${0:items}${VISUAL})
 endsnippet
 
 snippet li "list function"
-list(${0:items})
+list(${0:items}${VISUAL})
 endsnippet
 
 snippet mat "matrix function"
-matrix(${1:data}, nrow = ${2:rows}, ncol = ${0:cols})
+matrix(${1:data}${VISUAL}, nrow = ${2:rows}, ncol = ${0:cols})
 endsnippet
 
 snippet apply "apply function"
-apply(${1:array}, ${2:margin}, ${0:function})
+apply(${1:array}${VISUAL}, ${2:margin}, ${0:function})
 endsnippet
 
 snippet lapply "lapply function"
-lapply(${1:list}, ${0:function})
+lapply(${1}${VISUAL}, function(${2:x}) {
+  ${3}
+})
 endsnippet
 
 snippet sapply "sapply function"
-sapply(${1:list}, ${0:function})
+sapply(${1:list}${VISUAL}, ${0:function})
 endsnippet
 
 snippet vapply "vapply function"
-vapply(${1:list}, ${2:function}, ${0:type})
+vapply(${1:list}${VISUAL}, ${2:function}, ${0:type})
 endsnippet
 
 snippet mapply "mapply function"
-mapply(${1:function}, ${0:...})
+mapply(${1:function}${VISUAL}, ${0:...})
 endsnippet
 
 snippet tapply "tapply function"
-tapply(${1:vector}, ${2:index}, ${0:function})
+tapply(${1:vector}${VISUAL}, ${2:index}, ${0:function})
 endsnippet
 
 snippet rapply "rapply function"
-rapply(${1:list}, ${0:function})
+rapply(${1:list}${VISUAL}, ${0:function})
 endsnippet
 
 snippet pl "Plot function"
-plot(${1:x}, ${0:y})
+plot(${1:x}${VISUAL}, ${0:y})
 endsnippet
 
 snippet ggp "ggplot2 plot"
-ggplot(${1:data}, aes(${0:aesthetics}))
+ggplot(${1:data}${VISUAL}, aes(${0:aesthetics}))
 endsnippet
 
 snippet gga "add to ggplot2 plot"
@@ -217,8 +219,9 @@ snippet ar "Assignment operator"
 endsnippet
 
 snippet tc "TryCatch"
-tryCatch(${1}${VISUAL}, 
-         error = function(e) ${2:{ print(e); browser() }}) ${0}
+tryCatch(
+  ${1}${VISUAL}, 
+error = function(e) ${2:{ print(e); browser() }}) ${0}
 endsnippet
 
 snippet ser "serializer"
@@ -226,7 +229,7 @@ serializer(${1}${VISUAL})
 endsnippet
 
 snippet rox "ROxygen function header"
-#' ${1}
+#' ${1}${VISUAL}
 #'
 #'
 endsnippet
@@ -241,4 +244,16 @@ endsnippet
 
 snippet pf "Parent frame"
 parent.frame(3)
+endsnippet
+
+snippet fp "File path"
+file.path(${1}${VISUAL})${0} 
+endsnippet
+
+snippet qs "Quick sub sample"
+sample(${1}${VISUAL}, 10)${0} 
+endsnippet
+
+snippet sn "Set names of vector"
+setNames(${1}${VISUAL}, ${2:NULL})${0} 
 endsnippet

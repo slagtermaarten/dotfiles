@@ -6,5 +6,5 @@ setlocal commentstring=#%s
 set nospell
 
 nnoremap <silent> <buffer> <LocalLeader>rr :call g:SendCmdToR('rmarkdown::render("'
- \ . expand("%:t") . '", intermediates_dir = "knitr_intermed",
- \ output_dir = "knitr_output")') <CR>
+ \ . expand("%:p:t") . '", intermediates_dir = "~/antigenic_space/maarten-analyses/knitr_intermed",
+ \ output_dir = "~/antigenic_space/maarten-analyses/knitr_output")') <CR>

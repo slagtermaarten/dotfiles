@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+if [[ "$@[1]" == "-a" ]]; then
+  if (( `wc -l "$@[2]"` >= 400 )); then
+    echo "$@[2] probably too long for full viewing"
+    exit 1
+  fi
+  echo "full viewing now"
+  cat "$@[2]" | vim -c 'call TsvViewerMode()' -
+else
+  head -n 20 "$@" | vim -c 'call TsvViewerMode()' -
+fi
+
+# vim: set ft=sh nowrap:

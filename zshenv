@@ -9,9 +9,27 @@ esac
 export PATH=$HOME/anaconda/bin:$HOME/.cabal/bin:/usr/local/bin:${PATH}
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/antigenic_space/bin:$PATH"
+
+export RPARA="m.slagter@paranoid"
+export RSTER="m.slagter@steroid"
+export RVOID="m.slagter@void"
+export RMED="m.slagter@medoid"
+
+## configuring libxml2 
+## export LDFLAGS="-L/usr/local/opt/libxml2/lib"
+## export CPPFLAGS="-I/usr/local/opt/libxml2/include"
+## export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
+# export LIBXML_LIBDIR="/usr/local/opt/libxml2/lib"
+#
+# export LIBXML_INCDIR="/usr/local/opt/libxml2/include/libxml2/libxml/"
+# export LIBXML_INCDIR="/usr/local/opt/libxml2/include"
+# echo "$LIBXML_INCDIR"
+# ls "$LIBXML_INCDIR"
+# Rscript -e 'install.packages("XML")'
+
 # export CDPATH=~/antigenic_space:$CDPATH
 export EDITOR=nvim
-export SHELL=/usr/bin/zsh
+export SHELL=/bin/zsh
 bindkey -M vicmd v edit-command-line
 # path=($^path(N))
 

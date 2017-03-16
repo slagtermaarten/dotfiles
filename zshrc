@@ -1,10 +1,19 @@
+autoload -U edit-command-line
+bindkey -M vicmd v edit-command-line
+
+HISTFILE=~/.zsh_history
+setopt INC_APPEND_HISTORY
+export SAVEHIST=1000
+
 # ZSH=$HOME/.oh-my-zsh
 # ZSH_THEME="gozilla"
 
+setopt interactivecomments
 # setopt extended_blob
 
 # eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`
+export CLICOLOR=yes
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -32,7 +41,23 @@
 # source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/aliases.sh
 
+## Vim mode
 bindkey -v
+## Set timeout to .1 sec
+export KEYTIMEOUT=1
+
+# function zle-line-init zle-keymap-select {
+# 	VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]%  %{$reset_color%}"
+# 	RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/}$(git_custom_status) $EPS1"
+# 	zle reset-prompt
+# }
+# zle -N zle-line-init
+# zle -N zle-keymap-select
+
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 
 if [ -e /usr/share/terminfo/x/xterm-256color ]; then
     export TERM='xterm-256color'

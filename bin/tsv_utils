@@ -1,0 +1,56 @@
+#!/bin/zsh
+
+alias awkt='awk -F"\t"'
+
+case "$1" in
+    head|header)
+        # head -n1 "$@" | tr "\t" "\n" | awk -F'\t' '{print NR, $1}'
+        shift
+        for f in "$@"; do
+            # head -n1 $f | tr "\t" "\n" | awk '{print "NR:",  $1}' | tr "\n" "\t"
+            head -n1 $f | tr "\t" "\n" | awk '{print NR ":" $1}' 
+        done
+        # head -n1 "$@" | tr "\t", ", " | awk -F',' '{print NR, $1}'
+        ;;
+    vimviewhead|vvh)
+        shift
+        head "$@" | vim -c 'call TsvViewerMode()' -
+        ;;
+    vimview|vv)
+        shift
+        echo "Attempting to load $@, this may fail if file is too big"
+        cat "$@" | vim -c 'call TsvViewerMode()' -
+        ;;
+    fl|factorlevels)
+        shift
+        awkt '{a[$2]++;} END {for (k in a) print k, a[k]};' $1
+        ;;
+    tc|tabcol)
+        column -ts "$(printf '\t')"
+        ;;
+    i|inspect)
+        $0 tabcol $2 | less -S
+        ;;
+    ec|extractcolumns)
+        cut -d$'\t' -f$2 $3
+        ;;
+    tc|tallycolumn)
+        awkt -v cn=$2 '{print $cn}' $3 | sort | uniq -c
+        ;;
+    el|extractline)
+        shift
+        awk -v ln=$1 'NR == ln {print $0; exit}'
+        ;;
+    lh|listheader)
+        tsv_utils el 1 < $2 | \
+          awkt '{ for (i = 1; i <= NF; ++i) print i, $i; exit }'
+        ;;
+    *)
+        echo "Usage: ${0:t} head|header vimviewhead|vvh vimview|vv" \
+         "fl|factorlevels tc|tabcol i|inspect ec|extractcolumns " \
+         "tc|tallycolumn el|extractline lh|listheader"
+        exit 1
+        ;;
+esac
+
+# vim: set ft=sh nowrap:
