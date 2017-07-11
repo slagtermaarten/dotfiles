@@ -13,7 +13,7 @@ setopt interactivecomments
 
 # eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`
-export CLICOLOR=yes
+# export CLICOLOR=yes
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -59,11 +59,11 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
+# if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+#     export TERM='xterm-256color'
+# else
+#     export TERM='xterm-color'
+# fi
 
 function chpwd() {
     emulate -L zsh
@@ -93,3 +93,5 @@ set -k
 PROMPT="%B%2/%b%_ ~ "
 
 autoload -U compinit && compinit
+
+source ~/bin/tmuxinator.zsh

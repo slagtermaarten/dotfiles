@@ -4,6 +4,7 @@ set shell=/bin/bash
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
+Plug 'epeli/slimux'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
@@ -25,20 +26,21 @@ Plug 'honza/vim-snippets'
 Plug 'vim-scripts/taglist.vim'
 Plug 'fs111/pydoc.vim', { 'for' : 'python' }
 Plug 'craigemery/vim-autotag'
-Plug 'reedes/vim-pencil' ", { 'on' : ['SoftPencil', 'HardPencil'] }
+" Plug 'reedes/vim-pencil', { 'on' : ['pencil#init()', '<Plug>pencil#init()', 'SoftPencil', 'HardPencil'] }
+Plug 'reedes/vim-pencil'
 Plug 'tpope/vim-fugitive'
 Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'c.vim', { 'for' : ['c', 'cpp'] }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
-Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
-Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
+" Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
+" Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
+" Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
+" Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
 Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
-Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
 Plug 'sukima/xmledit', { 'for' : 'xml' }
 " Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
-Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine']}
+" Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 
@@ -64,6 +66,8 @@ call plug#end()
 " if $TMUX == ''
 " set clipboard=unnamed
 " endif
+set ssop-=options    " do not store global and local values in a session
+set ssop-=folds      " do not store folds
 set showmode
 set autoread
 set bs=2
@@ -146,12 +150,15 @@ if exists('g:loaded_slime')
 endif
 "}}}
 
-" let g:airline_powerline_fonts=1
-" let g:airline#extensions#bufferline#enabled=1
-" let g:airline#extensions#bufferline#overwrite_variables=1
-" let g:airline#extensions#tabline#left_alt_sep='|'
-" let g:airline_section_b='%{strftime("%H:%M")}'
-" let g:airline_section_y='BN %{bufnr("%")}'
+if exists('g:airline#extensions#bufferline#enabled')
+  let g:airline_powerline_fonts=1
+  let g:airline#extensions#bufferline#enabled=1
+  let g:airline#extensions#bufferline#overwrite_variables=1
+  let g:airline#extensions#tabline#left_alt_sep='|'
+  let g:airline_section_b='%{strftime("%H:%M")}'
+  let g:airline_section_y='BN %{bufnr("%")}'
+  let g:airline_section_x = '%{PencilMode()}'
+endif
 " let g:UltiSnipsEditSplit="vertical"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
@@ -192,6 +199,18 @@ endif
 " endfunction
 "
 
+function! IncreaseFoldlevel()
+  echo &foldlevel
+  let &foldlevel=&foldlevel+1
+endfunction
+
+function! DecreaseFoldlevel()
+  echo &foldlevel
+  let &foldlevel=&foldlevel-1
+endfunction
+nnoremap <leader>if :call IncreaseFoldlevel() <CR>
+nnoremap <leader>df :call DecreaseFoldlevel() <CR>
+
 function! InspectDataFile()
     setlocal list
     setlocal nowrap
@@ -205,8 +224,11 @@ function! StripTrailingWhitespaces()
 endfunction
 
 function! WordProcessorMode()
-    setlocal textwidth=80
+    setlocal textwidth=90
+    set colorcolumn=0
     setlocal linebreak
+    setlocal syntax=off
+    setlocal foldlevel=7
     " Auto-wrap using textwidth, both text and comments
     setlocal formatoptions=tc
     " Automatically insert current comment leader
@@ -222,7 +244,7 @@ function! WordProcessorMode()
     " setlocal spell spelllang=en_us
     " setlocal thesaurus+=~/mthesaur.txt
     setlocal complete+=s
-    call pencil#init({'wrap': 'hard'})
+    " call pencil#init({'wrap': 'hard'})
 endfunction
 
 function! ViewerMode()
@@ -281,13 +303,18 @@ endfunction
 let mapleader = ","
 let maplocalleader = ","
 map ' `
-let g:pencil#wrapModeDefault = 'soft'   " or 'soft'
+let g:pencil#wrapModeDefault = 'hard'   " or 'soft'
+let g:pencil#joinspaces = 1
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
+nnoremap <leader>aw "zyiw:exe "Ack ".@z.""<CR>
 nnoremap <c-m> :CtrlPMRUFiles <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
 nnoremap <c-n> :NERDTreeToggle<CR>
+nnoremap <leader>np :NoPencil <CR>
+nnoremap <leader>hp :HardPencil <CR>
+
 nnoremap ; :
 nnoremap j gj
 " nnoremap k gk
@@ -312,7 +339,6 @@ nnoremap <leader>cv :call CsvViewerMode() <cr>
 " nnoremap <F5> :e!<cr>
 " nnoremap <leader>cs <c-_><c-_> gUU
 nnoremap ;w :w<CR>
-nnoremap ;aw :wa<CR>
 
 " Explore local directory
 nnoremap <leader>ex :e .<cr>
@@ -330,7 +356,7 @@ nnoremap ! :!
 " nnoremap H ^
 " vnoremap L $
 " Sync project to remote, define syncto and syncfrom functions in project folder
-command! WP call WordProcessorMode()
+command! WP :call WordProcessorMode()
 command! Gfix :Gcommit --amend
 nmap maartenedit  :e
 " Have to be sure that this command won't be found in any plugins, so give it
@@ -398,6 +424,7 @@ nnoremap <leader>stw :call StripTrailingWhitespaces() <CR>
 
 " Copying and pasting {{{
 set pastetoggle=<F2>
+set t_ut=
 " nnoremap Y "tY
 " nnoremap y "ty
 " vnoremap y "ty
@@ -429,8 +456,8 @@ augroup pencil
   autocmd!
   " autocmd FileType markdown,mkd call pencil#init()
   " autocmd FileType markdown,mkd call pencil#init({'wrap': 'hard'})
-  autocmd FileType textile call pencil#init()
-  autocmd FileType text call pencil#init({'wrap': 'hard'})
+  " autocmd FileType textile call pencil#init()
+  " autocmd FileType text call pencil#init({'wrap': 'hard'})
 augroup END
 
 
@@ -454,7 +481,6 @@ augroup END
 
 
 augroup filetypechecking
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.md set filetype=markdown
     au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
@@ -471,6 +497,14 @@ augroup filetypechecking
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
+
+
+" Restore cursor after having called SendLine
+fun! MySlimuxREPLSendLine()
+  let g:cursor_p = getpos(".")
+  SlimuxREPLSendLine
+  call cursor(g:cursor_p[1], g:cursor_p[2])
+endfun
 
 
 function! s:GetVisual() range
@@ -494,14 +528,14 @@ endfunction
 command! -range=% -bar -nargs=* MySlimuxREPLSendSelection call SlimuxSendCode(s:GetVisual() . "\n")
 
 augroup genericSlimux
-  if exists(':SlimuxGlobalConfigure')
+  " if exists(':SlimuxGlobalConfigure')
     nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
-    nnoremap <silent> <space> :SlimuxREPLSendLine<CR>
+    " nnoremap <silent> <space> :SlimuxREPLSendLine<CR>
+    nnoremap <silent> <space> :call MySlimuxREPLSendLine()<CR>
     vnoremap <silent> <space> :MySlimuxREPLSendSelection<CR> 
-    nnoremap <silent> <Leader>ll :SlimuxREPLSendLine<CR>
     nnoremap <silent> <leader>aa :SlimuxREPLSendBuffer<CR> <CR>
     nnoremap <silent> <Leader>pp :SlimuxREPLSendParagraph<CR>
-  endif
+  " endif
 augroup end
 
 
@@ -570,3 +604,4 @@ source ~/antigenic_space/.vimrc.local
 " nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
 " nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
 " DoMatchParen
+" 

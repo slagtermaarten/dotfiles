@@ -2,6 +2,11 @@ snippet bro "browser invocation"
 browser()${0} 
 endsnippet
 
+snippet pbro "Permanent browser invocation"
+browser(text = '${2:unsuspected}', 
+        expr = ${1})${0} 
+endsnippet
+
 snippet tb
 traceback()
 endsnippet
@@ -256,4 +261,33 @@ endsnippet
 
 snippet sn "Set names of vector"
 setNames(${1}${VISUAL}, ${2:NULL})${0} 
+endsnippet
+
+snippet cn "Colnames method"
+colnames(${1}${VISUAL})${0} 
+endsnippet
+
+snippet whi "Which method"
+which(${1}${VISUAL})${0} 
+endsnippet
+
+snippet it "Italic"
+italic(${1}${VISUAL})${0} 
+endsnippet
+
+snippet igtab "Initialize gtable"
+gt <- gtable(widths = unit(${1:c(1, 1)}, "null"), height = unit(${2:c(1, 1)}, "null")) 
+endsnippet
+
+snippet gtab "ggplot to gtable"
+ggplot_gtable(ggplot_build(${1}${VISUAL}))${0}
+endsnippet
+
+snippet agrob "add grob to gtable"
+gt <- gtable_add_grob(gt, ${1}${VISUAL}, ${2:1}, ${3:1})${0}
+endsnippet
+
+snippet dgtab "Draw gtable"
+grid.newpage() 
+grid.draw(gt) 
 endsnippet

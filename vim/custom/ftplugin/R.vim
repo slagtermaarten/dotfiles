@@ -3,6 +3,8 @@ setlocal tabstop=2
 " iabb <buffer> _ <-
 nnoremap <buffer> <silent> <leader>dt :! rm %.tmp.R<CR>
 set autowrite
+setlocal commentstring=#%s
+setlocal comments="#, #\\', ##'
 
 " nnoremap <buffer> <S-k> :call g:SendCmdToR('?' . expand("<cword>")) <CR>
 " nnoremap <buffer> <leader>rh :call g:SendCmdToR('head(' . expand("<cword>") . ')') <CR>
@@ -38,12 +40,21 @@ endfunction
 if exists(':SlimuxGlobalConfigure')
   command! CallRHelp :call GetRHelp()
   nnoremap <buffer> <silent> <leader>rh :call SlimuxSendCode('head(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>rta :call SlimuxSendCode('tail(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>rdh :call SlimuxSendCode(expand("<cword>") . '[1:5, 1:5]' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>rdt :call SlimuxSendCode(expand("<cword>") . '[(.N-5):.N, 1:5]' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>rp :call SlimuxSendCode('print(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>tt :call SlimuxSendCode('table(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>rg :call SlimuxSendCode('plot(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ds :call SlimuxSendCode('round(dev.size(units = "cm"))' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>rn :call SlimuxSendCode('names(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>rl :call SlimuxSendCode('length(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>rt :call SlimuxSendCode('str(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>od :call SlimuxSendCode('dim(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <S-k> :call SlimuxSendCode('?' . expand("<cword>") . "\n") <CR>
   nnoremap <buffer> <silent> <leader>tb :call SlimuxSendCode('traceback()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>qq :call SlimuxSendCode('q' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>gw :call SlimuxSendCode('getwd()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dq :call SlimuxSendCode('Q' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dn :call SlimuxSendCode('n' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dc :call SlimuxSendCode('c' . "\n") <CR>
@@ -52,7 +63,6 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>wa :call SlimuxSendCode('warnings()' . "\n") <CR>
 endif
 
-nnoremap <buffer> <leader>rr :call SlimuxSendCode('devtools::load_all(file.path("~/antigenic_space", "libs", "fasanalysis"))' . "\n") <CR>
 
 function! SyncRemote()
     "" Asynchronously sync files

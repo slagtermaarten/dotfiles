@@ -31,21 +31,28 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias vim='/usr/local/opt/vim/bin/vim'
 alias vi='nvim'
-alias ster='ssh m.slagter@steroid'
-alias para='ssh m.slagter@paranoid'
-alias med='ssh m.slagter@medoid'
-alias void='ssh m.slagter@void'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
 ## Git shortcuts
 alias g="git"
 ## Git  merge fix
-alias gmf="git diff --name-only | uniq | xargs $EDITOR"
+alias gfix="git diff --name-only | uniq | xargs $EDITOR"
+alias ntmux="tmux new-session -c"
 
-alias rvoid='headless_browser "http://void:8787"'
-alias rmed='headless_browser "http://medoid:8787"'
-alias rpara='headless_browser "http://paranoid:8787"'
+alias ster='ssh -X m.slagter@steroid'
+alias para='ssh -X m.slagter@paranoid'
+alias med='ssh -X m.slagter@medoid'
+alias void='ssh -X m.slagter@void'
+alias coley='ssh -X m.slagter@coley'
+alias gateway='ssh -X m.slagter@rhpc.nki.nl'
+# alias sterx='ssh -X m.slagter@steroid'
+# alias parax='ssh -X m.slagter@paranoid'
+# alias medx='ssh -X m.slagter@medoid'
+# alias voidx='ssh -X m.slagter@void'
 alias rster='headless_browser "http://ster:8787"'
+alias rpara='headless_browser "http://paranoid:8787"'
+alias rmed='headless_browser "http://medoid:8787"'
+alias rvoid='headless_browser "http://void:8787"'
 
 
 # Resolve symlink
