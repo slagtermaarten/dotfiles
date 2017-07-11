@@ -29,7 +29,10 @@ alias -s md=$EDITOR
 alias -s tex=$EDITOR
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
-alias vim='/usr/local/opt/vim/bin/vim'
+vimpath=/usr/local/opt/vim/bin/vim
+if [[ -f $vimpath ]]; then
+  alias vim=$vimpath
+fi
 alias vi='nvim'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
@@ -45,10 +48,6 @@ alias med='ssh -X m.slagter@medoid'
 alias void='ssh -X m.slagter@void'
 alias coley='ssh -X m.slagter@coley'
 alias gateway='ssh -X m.slagter@rhpc.nki.nl'
-# alias sterx='ssh -X m.slagter@steroid'
-# alias parax='ssh -X m.slagter@paranoid'
-# alias medx='ssh -X m.slagter@medoid'
-# alias voidx='ssh -X m.slagter@void'
 alias rster='headless_browser "http://ster:8787"'
 alias rpara='headless_browser "http://paranoid:8787"'
 alias rmed='headless_browser "http://medoid:8787"'

@@ -15,8 +15,8 @@ Plug 'mileszs/ack.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'altercation/vim-colors-solarized'
-Plug 'L9'
-Plug 'tComment'
+Plug 'vim-scripts/L9'
+Plug 'vim-scripts/tComment'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
 Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp' ] }
@@ -31,7 +31,7 @@ Plug 'reedes/vim-pencil'
 Plug 'tpope/vim-fugitive'
 Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'c.vim', { 'for' : ['c', 'cpp'] }
+Plug 'vim-scripts/c.vim', { 'for' : ['c', 'cpp'] }
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
 " Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
@@ -598,7 +598,6 @@ let g:localvimrc = fnamemodify('.vimrc.local', ':p')
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
-source ~/antigenic_space/.vimrc.local
 
 " nnoremap <leader>per :e ~/antigenic_space/libs/fasanalysis/R
 " nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
