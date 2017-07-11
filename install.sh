@@ -1,31 +1,36 @@
 #!/bin/zsh
 
-dir=~/dotfiles
+ddir=~/dotfiles
 olddir=~/dotfiles_old
-dotfiles="tmux.conf tmux xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv oh-my-zsh vim-spell-en.utf-8.add"
+dotfiles=(tmux.conf tmux xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile 
+          matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv 
+          oh-my-zsh vim-spell-en.utf-8.add)
 
-ln -s ~/dotfiles/powerline-fonts ~/.fonts
-ln -s ~/dotfiles/bin ~/bin
+rm -f ~/.fonts
+ln -s ~/$ddir/powerline-fonts ~/.fonts
+rm -f ~/bin
+ln -s ~/$ddir/bin ~/bin
 
 # install homebrew and packages
-cd $dir
-if [[ $(uname) -eq "Darwin" ]]; then
+cd $ddir
+if [[ $(uname) == "Darwin" ]]; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   for i in `cat my_brews`; do
     brew install $i;
   done;
+  defaults write org.R-project.R force.LANG en_US.UTF-8
 fi
 
-cd $dir
+cd $ddir
 git submodule init
 git submodule update
 git pull --recurse-submodules
 
-# WARNING removing old versions of files
+# WARNING removing pre-existing versions of files
 for file in $dotfiles; do
   [[ -e ~/.$file ]] && rm -rf ~/.$file
-  echo "Creating symlink to dotfiles/$file in home directory."
-  ln -s $dir/$file ~/.$file
+  echo "Creating symlink to $file in home directory."
+  ln -s $ddir/${file} ~/.$file
 done
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -38,9 +43,12 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 
 mkdir -p ~/Trash/
 
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer
+ycm_path=~/.vim/bundle/YouCompleteMe
+if [[ -d $ycm_path ]]; then
+  cd $ycm_path
+  ./install.py --clang-completer
+fi
 
-cd $dir
+cd $ddir
 
-defaults write org.R-project.R force.LANG en_US.UTF-8
+
