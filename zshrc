@@ -90,7 +90,7 @@ set -k
 
 # Custom prompt without bloat from oh-my-zsh (see here for opts
 # http://www.nparikh.org/unix/prompt.php#zsh)
-PROMPT="%B%2/%b%_ ~ "
+PROMPT="[%B%m%b] %F{blue}%2/%_%f ~ "
 
 autoload -U compinit && compinit
 
