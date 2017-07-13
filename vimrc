@@ -101,7 +101,8 @@ set colorcolumn=80
 " match OverLength /\%81v.\+/
 "
 let hostname=system('hostname -s')
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ [%{hostname}]\ %=%-14.(%l,%c%V%)\ %P
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ [%{hostname}]\ %=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
