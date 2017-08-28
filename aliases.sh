@@ -52,6 +52,7 @@ alias rster='headless_browser "http://ster:8787"'
 alias rpara='headless_browser "http://paranoid:8787"'
 alias rmed='headless_browser "http://medoid:8787"'
 alias rvoid='headless_browser "http://void:8787"'
+alias restartrstudio='sudo rstudio-server restart'
 
 
 # Resolve symlink

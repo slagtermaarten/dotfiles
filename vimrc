@@ -19,7 +19,7 @@ Plug 'vim-scripts/L9'
 Plug 'vim-scripts/tComment'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py' ] }
 Plug 'godlygeek/tabular'
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -160,6 +160,7 @@ if exists('g:airline#extensions#bufferline#enabled')
   let g:airline_section_y='BN %{bufnr("%")}'
   let g:airline_section_x = '%{PencilMode()}'
 endif
+let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
 " let g:UltiSnipsEditSplit="vertical"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
@@ -492,7 +493,8 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv :call InspectDataFile()
     au Bufenter,BufNewFile,BufReadPost,BufRead *.csv :call InspectDataFile()
     au Bufenter,BufNewFile,BufReadPost,BufRead *.maf :call InspectDataFile()
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.snakefile :set filetype=python
+    au Bufenter,BufNewFile,BufReadPost,BufRead Snakefile set filetype=snakemake
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.smk set filetype=snakemake
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
