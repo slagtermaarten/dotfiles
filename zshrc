@@ -95,3 +95,8 @@ PROMPT="[%B%m%b] %F{blue}%2/%_%f ~ "
 autoload -U compinit && compinit
 
 source ~/bin/tmuxinator.zsh
+
+# To save every command before it is executed
+setopt inc_append_history
+# To retrieve the history file everytime history is called upon.
+setopt share_history
