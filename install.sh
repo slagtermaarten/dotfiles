@@ -46,7 +46,11 @@ vi +PluginClean +PluginInstall +qall
 
 mkdir -p ~/Trash/
 
-ycm_path=~/.vim/bundle/YouCompleteMe
+# Install development tools and CMake:
+# sudo apt-get install build-essential cmake
+# Make sure you have Python headers installed:
+# sudo apt-get install python-dev python3-dev
+ycm_path=~/.vim/plugged/YouCompleteMe
 if [[ -d $ycm_path ]]; then
   cd $ycm_path
   ./install.py --clang-completer

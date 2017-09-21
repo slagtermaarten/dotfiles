@@ -43,9 +43,8 @@ Plug 'sukima/xmledit', { 'for' : 'xml' }
 " Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
-
 " Plug 'chiedo/vim-dr-replace'
-" Plug 'valloric/YouCompleteMe'
+Plug 'valloric/YouCompleteMe'
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'tpope/vim-vinegar'
@@ -495,6 +494,8 @@ augroup filetypechecking
     au Bufenter,BufNewFile,BufReadPost,BufRead *.maf :call InspectDataFile()
     au Bufenter,BufNewFile,BufReadPost,BufRead Snakefile set filetype=snakemake
     au Bufenter,BufNewFile,BufReadPost,BufRead *.smk set filetype=snakemake
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.gmt :call InspectDataFile()
+    au Bufenter,BufNewFile,BufReadPost,BufRead *.gmt :call ViewerMode()
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
