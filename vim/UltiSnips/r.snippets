@@ -3,8 +3,7 @@ browser()${0}
 endsnippet
 
 snippet pbro "Permanent browser invocation"
-browser(text = '${2:unsuspected}', 
-        expr = ${1})${0} 
+browser(text = '${2:unsuspected}', expr = ${1})${0} 
 endsnippet
 
 snippet tb
@@ -60,46 +59,31 @@ source('${0:file}')
 endsnippet
 
 snippet if "If statement"
-if (${1}) {
-  ${0}${VISUAL}
-}
+if (${1}) { ${0}${VISUAL} }
 endsnippet
 
 snippet eif "Else-If statement"
-else if (${1}) {
-  ${0}${VISUAL}
-}
+else if (${1}) { ${0}${VISUAL} }
+endsnippet
 
 snippet el "Else statement"
-else {
-  ${0}${VISUAL}
-}
+else { ${0}${VISUAL} }
 endsnippet
 
 snippet ife "if .. else"
-if (${1}) {
-  ${2}${VISUAL}
-} else {
-  ${3}${VISUAL}
-}
+if (${1}) { ${2}${VISUAL} } else { ${3}${VISUAL} }
 endsnippet
 
 snippet wh "while loop"
-while(${1}) {
-  ${2}${VISUAL}
-}
+while(${1}) { ${2}${VISUAL} }
 endsnippet
 
 snippet for "for loop"
-for (${1:item} in ${2:list}) {
-  ${3}${VISUAL}
-}
+for (${1:item} in ${2:list}) { ${3}${VISUAL} }
 endsnippet
 
 snippet fun "Function definition"
-${1:name} <- function (${2}) {
-  ${0}${VISUAL}
-}
+${1:name} <- function (${2}) { ${0}${VISUAL} }
 endsnippet
 
 snippet af "Anonymous function"
@@ -131,9 +115,7 @@ apply(${1:array}${VISUAL}, ${2:margin}, ${0:function})
 endsnippet
 
 snippet lapply "lapply function"
-lapply(${1}${VISUAL}, function(${2:x}) {
-  ${3}
-})
+lapply(${1}${VISUAL}, function(${2:x}) { ${3} })
 endsnippet
 
 snippet sapply "sapply function"
@@ -224,9 +206,7 @@ snippet ar "Assignment operator"
 endsnippet
 
 snippet tc "TryCatch"
-tryCatch(
-  ${1}${VISUAL}, 
-error = function(e) ${2:{ print(e); browser() }}) ${0}
+tryCatch(${1}${VISUAL}, error = function(e) ${2:{ print(e); browser() }}) ${0}
 endsnippet
 
 snippet ser "serializer"

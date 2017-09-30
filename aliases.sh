@@ -52,7 +52,8 @@ alias rster='headless_browser "http://ster:8787"'
 alias rpara='headless_browser "http://paranoid:8787"'
 alias rmed='headless_browser "http://medoid:8787"'
 alias rvoid='headless_browser "http://void:8787"'
-
+alias restartrstudio='sudo rstudio-server restart'
+alias rwork='ssh m.slagter@coley -t "tmux attach"'
 
 # Resolve symlink
 rs () { cd `pwd -P` }
@@ -64,25 +65,8 @@ vir () { command vim "$@" -S ~/dotfiles/bin/VimRSession.vim }
 #   cabal install pandoc pandoc-citeproc
 # }
 
-
-mergepdf () {
-  outputfile=shift
-  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile=$outputfile $@
-}
-
-
 autoload -U zmv
 alias mmv='noglob zmv -W'
-
-# compareTex(fn) {
-#   latexdiff <(git show HEAD:$fn) $fn > tmp.tex
-#   pdflatex -interaction=nonstopmode tmp.tex
-# }
-# alias tmux="TERM=screen-256color-bce tmux"
-# File name aliases
-# alias -s pdf=evince
-# alias -s py=vi
-# alias -s sh=vi
 
 localaliases=(`pwd`/.aliases.local)
 if [[ -f $localaliases ]]; then

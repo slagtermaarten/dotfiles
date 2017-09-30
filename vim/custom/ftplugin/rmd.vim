@@ -1,4 +1,4 @@
-source ~/dotfiles/vim/custom/ftplugin/r.vim
+source ~/dotfiles/vim/custom/ftplugin/R.vim
 
 setlocal linebreak
 setlocal textwidth=80

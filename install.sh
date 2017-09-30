@@ -6,9 +6,9 @@ dotfiles=(tmux.conf tmux xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile
           matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv 
           oh-my-zsh vim-spell-en.utf-8.add)
 
-rm -f ~/.fonts
+rm -rf ~/.fonts
 ln -s ~/$ddir/powerline-fonts ~/.fonts
-rm -f ~/bin
+rm -rf ~/bin
 ln -s ~/$ddir/bin ~/bin
 
 # install homebrew and packages
@@ -32,23 +32,28 @@ for file in $dotfiles; do
   echo "Creating symlink to $file in home directory."
   ln -s $ddir/${file} ~/.$file
 done
+ln -s $ddir/vimrc ~/.config/nvim/init.rc
 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+# curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 #     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-# mkdir -p ~/.vim/bundle/
 # vim +PluginClean +PluginInstall +qall
+#
+ 
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+vi +PluginClean +PluginInstall +qall
+
 
 mkdir -p ~/Trash/
 
-ycm_path=~/.vim/bundle/YouCompleteMe
+# Install development tools and CMake:
+# sudo apt-get install build-essential cmake
+# Make sure you have Python headers installed:
+# sudo apt-get install python-dev python3-dev
+ycm_path=~/.vim/plugged/YouCompleteMe
 if [[ -d $ycm_path ]]; then
   cd $ycm_path
   ./install.py --clang-completer
 fi
 
 cd $ddir
-
-
