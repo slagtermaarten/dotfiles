@@ -164,7 +164,7 @@ let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-set tags=./tags;$HOME
+set tags+=./tags,tags,$HOME/tags,~/antigenic_space/tags
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -192,7 +192,7 @@ if executable('ag')
 endif
 " }}}
 
-" Functions 
+" Functions
 " function! OpenCC3DSim()
 "   SyntasticToggleMode
 "   e dir/Simulation/*.py
@@ -298,6 +298,24 @@ function! TabMove(direction)
         execute "tabmove ".index
     endif
 endfunction
+
+
+function! ShowSpaces(...)
+  let @/='\v(\s+$)|( +\ze\t)'
+  let oldhlsearch=&hlsearch
+  if !a:0
+    let &hlsearch=!&hlsearch
+  else
+    let &hlsearch=a:1
+  end
+  return oldhlsearch
+endfunction
+
+function! TrimSpaces() range
+  let oldhlsearch=ShowSpaces(1)
+  execute a:firstline.",".a:lastline."substitute ///gec"
+  let &hlsearch=oldhlsearch
+endfunction
 " 
 
 " Mappings {{{
@@ -315,6 +333,8 @@ nnoremap <c-b> :CtrlPBuffer <cr>
 nnoremap <c-n> :NERDTreeToggle<CR>
 nnoremap <leader>np :NoPencil <CR>
 nnoremap <leader>hp :HardPencil <CR>
+command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
+command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
 nnoremap ; :
 nnoremap j gj
