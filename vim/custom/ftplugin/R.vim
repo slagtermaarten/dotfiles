@@ -1,8 +1,9 @@
 setlocal shiftwidth=2
 setlocal tabstop=2
 " iabb <buffer> _ <-
-nnoremap <buffer> <silent> <leader>dt :! rm %.tmp.R<CR>
+nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
 set autowrite
+set autoindent
 setlocal commentstring=#%s
 setlocal comments="#, #\\', ##'
 

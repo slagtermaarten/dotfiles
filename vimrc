@@ -4,7 +4,8 @@ set shell=/bin/bash
 
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
-Plug 'epeli/slimux'
+" Plug 'epeli/slimux'
+Plug '~/libs/slimux'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
@@ -19,7 +20,7 @@ Plug 'vim-scripts/L9'
 Plug 'vim-scripts/tComment'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex' ] }
 Plug 'godlygeek/tabular'
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -65,6 +66,7 @@ call plug#end()
 " if $TMUX == ''
 " set clipboard=unnamed
 " endif
+let g:loaded_python_provider=1
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 set showmode
@@ -83,8 +85,8 @@ set nobackup
 set noswapfile
 set noerrorbells
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html,*.Rdata,*.Rds
-set undolevels=700
-set history=700
+set undolevels=50
+set history=400
 set wildmenu
 set wildignore=*.o,*.bbl,*.pdf,*.out,*.blg,*.aux,*.log,*.latexmk
 set so=10
@@ -164,7 +166,7 @@ let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-set tags+=./tags,tags,$HOME/tags,~/antigenic_space/tags
+set tags+=./tags,tags,$HOME/bin/tags,$HOME/tags,~/antigenic_space/tags
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -346,7 +348,7 @@ nnoremap <silent> gk :bw!<cr>
 
 nnoremap <silent> gl :bn<cr>
 nnoremap <silent> gh :bp<cr>
-nnoremap <silent> <leader>w :wa <cr>:! make all<cr>
+nnoremap <silent> <leader>ww :wa <cr>
 nnoremap q; q:
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 " clean tabs of surrounding whitespaces
@@ -493,7 +495,7 @@ augroup misc_autocmds
       \ line("$") | exe "normal! g'\"" | endif
     " autocmd BufEnter * silent! lcd %:p:h
     " au FocusLost * :silent! wall
-    au FocusLost * :wall
+    " au FocusLost * :wall
     " Resize splits when the window is resized
     au VimResized * :wincmd =
     " autocmd vimenter * if !argc() | NERDTree | endif
@@ -623,8 +625,23 @@ if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
 
-" nnoremap <leader>per :e ~/antigenic_space/libs/fasanalysis/R
-" nnoremap <leader>pef :e ~/antigenic_space/libs/FirehoseDownload/R
-" nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
-" DoMatchParen
-" 
+nnoremap <leader>pea :e ~/antigenic_space/libs/fasanalysis/R
+nnoremap <leader>pef :e ~/antigenic_space/libs/firehosedownload/r
+nnoremap <leader>peu :e ~/libs/maartenutils/R
+nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
+
+nnoremap <leader>sca :bufdo SlimuxGlobalConfigureLastBuffer<CR>
+" if !exists('g:slimux_autoset')
+"     let g:slimux_autoset = 1
+" endif
+
+" if g:slimux_autoset
+" augroup slimux
+"   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom s:last_selected_pane"
+"   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer"
+"   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost call s:SelectPane(s:global_conf, s:last_selected_pane)"
+"   autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
+" augroup END
+
+autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
+autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom "test"

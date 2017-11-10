@@ -56,8 +56,8 @@ autoload -U zmv
 alias mmv='noglob zmv -W'
 
 
-if [[ -f ~/dotfiles/s_aliases.sh ]]; then
-  source ~/dotfiles/s_aliases.sh
+if [[ -f $HOME/dotfiles/s_aliases.sh ]]; then
+  source $HOME/dotfiles/s_aliases.sh
 fi
 
 localaliases=(`pwd`/.aliases.local)

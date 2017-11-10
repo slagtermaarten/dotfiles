@@ -11,9 +11,12 @@ PATH=$HOME/anaconda/bin:$HOME/.cabal/bin:/usr/local/bin:${PATH}
 PATH="/usr/local/sbin:$PATH"
 PATH="$HOME/miniconda3/bin:$PATH"
 PATH="$PWD/bin:$PATH"
+if [[ $(uname) = 'Darwin' ]]; then
+  PATH="$HOME/anaconda/envs/r34/bin:$PATH"
+fi
 ## Clean up duplicates
-PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++')
-export PATH="$PATH"
+# PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++')
+export PATH
 
 ## configuring libxml2 
 ## export LDFLAGS="-L/usr/local/opt/libxml2/lib"
@@ -39,10 +42,16 @@ bindkey -M vicmd v edit-command-line
 export EVENT_NOKQUEUE=1
 export EVENT_NOPOLL=1
 
-AUTOJUMP=/usr/share/autojump/autojump.sh
-if [[ -f $AUTOJUMP ]]; then
-  source $AUTOJUMP
-fi
+
+# if [[ "0" ]]; then
+#   if [[ $(uname) = "Darwin" ]]; then
+#     AUTOJUMP=/usr/local/etc/profile.d/autojump.sh
+#     [ -f $AUTOJUMP ] && source $AUTOJUMP
+#   fi
+# elif [[ $(uname) = "Linux" ]]; then
+#   AUTOJUMP=/usr/share/autojump/autojump.sh
+#   [ -f $AUTOJUMP ] && source $AUTOJUMP
+# fi
 
 PERL5LIB="/home/${USER}/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
 PERL5LIB=${PERL5LIB}:${HOME}/libs/perl/
@@ -60,3 +69,5 @@ export PERL5LIB
 export PERL_LOCAL_LIB_ROOT
 export PERL_MB_OPT
 export PERL_MM_OPT
+
+# source activate r34
