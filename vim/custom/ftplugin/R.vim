@@ -5,7 +5,8 @@ nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
 set autowrite
 set autoindent
 setlocal commentstring=#%s
-setlocal comments="#, #\\', ##'
+setlocal comments="#,#\\',##'
+set formatoptions=tcroqj
 
 " nnoremap <buffer> <S-k> :call g:SendCmdToR('?' . expand("<cword>")) <CR>
 " nnoremap <buffer> <leader>rh :call g:SendCmdToR('head(' . expand("<cword>") . ')') <CR>
@@ -56,6 +57,7 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>tb :call SlimuxSendCode('traceback()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>qq :call SlimuxSendCode('q' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>gw :call SlimuxSendCode('getwd()' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>sw :call SlimuxSendCode('setwd("' . expand("%:p:h") . '")' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dq :call SlimuxSendCode('Q' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dn :call SlimuxSendCode('n' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dc :call SlimuxSendCode('c' . "\n") <CR>

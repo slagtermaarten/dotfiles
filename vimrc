@@ -561,6 +561,7 @@ augroup genericSlimux
     vnoremap <silent> <space> :MySlimuxREPLSendSelection<CR> 
     nnoremap <silent> <leader>aa :SlimuxREPLSendBuffer<CR> <CR>
     nnoremap <silent> <Leader>pp :SlimuxREPLSendParagraph<CR>
+    nnoremap <leader>sca :bufdo SlimuxGlobalConfigureLastBuffer<CR>
   " endif
 augroup end
 
@@ -624,13 +625,13 @@ let g:localvimrc = fnamemodify('.vimrc.local', ':p')
 if filereadable(g:localvimrc)
   execute "source" . g:localvimrc
 endif
+source ~/antigenic_space/.vimrc.local
 
-nnoremap <leader>pea :e ~/antigenic_space/libs/fasanalysis/R
-nnoremap <leader>pef :e ~/antigenic_space/libs/firehosedownload/r
-nnoremap <leader>peu :e ~/libs/maartenutils/R
-nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
+" nnoremap <leader>pea :e ~/antigenic_space/libs/fasanalysis/R
+" nnoremap <leader>pef :e ~/antigenic_space/libs/firehosedownload/r
+" nnoremap <leader>peu :e ~/libs/maartenutils/R
+" nnoremap <leader>pem :e ~/antigenic_space/maarten-analyses
 
-nnoremap <leader>sca :bufdo SlimuxGlobalConfigureLastBuffer<CR>
 " if !exists('g:slimux_autoset')
 "     let g:slimux_autoset = 1
 " endif
