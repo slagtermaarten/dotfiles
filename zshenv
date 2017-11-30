@@ -2,20 +2,32 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # skip_global_compinit=1
 
-PATH="/home/${USER}/perl5/bin${PATH:+:${PATH}}"
-case ":$PATH:" in
-  *:$HOME/bin:*) ;;            # do nothing if $PATH already contains $HOME/bin
-  *) PATH=$HOME/bin:$PATH ;;   # in every other case, add it to the front
-esac
-PATH=$HOME/anaconda/bin:$HOME/.cabal/bin:/usr/local/bin:${PATH}
-PATH="/usr/local/sbin:$PATH"
-PATH="$HOME/miniconda3/bin:$PATH"
-PATH="$PWD/bin:$PATH"
-if [[ $(uname) = 'Darwin' ]]; then
-  PATH="$HOME/anaconda/envs/r34/bin:$PATH"
+## Prevent double entries in $PATH, I tend to get rather obsessive about these
+## things
+pathagg () {
+  if [[ -d $1 ]]; then
+		if ! echo $PATH | egrep -q "(^|:)$1($|:)"; then
+			 if [[ "$2" == "after" ]]; then
+					PATH=$PATH:$1
+			 else
+					PATH=$1:$PATH
+			 fi
+		fi
+	fi
+}
+pathagg $HOME/bin
+pathagg $PWD/bin
+## I always want access to FAS bin, will probably leave path as soon as this
+## behemoth is finished
+pathagg $HOME/antigenic_space/bin
+pathagg $HOME/perl5/bin after
+pathagg $HOME/anaconda/bin after
+pathagg $HOME/.cabal/bin after
+pathagg /user/local/bin after
+pathagg $HOME/miniconda3/bin after
+if [[ $(uname) == 'Darwin' ]]; then
+	pathagg $HOME/anaconda/envs/r34/bin
 fi
-## Clean up duplicates
-# PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++')
 export PATH
 
 ## configuring libxml2 
@@ -43,15 +55,15 @@ export EVENT_NOKQUEUE=1
 export EVENT_NOPOLL=1
 
 
-# if [[ "0" ]]; then
-#   if [[ $(uname) = "Darwin" ]]; then
-#     AUTOJUMP=/usr/local/etc/profile.d/autojump.sh
-#     [ -f $AUTOJUMP ] && source $AUTOJUMP
-#   fi
-# elif [[ $(uname) = "Linux" ]]; then
-#   AUTOJUMP=/usr/share/autojump/autojump.sh
-#   [ -f $AUTOJUMP ] && source $AUTOJUMP
-# fi
+if [[ "0" ]]; then
+  if [[ $(uname) = "Darwin" ]]; then
+    AUTOJUMP=/usr/local/etc/profile.d/autojump.sh
+    [ -f $AUTOJUMP ] && source $AUTOJUMP
+  fi
+elif [[ $(uname) = "Linux" ]]; then
+  AUTOJUMP=/usr/share/autojump/autojump.sh
+  [ -f $AUTOJUMP ] && source $AUTOJUMP
+fi
 
 PERL5LIB="/home/${USER}/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
 PERL5LIB=${PERL5LIB}:${HOME}/libs/perl/
@@ -69,5 +81,3 @@ export PERL5LIB
 export PERL_LOCAL_LIB_ROOT
 export PERL_MB_OPT
 export PERL_MM_OPT
-
-# source activate r34
