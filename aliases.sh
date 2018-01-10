@@ -12,10 +12,12 @@ headless_browser() {
 alias lt='ls -lhtr'
 alias ls='ls -tr'
 alias tlf='tail -f'
-alias e='$EDITOR'
+alias e="EDITOR"
 alias la='ls -lhtra'
 alias ealias='vim $HOME/dotfiles/aliases.sh'
 alias x='chmod +x'
+# alias ctags="`brew --prefix`/bin/ctags"
+# alias vim="/usr/local/bin/mvim vim"
 # alias geeknote='python $HOME/bin/geeknote/geeknote.py'
 # alias todo='$HOME/Dropbox/todo/`date +%d%m%y`.md'
 # alias ytodo='$HOME/Dropbox/todo/`date +%d%m%y --date="yesterday"`.md'

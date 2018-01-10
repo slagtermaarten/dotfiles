@@ -23,11 +23,16 @@ undebug(${VISUAL}$1)${0}
 endsnippet
 
 snippet el "Named element of list or named vector" i
-["${1}${VISUAL}"]${0}
+['${1}${VISUAL}']${0}
 endsnippet
 
 snippet elu "Unnamed element of list or named vector" i
-[["${1}${VISUAL}"]]${0}
+[['${1}${VISUAL}']]${0}
+endsnippet
+
+snippet eluf "assign" i
+assign('${1}${VISUAL}', ${2}${VISUAL}, 
+       ${2:parent.env(parent.frame(1))})
 endsnippet
 
 snippet br "Numerical element of list or vector" i

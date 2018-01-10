@@ -13,22 +13,47 @@ pathagg () {
 					PATH=$1:$PATH
 			 fi
 		fi
+    if [[ "$2" == "prepend" ]]; then
+      ## TODO properly erase previous entry if that existed
+      # PATH="${PATH//:$1://}"
+      # PATH="${PATH//$1://}"
+      # PATH="${PATH//:$1//}"
+      ## Clear out previous entry and put to the front
+      # PATH="$( echo $PATH | tr : '\n' | grep -v $1 | paste -s -d: )"
+      PATH=$1:$PATH
+    fi
 	fi
 }
+
 pathagg $HOME/bin
 pathagg $PWD/bin
 ## I always want access to FAS bin, will probably leave path as soon as this
 ## behemoth is finished
 pathagg $HOME/antigenic_space/bin
+pathagg /usr/local/bin prepend
 pathagg $HOME/perl5/bin after
 pathagg $HOME/anaconda/bin after
 pathagg $HOME/.cabal/bin after
-pathagg /user/local/bin after
 pathagg $HOME/miniconda3/bin after
 if [[ $(uname) == 'Darwin' ]]; then
 	pathagg $HOME/anaconda/envs/r34/bin
 fi
+# Deduplicate path variables
+get_var () {
+    eval 'printf "%s\n" "${'"$1"'}"'
+}
+set_var () {
+    eval "$1=\"\$2\""
+}
+dedup_pathvar () {
+    pathvar_name="$1"
+    pathvar_value="$(get_var "$pathvar_name")"
+    deduped_path="$(perl -e 'print join(":",grep { not $seen{$_}++ } split(/:/, $ARGV[0]))' "$pathvar_value")"
+    set_var "$pathvar_name" "$deduped_path"
+}
+dedup_pathvar PATH
 export PATH
+# echo "Path: $PATH"
 
 ## configuring libxml2 
 ## export LDFLAGS="-L/usr/local/opt/libxml2/lib"
@@ -41,7 +66,7 @@ export PATH
 # ls "$LIBXML_INCDIR"
 # Rscript -e 'install.packages("XML")'
 
-export EDITOR=nvim
+export EDITOR=vim
 export SHELL=/bin/zsh
 bindkey -M vicmd v edit-command-line
 # path=($^path(N))

@@ -2,11 +2,14 @@ setlocal shiftwidth=2
 setlocal tabstop=2
 " iabb <buffer> _ <-
 nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
-set autowrite
+" set autowrite
+set noautowrite
 set autoindent
+set smartindent
+setlocal comments=b:##,b:#',b:#
 setlocal commentstring=#%s
-setlocal comments="#,#\\',##'
-set formatoptions=tcroqj
+setlocal textwidth=80
+set formatoptions=tcrqj
 
 " nnoremap <buffer> <S-k> :call g:SendCmdToR('?' . expand("<cword>")) <CR>
 " nnoremap <buffer> <leader>rh :call g:SendCmdToR('head(' . expand("<cword>") . ')') <CR>
@@ -14,7 +17,18 @@ set formatoptions=tcroqj
 " nnoremap <buffer> <leader>lf :call g:SendCmdToR('list.files(' . expand("<cword>") . ')') <CR>
 " nnoremap <buffer> <leader>tb :call g:SendCmdToR('traceback()') <CR>
 " nnoremap <buffer> <leader>rr :call g:SendCmdToR('devtools::load_all(file.path("~/antigenic_space", "libs", "fasanalysis"))') <CR>
-" nnoremap <buffer> <leader>fb :/\v^\s*browser\(\)/ <CR>
+nnoremap <buffer> <leader>fb :/\v^\s*browser\(\)/ <CR>
+nnoremap <buffer> <leader>ft :/\v^\s*if\s*\(T\)/ <CR>
+nnoremap <buffer> <leader>ff :/\v^\s*if\s*\(F\)/ <CR>
+
+function! ProjectSearch()
+  let l:searchterm = expand("<cword>")
+	echom "Searching for: " . l:searchterm
+  execute "Ack! " . l:searchterm . " ~/libs/maartenutils/R" 
+  " execute "AckAdd " . l:searchterm . " ~/antigenic_space/libs/fasanalysis/R"
+  " execute "AckAdd " . l:searchterm . " ~/antigenic_space/libs/firehosedownload/R"
+endfunction
+nnoremap <buffer> <leader>aps :call ProjectSearch() <CR>
 " nnoremap <buffer> <leader>fpb :/\v^\s*perm_browser\(\)/ <CR>
 " nnoremap <buffer> <leader>ft :/if (T)/ <CR>
 

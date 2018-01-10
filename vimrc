@@ -6,6 +6,7 @@ set shell=/bin/bash
 call plug#begin('~/.vim/plugged')
 " Plug 'epeli/slimux'
 Plug '~/libs/slimux'
+Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
@@ -17,7 +18,9 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'vim-scripts/L9'
-Plug 'vim-scripts/tComment'
+Plug 'vim-scripts/Rename'
+" Plug 'vim-scripts/tComment'
+Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
 Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex' ] }
@@ -28,7 +31,7 @@ Plug 'vim-scripts/taglist.vim'
 Plug 'fs111/pydoc.vim', { 'for' : 'python' }
 Plug 'craigemery/vim-autotag'
 " Plug 'reedes/vim-pencil', { 'on' : ['pencil#init()', '<Plug>pencil#init()', 'SoftPencil', 'HardPencil'] }
-Plug 'reedes/vim-pencil'
+" Plug 'reedes/vim-pencil'
 Plug 'tpope/vim-fugitive'
 Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
@@ -166,7 +169,7 @@ let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-set tags+=./tags,tags,$HOME/bin/tags,$HOME/tags,~/antigenic_space/tags
+set tags=./tags,~/antigenic_space/tags
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -201,6 +204,8 @@ endif
 "   echomsg "Ran my command"
 " endfunction
 "
+nnoremap <leader>cfn :let @*=expand("%")<CR>
+
 
 function! IncreaseFoldlevel()
   echo &foldlevel
@@ -378,6 +383,7 @@ nnoremap ;n :n
 nnoremap ! :!
 " nnoremap H ^
 " vnoremap L $
+vnoremap // y/<C-R>"<CR>
 " Sync project to remote, define syncto and syncfrom functions in project folder
 command! WP :call WordProcessorMode()
 command! Gfix :Gcommit --amend
@@ -643,6 +649,11 @@ source ~/antigenic_space/.vimrc.local
 "   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost call s:SelectPane(s:global_conf, s:last_selected_pane)"
 "   autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
 " augroup END
+augroup slimux
+  " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom s:last_selected_pane"
+  " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer"
+  autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
+augroup END
 
 autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
-autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom "test"
+set tags=./tags,~/antigenic_space/tags
