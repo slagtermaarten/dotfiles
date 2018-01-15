@@ -23,7 +23,7 @@ Plug 'vim-scripts/Rename'
 Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake' ] }
 Plug 'godlygeek/tabular'
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -221,7 +221,7 @@ nnoremap <leader>df :call DecreaseFoldlevel() <CR>
 
 function! InspectDataFile()
     setlocal list
-    setlocal nowrap
+    setlocal wrap
 endfunction
 
 function! StripTrailingWhitespaces()
