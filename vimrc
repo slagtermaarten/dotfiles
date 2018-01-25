@@ -23,7 +23,7 @@ Plug 'vim-scripts/Rename'
 Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
 Plug 'godlygeek/tabular'
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -141,6 +141,8 @@ nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> } :<C-u>execute "keepjumps norm! " . v:count1 . "}"<CR>
+nnoremap <silent> { :<C-u>execute "keepjumps norm! " . v:count1 . "{"<CR>
 " nnoremap <silent> <C-i> :TmuxNavigatePrevious<cr>
 
 let g:slimux_select_from_current_window = 1
@@ -429,7 +431,6 @@ nnoremap <leader>j Jxxi,<esc>
 " Easy copy paste commands
 noremap <leader>all ggVG
 vnoremap <leader>cop "+y
-nmap <leader>pas <esc>:set paste <CR> i<C-r>+ <Esc> 
 ""<bar> :set nopaste<cr>
 " if exists(":Tabularize")
 "   " nmap <Leader>a= :Tabularize /=<CR>
@@ -656,4 +657,4 @@ augroup slimux
 augroup END
 
 autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
-set tags=./tags,~/antigenic_space/tags
+set tags=./tags,~/antigenic_space/tags,~/tags
