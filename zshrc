@@ -9,7 +9,7 @@ export SAVEHIST=1000
 # ZSH_THEME="gozilla"
 
 setopt interactivecomments
-# setopt extended_blob
+setopt extended_glob
 
 # eval `dircolors ~/dotfiles/dircolors-solarized/dircolors.ansi-light`
 # eval `dircolors ~/dotfiles/dircolors-solarized`
