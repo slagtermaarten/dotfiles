@@ -36,7 +36,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/c.vim', { 'for' : ['c', 'cpp'] }
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 " Plug 'nelstrom/vim-markdown-folding', { 'for' : 'markdown' }
 " Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
 " Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
@@ -338,6 +338,7 @@ nnoremap <leader>aw "zyiw:exe "Ack ".@z.""<CR>
 nnoremap <c-m> :CtrlPMRUFiles <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
 nnoremap <c-n> :NERDTreeToggle<CR>
+nnoremap <c-F> :NERDTreeFind<CR>
 nnoremap <leader>np :NoPencil <CR>
 nnoremap <leader>hp :HardPencil <CR>
 command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
