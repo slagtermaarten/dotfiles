@@ -137,6 +137,7 @@ let vimrplugin_assign=0
 set guifont=Monaco:h13
 " set encoding=utf-8
 let g:tmux_navigator_no_mappings = 1
+nnoremap <C-_> :echo 'word' expand('<cword>') 'has length' strlen(substitute(expand('<cword>'), '.', 'x', 'g'))<CR>
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
