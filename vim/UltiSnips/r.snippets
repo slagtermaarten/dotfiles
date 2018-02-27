@@ -1,9 +1,9 @@
 snippet bro "browser invocation"
-browser()${0} 
+browser()${0}
 endsnippet
 
 snippet pbro "Permanent browser invocation"
-browser(text = '${2:unsuspected}', expr = ${1})${0} 
+browser(text = '${2:unsuspected}', expr = ${1})${0}
 endsnippet
 
 snippet tb
@@ -31,7 +31,7 @@ snippet elu "Unnamed element of list or named vector" i
 endsnippet
 
 snippet eluf "assign" i
-assign('${1}${VISUAL}', ${2}${VISUAL}, 
+assign('${1}${VISUAL}', ${2}${VISUAL},
        ${2:parent.env(parent.frame(1))})
 endsnippet
 
@@ -64,19 +64,29 @@ source('${0:file}')
 endsnippet
 
 snippet if "If statement"
-if (${1}) { ${0}${VISUAL} }
+if (${1}) {
+  ${0}${VISUAL}
+}
 endsnippet
 
 snippet eif "Else-If statement"
-else if (${1}) { ${0}${VISUAL} }
+else if (${1}) {
+  ${0}${VISUAL}
+}
 endsnippet
 
 snippet el "Else statement"
-else { ${0}${VISUAL} }
+else {
+  ${0}${VISUAL}
+}
 endsnippet
 
 snippet ife "if .. else"
-if (${1}) { ${2}${VISUAL} } else { ${3}${VISUAL} }
+if (${1}) { 
+  ${2}${VISUAL} 
+} else { 
+  ${3}${VISUAL} 
+}
 endsnippet
 
 snippet wh "while loop"
@@ -88,11 +98,13 @@ for (${1:item} in ${2:list}) { ${3}${VISUAL} }
 endsnippet
 
 snippet fun "Function definition"
-${1:name} <- function (${2}) { ${0}${VISUAL} }
+${1:name} <- function(${2}) { 
+  ${0}${VISUAL} 
+}
 endsnippet
 
 snippet af "Anonymous function"
-function(${1:x}) ${0}${VISUAL}
+function(${1:x}) { ${0}${VISUAL} }
 endsnippet
 
 snippet ret "Return call"
@@ -152,7 +164,7 @@ ggplot(${1:data}${VISUAL}, aes(${0:aesthetics}))
 endsnippet
 
 snippet gga "add to ggplot2 plot"
-${1:p1} <- ${1:p1} + ${0}
+${1:p1} <- $1 + ${0}
 endsnippet
 
 snippet fis "Fisher test"
@@ -207,7 +219,7 @@ signif(${1}${VISUAL}, digits = ${0:2})
 endsnippet
 
 snippet ar "Assignment operator"
-<- ${0} 
+<- ${0}
 endsnippet
 
 snippet tc "TryCatch"
@@ -215,7 +227,7 @@ tryCatch(${1}${VISUAL}, error = function(e) ${2:{ print(e); browser() }}) ${0}
 endsnippet
 
 snippet ser "serializer"
-serializer(${1}${VISUAL}) 
+serializer(${1}${VISUAL})
 endsnippet
 
 snippet rox "ROxygen function header"
@@ -237,31 +249,31 @@ parent.frame(3)
 endsnippet
 
 snippet fp "File path"
-file.path(${1}${VISUAL})${0} 
+file.path(${1}${VISUAL})${0}
 endsnippet
 
 snippet qs "Quick sub sample"
-sample(${1}${VISUAL}, 10)${0} 
+sample(${1}${VISUAL}, 10)${0}
 endsnippet
 
 snippet sn "Set names of vector"
-setNames(${1}${VISUAL}, ${2:NULL})${0} 
+setNames(${1}${VISUAL}, ${2:NULL})${0}
 endsnippet
 
 snippet cn "Colnames method"
-colnames(${1}${VISUAL})${0} 
+colnames(${1}${VISUAL})${0}
 endsnippet
 
 snippet whi "Which method"
-which(${1}${VISUAL})${0} 
+which(${1}${VISUAL})${0}
 endsnippet
 
 snippet it "Italic"
-italic(${1}${VISUAL})${0} 
+italic(${1}${VISUAL})${0}
 endsnippet
 
 snippet igtab "Initialize gtable"
-gt <- gtable(widths = unit(${1:c(1, 1)}, "null"), height = unit(${2:c(1, 1)}, "null")) 
+gt <- gtable(widths = unit(${1:c(1, 1)}, "null"), height = unit(${2:c(1, 1)}, "null"))
 endsnippet
 
 snippet gtab "ggplot to gtable"
@@ -273,6 +285,10 @@ gt <- gtable_add_grob(gt, ${1}${VISUAL}, ${2:1}, ${3:1})${0}
 endsnippet
 
 snippet dgtab "Draw gtable"
-grid.newpage() 
-grid.draw(gt) 
+grid.newpage()
+grid.draw(gt)
+endsnippet
+
+snippet "ifu?n?ar?g?u?m?e?n?t?" "Identical function argument" r
+${1:arg} = $1$0
 endsnippet
