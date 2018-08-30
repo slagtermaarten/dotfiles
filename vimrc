@@ -6,7 +6,7 @@ set shell=/bin/bash
 call plug#begin('~/.vim/plugged')
 " Plug 'epeli/slimux'
 Plug '~/libs/slimux'
-Plug 'Chiel92/vim-autoformat'
+" Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
@@ -24,7 +24,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
 Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
 Plug 'vim-scripts/taglist.vim'
@@ -49,6 +49,7 @@ Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
 Plug 'valloric/YouCompleteMe'
+" Plug 'majutsushi/tagbar'
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'tpope/vim-vinegar'
@@ -137,6 +138,7 @@ let vimrplugin_assign=0
 set guifont=Monaco:h13
 " set encoding=utf-8
 let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
 nnoremap <C-_> :echo 'word' expand('<cword>') 'has length' strlen(substitute(expand('<cword>'), '.', 'x', 'g'))<CR>
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
@@ -172,7 +174,6 @@ let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-set tags=./tags,~/antigenic_space/tags
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -632,9 +633,10 @@ iabbrev arrow -->
 let g:localvimrc = fnamemodify('.vimrc.local', ':p')
 " call SetProjectRoot()
 if filereadable(g:localvimrc)
+  echo "Loading local vimrc"
   execute "source" . g:localvimrc
 endif
-source ~/antigenic_space/.vimrc.local
+" source ~/antigenic_space/.vimrc.local
 
 " nnoremap <leader>pea :e ~/antigenic_space/libs/fasanalysis/R
 " nnoremap <leader>pef :e ~/antigenic_space/libs/firehosedownload/r
@@ -659,4 +661,7 @@ augroup slimux
 augroup END
 
 autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
-set tags=./tags,~/antigenic_space/tags,~/tags
+
+" set tags=./tags,~/antigenic_space/tags,~/surfdrive/Projects/TONIC/tags,tags;$HOME
+" set tags=./tags,tags;$HOME;$HOME/antigenic_space/tags
+set tags=./tags,tags;$HOME

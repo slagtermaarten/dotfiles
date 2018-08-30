@@ -1,4 +1,4 @@
-setlocal shiftwidth=2
+setlocal shiftwidth=1
 setlocal tabstop=2
 " iabb <buffer> _ <-
 nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
@@ -20,6 +20,12 @@ set formatoptions=tcrqj
 nnoremap <buffer> <leader>fb :/\v^\s*browser\(\)/ <CR>
 nnoremap <buffer> <leader>ft :/\v^\s*if\s*\(T\)/ <CR>
 nnoremap <buffer> <leader>ff :/\v^\s*if\s*\(F\)/ <CR>
+
+" From https://stackoverflow.com/questions/13597256/change-r-indentation-style-in-vim-with-vim-r-plugin#24259977
+let r_indent_align_args = 0
+" Set vim-r-plugin to mimics ess :
+let r_indent_ess_comments = 0
+let r_indent_ess_compatible = 0
 
 function! ProjectSearch()
   let l:searchterm = expand("<cword>")

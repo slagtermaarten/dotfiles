@@ -1,5 +1,6 @@
 source ~/dotfiles/vim/custom/ftplugin/R.vim
 
+filetype plugin indent on
 setlocal linebreak
 set nospell
 " call tcomment#DefineType('r')

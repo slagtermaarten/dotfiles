@@ -292,3 +292,10 @@ endsnippet
 snippet "ifu?n?ar?g?u?m?e?n?t?" "Identical function argument" r
 ${1:arg} = $1$0
 endsnippet
+
+snippet pale?t?t?e "Develop an R color palette"
+cols <- ${1}${VISUAL}
+cols <- setNames(gen_color_vector(name = 'Royal1', 
+																	n = length(cols)), names(cols))
+plot_palette(cols)
+endsnippet
