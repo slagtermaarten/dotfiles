@@ -69,10 +69,12 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>tt :call SlimuxSendCode('table(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>rg :call SlimuxSendCode('plot(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>ds :call SlimuxSendCode('round(dev.size(units = "cm"))' . "\n") <CR>
-  nnoremap <buffer> <silent> <leader>rn :call SlimuxSendCode('names(' . expand("<cword>") . ')' . "\n") <CR>
-  nnoremap <buffer> <silent> <leader>rl :call SlimuxSendCode('length(' . expand("<cword>") . ')' . "\n") <CR>
-  nnoremap <buffer> <silent> <leader>rt :call SlimuxSendCode('str(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>on :call SlimuxSendCode('names(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ol :call SlimuxSendCode('length(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ot :call SlimuxSendCode('str(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ocl :call SlimuxSendCode('class(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>od :call SlimuxSendCode('dim(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>odn :call SlimuxSendCode('dimnames(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <S-k> :call SlimuxSendCode('?' . expand("<cword>") . "\n") <CR>
   nnoremap <buffer> <silent> <leader>tb :call SlimuxSendCode('traceback()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>qq :call SlimuxSendCode('q' . "\n") <CR>

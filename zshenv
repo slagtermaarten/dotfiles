@@ -61,9 +61,9 @@ export PATH
 # echo "Path: $PATH"
 
 ## configuring libxml2 
-## export LDFLAGS="-L/usr/local/opt/libxml2/lib"
-## export CPPFLAGS="-I/usr/local/opt/libxml2/include"
-## export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
+# export LDFLAGS="-L/usr/local/opt/libxml2/lib"
+# export CPPFLAGS="-I/usr/local/opt/libxml2/include"
+# export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 # export LIBXML_LIBDIR="/usr/local/opt/libxml2/lib"
 # export LIBXML_INCDIR="/usr/local/opt/libxml2/include/libxml2/libxml/"
 # export LIBXML_INCDIR="/usr/local/opt/libxml2/include"

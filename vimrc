@@ -6,7 +6,7 @@ set shell=/bin/bash
 call plug#begin('~/.vim/plugged')
 " Plug 'epeli/slimux'
 Plug '~/libs/slimux'
-" Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
@@ -118,9 +118,9 @@ set t_Co=256
 " colorscheme solarized
 
 " set vim-r-plugin to indent in a sane way
-let r_indent_align_args = 1
-let r_indent_ess_comments = 1
-let r_indent_ess_compatible = 1
+" let r_indent_align_args = 1
+" let r_indent_ess_comments = 1
+" let r_indent_ess_compatible = 1
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_in_buffer = 0

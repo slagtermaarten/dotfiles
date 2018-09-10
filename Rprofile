@@ -2,12 +2,13 @@
 .First <- function() {
   options(repos = c(CRAN = "https://cran.rstudio.com/"),
           browserNLdisabled = TRUE,
+          pkgType = 'both',
           deparse.max.lines = 2)
   options(max.print = 200)
   options(digits = 3)
   options(menu.graphics = FALSE)
   desired_packages <- c('datasets', 'utils', 'grDevices', 'graphics', 'stats',
-                        'methods', 'nvimcom', 'pacman', 'devtools', 'ggplot2',
+                        'methods', 'pacman', 'devtools', 'ggplot2',
                         'data.table', 'dplyr')
   options(defaultPackages = intersect(rownames(utils::installed.packages()),
                                       desired_packages))

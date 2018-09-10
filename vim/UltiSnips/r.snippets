@@ -299,3 +299,7 @@ cols <- setNames(gen_color_vector(name = 'Royal1',
 																	n = length(cols)), names(cols))
 plot_palette(cols)
 endsnippet
+
+snippet "co" "Clear serialized object"
+clear_object(${1}${VISUAL}, ${2:sr})${0}
+endsnippet
