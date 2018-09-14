@@ -2,7 +2,11 @@
 .First <- function() {
   options(repos = c(CRAN = "https://cran.rstudio.com/"),
           browserNLdisabled = TRUE,
+          pkgType = 'both',
           deparse.max.lines = 2)
+  if (Sys.getenv('HOSTNAME') == 'coley') {
+    options(pkgType = 'source')
+  }
   options(max.print=200)
   options(digits = 3)
   options(menu.graphics = FALSE)

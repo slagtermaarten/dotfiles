@@ -106,3 +106,5 @@ export PERL5LIB
 export PERL_LOCAL_LIB_ROOT
 export PERL_MB_OPT
 export PERL_MM_OPT
+HOSTNAME=$(hostname)
+export HOSTNAME

@@ -49,6 +49,7 @@ Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
 Plug 'valloric/YouCompleteMe'
+Plug 'ervandew/supertab'
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'tpope/vim-vinegar'
@@ -128,8 +129,6 @@ let R_tmux_split = 1
 let R_assign = 0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
 let g:mma_highlight_option = "solarized"
 let NERDTreeHijackNetrw=1
 let g:mma_candy=1
@@ -168,7 +167,15 @@ if exists('g:airline#extensions#bufferline#enabled')
   let g:airline_section_x = '%{PencilMode()}'
 endif
 let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
-" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<S-Tab>"
+let g:UltiSnipsJumpForwardTrigger = "<S-Tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<shift-tab>"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
