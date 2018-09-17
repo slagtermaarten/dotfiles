@@ -26,6 +26,7 @@ alias x='chmod +x'
 # alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
 alias bi='$EDITOR +PluginClean! +PluginInstall +qall'
 alias ff='find . -name'
+alias pr="cd $(git rev-parse --show-toplevel)"
 # alias ag='sudo apt-get install'
 alias -s md=$EDITOR
 alias -s tex=$EDITOR

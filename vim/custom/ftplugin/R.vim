@@ -1,4 +1,4 @@
-setlocal shiftwidth=2
+setlocal shiftwidth=1
 setlocal tabstop=2
 " iabb <buffer> _ <-
 nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
@@ -20,6 +20,12 @@ set formatoptions=tcrqj
 nnoremap <buffer> <leader>fb :/\v^\s*browser\(\)/ <CR>
 nnoremap <buffer> <leader>ft :/\v^\s*if\s*\(T\)/ <CR>
 nnoremap <buffer> <leader>ff :/\v^\s*if\s*\(F\)/ <CR>
+
+" From https://stackoverflow.com/questions/13597256/change-r-indentation-style-in-vim-with-vim-r-plugin#24259977
+let r_indent_align_args = 0
+" Set vim-r-plugin to mimics ess :
+let r_indent_ess_comments = 0
+let r_indent_ess_compatible = 0
 
 function! ProjectSearch()
   let l:searchterm = expand("<cword>")
@@ -63,10 +69,12 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>tt :call SlimuxSendCode('table(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>rg :call SlimuxSendCode('plot(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>ds :call SlimuxSendCode('round(dev.size(units = "cm"))' . "\n") <CR>
-  nnoremap <buffer> <silent> <leader>rn :call SlimuxSendCode('names(' . expand("<cword>") . ')' . "\n") <CR>
-  nnoremap <buffer> <silent> <leader>rl :call SlimuxSendCode('length(' . expand("<cword>") . ')' . "\n") <CR>
-  nnoremap <buffer> <silent> <leader>rt :call SlimuxSendCode('str(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>on :call SlimuxSendCode('names(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ol :call SlimuxSendCode('length(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ot :call SlimuxSendCode('str(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ocl :call SlimuxSendCode('class(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>od :call SlimuxSendCode('dim(' . expand("<cword>") . ')' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>odn :call SlimuxSendCode('dimnames(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <S-k> :call SlimuxSendCode('?' . expand("<cword>") . "\n") <CR>
   nnoremap <buffer> <silent> <leader>tb :call SlimuxSendCode('traceback()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>qq :call SlimuxSendCode('q' . "\n") <CR>

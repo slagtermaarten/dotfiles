@@ -34,6 +34,12 @@ ${VISUAL}
 -->
 endsnippet
 
+snippet mcomv "Commented out vim section"
+<!-- {{{ ${1} -->
+${VISUAL}
+<!-- $1 }}} -->
+endsnippet
+
 snippet title "Rmd title block"
 ---
 title: "${1:Analysis of}"
@@ -41,5 +47,9 @@ author: "`print g:snips_author`"
 output: ${2:html}_document:
 	toc: true
 ---
+endsnippet
+
+snippet fwh "Figure width and height of chunk"
+fig.width = ${1}, fig.height = ${2}
 endsnippet
 

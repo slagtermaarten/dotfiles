@@ -35,6 +35,11 @@ pathagg $HOME/perl5/bin after
 pathagg $HOME/anaconda/bin after
 pathagg $HOME/.cabal/bin after
 pathagg $HOME/miniconda3/bin after
+pathagg $HOME/miniconda2/bin after
+
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre
+pathagg $JAVA_HOME/bin
+
 if [[ $(uname) == 'Darwin' ]]; then
 	pathagg $HOME/anaconda/envs/r34/bin
 fi
@@ -56,9 +61,9 @@ export PATH
 # echo "Path: $PATH"
 
 ## configuring libxml2 
-## export LDFLAGS="-L/usr/local/opt/libxml2/lib"
-## export CPPFLAGS="-I/usr/local/opt/libxml2/include"
-## export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
+# export LDFLAGS="-L/usr/local/opt/libxml2/lib"
+# export CPPFLAGS="-I/usr/local/opt/libxml2/include"
+# export PKG_CONFIG_PATH="/usr/local/opt/libxml2/lib/pkgconfig"
 # export LIBXML_LIBDIR="/usr/local/opt/libxml2/lib"
 # export LIBXML_INCDIR="/usr/local/opt/libxml2/include/libxml2/libxml/"
 # export LIBXML_INCDIR="/usr/local/opt/libxml2/include"

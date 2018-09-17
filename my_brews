@@ -43,7 +43,6 @@ pixman
 pkg-config
 python
 qt
-r
 readline
 reattach-to-user-namespace
 sqlite

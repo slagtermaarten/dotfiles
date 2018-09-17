@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-ddir=~/dotfiles
-olddir=~/dotfiles_old
+ddir=$(pwd)
+olddir="$(pwd)_old"
 dotfiles=(tmux.conf tmux xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile 
           matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv 
           oh-my-zsh vim-spell-en.utf-8.add)
@@ -14,7 +14,9 @@ ln -s ~/$ddir/bin ~/bin
 # install homebrew and packages
 cd $ddir
 if [[ $(uname) == "Darwin" ]]; then
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  if ! type "brew" > /dev/null; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  fi
   for i in `cat my_brews`; do
     brew install $i;
   done;
@@ -37,12 +39,10 @@ ln -s $ddir/vimrc ~/.config/nvim/init.rc
 # curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 #     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # vim +PluginClean +PluginInstall +qall
-#
  
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 vi +PluginClean +PluginInstall +qall
-
 
 mkdir -p ~/Trash/
 
