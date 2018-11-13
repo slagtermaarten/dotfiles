@@ -10,11 +10,11 @@
   options(max.print=200)
   options(digits = 3)
   options(menu.graphics = FALSE)
-  desired_packages <- c('datasets', 'utils', 'grDevices', 'graphics', 'stats',
-                        'methods', 'pacman', 'devtools', 'ggplot2',
-                        'data.table', 'dplyr')
-  options(defaultPackages = intersect(rownames(utils::installed.packages()),
-                                      desired_packages))
+  # desired_packages <- c('datasets', 'utils', 'grDevices', 'graphics', 'stats',
+  #                       'methods', 'pacman', 'devtools', 'ggplot2',
+  #                       'data.table', 'dplyr')
+  # options(defaultPackages = intersect(rownames(utils::installed.packages()),
+  #                                     desired_packages))
   options(tz = 'Europe/Berlin')
   Sys.setenv(TZ = 'Europe/Amsterdam')
 }

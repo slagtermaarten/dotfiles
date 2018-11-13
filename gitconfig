@@ -34,7 +34,7 @@
 [difftool.latex]
   cmd = git-latexdiff "$LOCAL" "$REMOTE"
 [difftool]
-  tool = vimdiff
+  tool = nvim -d
   prompt = false
 [push]
 	default = tracking

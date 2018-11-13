@@ -23,7 +23,7 @@ Plug 'vim-scripts/Rename'
 Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
 Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -69,7 +69,10 @@ call plug#end()
 " if $TMUX == ''
 " set clipboard=unnamed
 " endif
-let g:loaded_python_provider=1
+" let g:loaded_python_provider=1
+
+let g:python_host_prog = '/home/m.slagter/miniconda3/envs/py2/bin/python'
+let g:python3_host_prog = '/home/m.slagter/miniconda3/envs/py36/bin/python'
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 set showmode
@@ -114,12 +117,12 @@ set background=light
 set t_Co=256
 " colorscheme smyck
 " colorscheme southernlights
-" colorscheme solarized
+colorscheme solarized
 
 " set vim-r-plugin to indent in a sane way
-let r_indent_align_args = 1
+let r_indent_align_args = 0
 let r_indent_ess_comments = 1
-let r_indent_ess_compatible = 1
+let r_indent_ess_compatible = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_in_buffer = 0
@@ -168,11 +171,12 @@ if exists('g:airline#extensions#bufferline#enabled')
   let g:airline_section_x = '%{PencilMode()}'
 endif
 let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
+let g:UltiSnipsExpandTrigger = '<tab>'
 " let g:UltiSnipsEditSplit="vertical"
 "" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-set tags=./tags
+set tags=tags,./tags
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -337,7 +341,7 @@ let g:pencil#joinspaces = 1
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
-nnoremap <leader>aw "zyiw:exe "Ack ".@z.""<CR>
+nnoremap <leader>aw "zyiw:exe "Ack! ".@z.""<CR>
 nnoremap <c-m> :CtrlPMRUFiles <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
 nnoremap <c-n> :NERDTreeToggle<CR>
@@ -632,6 +636,7 @@ iabbrev arrow -->
 let g:localvimrc = fnamemodify('.vimrc.local', ':p')
 " call SetProjectRoot()
 if filereadable(g:localvimrc)
+  message "sourcing .vimrc.local"
   execute "source" . g:localvimrc
 endif
 source ~/antigenic_space/.vimrc.local
@@ -659,4 +664,4 @@ augroup slimux
 augroup END
 
 autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
-set tags=./tags,~/antigenic_space/tags,~/tags
+" set tags=./tags,~/antigenic_space/tags,~/tags,~/TONIC/tags

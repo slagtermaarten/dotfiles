@@ -1,4 +1,4 @@
-source ~/dotfiles/vim/custom/ftplugin/R.vim
+source ~/dotfiles/vim/custom/ftplugin/r.vim
 
 filetype plugin indent on
 setlocal linebreak

@@ -32,48 +32,48 @@ alias -s md=$EDITOR
 alias -s tex=$EDITOR
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
-vimpath=/usr/local/opt/vim/bin/vim
-if [[ -f $vimpath ]]; then
-  alias vim=$vimpath
-fi
 alias vi='nvim'
 alias awkt="awk -F'\t'"
 alias ..="cd .."
 ## Git shortcuts
 alias g="git"
-## Git  merge fix
+## Git merge fix
 alias gfix="git diff --name-only | uniq | xargs $EDITOR"
 alias ntmux="tmux new-session -c"
-
-# Resolve symlink
-rs () { cd `pwd -P` }
-# vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
-vir () { command vim "$@" -S ~/dotfiles/bin/VimRSession.vim }
-# viewpdf () { command evince "$@" & }
-# updatepandoc() {
-#   cabal update
-#   cabal install pandoc pandoc-citeproc
-# }
-
 autoload -U zmv
 alias mmv='noglob zmv -W'
-
 
 if [[ -f $HOME/dotfiles/s_aliases.sh ]]; then
   source $HOME/dotfiles/s_aliases.sh
 fi
 
-localaliases=(`pwd`/.aliases.local)
+vimpath=/usr/local/opt/vim/bin/vim
+if [[ -f $vimpath ]]; then
+  alias vim=$vimpath
+fi
 
+localaliases=(`pwd`/.aliases.local)
 if [[ -f $localaliases ]]; then
   echo "Sourcing local aliases"
   source $localaliases
 fi
 
-rs() {
-  rsync -avz "m.slagter@paranoid:${1}" "${2}"
-}
-
-gr() {
+gitroot() {
   cd $(git rev-parse --show-toplevel)
 }
+
+# Resolve symlink
+rs () { 
+  cd `pwd -P` 
+}
+
+# vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
+vir () { 
+  command $EDITOR "$@" -S ~/dotfiles/bin/VimRSession.vim 
+}
+
+# viewpdf () { command evince "$@" & }
+# updatepandoc() {
+#   cabal update
+#   cabal install pandoc pandoc-citeproc
+# }
