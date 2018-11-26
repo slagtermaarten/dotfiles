@@ -23,7 +23,6 @@ Plug 'vim-scripts/Rename'
 Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
 Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
@@ -48,7 +47,9 @@ Plug 'sukima/xmledit', { 'for' : 'xml' }
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
+Plug 'ervandew/supertab'
 Plug 'valloric/YouCompleteMe'
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'tpope/vim-vinegar'
@@ -56,7 +57,6 @@ Plug 'valloric/YouCompleteMe'
 " Plug 'bling/vim-airline'
 " Plug 'wincent/Command-T'
 " Plug 'scrooloose/syntastic'
-" Plug 'ervandew/supertab'
 " Plug 'matze/vim-tex-fold'
 " Plug 'klen/python-mode'
 " Plug 'ivanov/vim-ipython'
@@ -71,8 +71,7 @@ call plug#end()
 " endif
 " let g:loaded_python_provider=1
 
-let g:python_host_prog = '/home/m.slagter/miniconda3/envs/py2/bin/python'
-let g:python3_host_prog = '/home/m.slagter/miniconda3/envs/py36/bin/python'
+" General
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 set showmode
@@ -130,15 +129,33 @@ let R_applescript = 0
 let R_tmux_split = 1
 let R_assign = 0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
-let g:ycm_global_ycm_extra_conf="~/dotfiles/ycm_extra_conf.py"
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
 let g:mma_highlight_option = "solarized"
 let NERDTreeHijackNetrw=1
 let g:mma_candy=1
 let vimrplugin_assign=0
 set guifont=Monaco:h13
-" set encoding=utf-8
+"
+let g:python_host_prog = '/home/m.slagter/miniconda3/envs/py2/bin/python'
+let g:python3_host_prog = '/home/m.slagter/miniconda3/envs/py36/bin/python'
+
+" Supertab related
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" YCM related
+let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+" Ultisnips related
+let g:UltiSnipsEditSplit = "vertical"
+" let g:UltiSnipsUsePythonVersion=
+" let g:UltiSnipsSnippetsDir = "~/dotfiles/vim/UltiSnips"
+let g:UltiSnipsSnippetDirectories=[$HOME.'/dotfiles/vim/UltiSnips']
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsExpandTrigger = "<C-e>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"
 let g:tmux_navigator_no_mappings = 1
 nnoremap <C-_> :echo 'word' expand('<cword>') 'has length' strlen(substitute(expand('<cword>'), '.', 'x', 'g'))<CR>
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
@@ -170,10 +187,6 @@ if exists('g:airline#extensions#bufferline#enabled')
   let g:airline_section_y='BN %{bufnr("%")}'
   let g:airline_section_x = '%{PencilMode()}'
 endif
-let g:UltiSnipsSnippetsDir="~/dotfiles/vim/UltiSnips"
-let g:UltiSnipsExpandTrigger = '<tab>'
-" let g:UltiSnipsEditSplit="vertical"
-"" let g:UltiSnipsUsePythonVersion=
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
 set tags=tags,./tags
@@ -227,15 +240,15 @@ nnoremap <leader>if :call IncreaseFoldlevel() <CR>
 nnoremap <leader>df :call DecreaseFoldlevel() <CR>
 
 function! InspectDataFile()
-    setlocal list
-    setlocal wrap
+  setlocal list
+  setlocal wrap
 endfunction
 
 function! StripTrailingWhitespaces()
-    let l = line(".")
-    let c = col(".")
-    % s/\s\+$//e
-    call cursor(l, c)
+  let l = line(".")
+  let c = col(".")
+  % s/\s\+$//e
+  call cursor(l, c)
 endfunction
 
 function! WordProcessorMode()
@@ -618,7 +631,6 @@ function! ProjectOpen()
   :call SetProjectRoot()
   :e
 endfunction
-
 
 nnoremap <silent> <leader>pr :call SetProjectRoot()<CR>
 nnoremap <silent> <leader>pf :cd %:p:h<CR>
