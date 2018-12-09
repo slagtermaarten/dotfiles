@@ -12,7 +12,7 @@ headless_browser() {
 alias lt='ls -lhtr'
 alias ls='ls -tr'
 alias tlf='tail -f'
-alias e="EDITOR"
+alias e="$EDITOR"
 alias la='ls -lhtra'
 alias ealias='vim $HOME/dotfiles/aliases.sh'
 alias x='chmod +x'
@@ -24,9 +24,7 @@ alias x='chmod +x'
 # alias gtodo='geeknote create --notebook todo --title `date +%d%m%y` --content "WRITE"'
 # alias etodo='geeknote edit --notebook todo --title `date +%d%m%y`'
 # alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
-alias bi='$EDITOR +PluginClean! +PluginInstall +qall'
 alias ff='find . -name'
-alias pr="cd $(git rev-parse --show-toplevel)"
 # alias ag='sudo apt-get install'
 alias -s md=$EDITOR
 alias -s tex=$EDITOR
@@ -58,7 +56,7 @@ if [[ -f $localaliases ]]; then
   source $localaliases
 fi
 
-gitroot() {
+gr() {
   cd $(git rev-parse --show-toplevel)
 }
 
