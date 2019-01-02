@@ -155,6 +155,12 @@ snippet rapply "rapply function"
 rapply(${1:list}${VISUAL}, ${0:function})
 endsnippet
 
+snippet llply "plyr::llply function"
+plyr::llply(${1}${VISUAL}, function(${2:x}) { 
+	${3} 
+}, .parallel = ${4:F}, .progress = ${5:T})
+endsnippet
+
 snippet pl "Plot function"
 plot(${1:x}${VISUAL}, ${0:y})
 endsnippet
@@ -222,8 +228,14 @@ snippet ar "Assignment operator"
 <- ${0}
 endsnippet
 
-snippet tc "TryCatch"
+snippet tc "tryCatch"
 tryCatch(${1}${VISUAL}, error = function(e) ${2:{ print(e); browser() }}) ${0}
+endsnippet
+
+snippet mltc "multi-line tryCatch"
+tryCatch({
+  ${1}${VISUAL}
+}, error = function(e) ${2:{ print(e) }}) ${0}
 endsnippet
 
 snippet ser "serializer"
@@ -244,8 +256,8 @@ snippet isna "Test for NA"
 is.na(${1}${VISUAL})
 endsnippet
 
-snippet pf "Parent frame"
-parent.frame(3)
+snippet pf "Parent frame for use in data.table's j"
+parent.frame(4)$${1:objectname}
 endsnippet
 
 snippet fp "File path"

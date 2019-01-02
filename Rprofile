@@ -33,14 +33,19 @@ wideScreen <- function(howWide=Sys.getenv('COLUMNS')) {
   options(width=as.integer(howWide))
 }
 
+if (F && 'devtools' %in% utils::installed.packages()[, 1]) {
+  tryCatch(install.packages('devtools'), error = function(e) NULL)
+}
+
 if ('colorout' %in% utils::installed.packages()[, 1]) {
   colorout::setOutputColors256(normal=4, string=3, verbose = F)
-} else {
+} else if (F) {
   tryCatch(devtools::install_github('jalvesaq/colorout'), 
            error = function(e) { 
              print(e); 
              print('Pkg colorout not installed and not obtained from Github') 
            }) 
+} else {
 }
 
 # install.packages( 

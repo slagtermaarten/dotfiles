@@ -1,4 +1,5 @@
 set nocompatible
+" set rtp+=~/.vim
 set rtp+=~/.vim/custom
 set shell=/bin/bash
 
@@ -12,6 +13,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'mileszs/ack.vim'
+Plug 'terryma/vim-expand-region'
 " Plug 'vim-scripts/vim-auto-save'
 " Plug 'rking/ag.vim', { 'on' : 'Ag' }
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -49,7 +51,8 @@ Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
 Plug 'ervandew/supertab'
 Plug 'valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
+" Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
 " Plug 'tpope/vim-vinegar'
@@ -112,16 +115,17 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-set background=light
+set background=dark
 set t_Co=256
 " colorscheme smyck
 " colorscheme southernlights
 colorscheme solarized
 
 " set vim-r-plugin to indent in a sane way
-let r_indent_align_args = 0
-let r_indent_ess_comments = 1
+let r_indent_align_args = 1
+let r_indent_ess_comments = 0
 let r_indent_ess_compatible = 0
+let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_in_buffer = 0
@@ -149,12 +153,13 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 " Ultisnips related
 let g:UltiSnipsEditSplit = "vertical"
 " let g:UltiSnipsUsePythonVersion=
-" let g:UltiSnipsSnippetsDir = "~/dotfiles/vim/UltiSnips"
-let g:UltiSnipsSnippetDirectories=[$HOME.'/dotfiles/vim/UltiSnips']
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsExpandTrigger = "<C-e>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetsDir = "~/dotfiles/vim/UltiSnips"
+let g:UltiSnipsSnippetDirectories = [$HOME.'/dotfiles/vim/UltiSnips']
+" let g:UltiSnipsSnippetDirectories = ['UltiSnips']
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 "
 let g:tmux_navigator_no_mappings = 1
 nnoremap <C-_> :echo 'word' expand('<cword>') 'has length' strlen(substitute(expand('<cword>'), '.', 'x', 'g'))<CR>
@@ -189,7 +194,7 @@ if exists('g:airline#extensions#bufferline#enabled')
 endif
 " let g:clang_library_path= '/usr/lib/llvm-3.2/lib'
 set foldmethod=marker
-set tags=tags,./tags
+set tags=./tags,tags;
 set spellfile=$HOME/.vim-spell-en.utf-8.add
 " Always use vertical diffs
 set diffopt+=vertical
@@ -225,7 +230,6 @@ endif
 " endfunction
 "
 nnoremap <leader>cfn :let @*=expand("%")<CR>
-
 
 function! IncreaseFoldlevel()
   echo &foldlevel
@@ -379,6 +383,7 @@ nnoremap q; q:
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 " clean tabs of surrounding whitespaces
 nnoremap <leader>ct :% s/\s*\t\s*/\t/g<CR>
+nnoremap <leader>id :Start! fas_utils ctags<CR>
 
 nnoremap <leader>cdp :cd ~/current_project <CR>
 nnoremap <leader>m :wa <cr> :make <cr>
@@ -393,7 +398,8 @@ nnoremap ;w :w<CR>
 nnoremap <leader>ex :e .<cr>
 " nnoremap <leader>ccd :cd %:p:h<CR>:pwd<CR>
 " nnoremap <leader>el :Lexplore %:p:h<CR>
-nnoremap <leader>el :CtrlP %:p:h<CR>
+nnoremap <leader>bl :CtrlP %:p:h<CR>
+nnoremap <leader>el :e %:h/
 " nnoremap <leader>mb :%s/\.\(\s\+\|$\)/.\r/g
 " Get filename of current buffer into clipboard
 nmap <leader>fs :let @*=expand("%")<CR>
@@ -424,6 +430,7 @@ nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
 nmap <leader>ef maartenedit ~/.vim/custom/ftplugin <CR>
 nmap <leader>nh :nohl<cr>
 nnoremap <silent> <leader>bi :PluginInstall<CR>
+nnoremap <leader>ta :tag
 " nnoremap <silent> <leader>o :CommandTJump<CR>
 " nnoremap <silent> <leader>sc :tabp<CR>
 " nnoremap <leader>pa :! pandoc % | :! xclip
@@ -455,10 +462,10 @@ vnoremap <leader>cop "+y
 "   " nmap <Leader>a= :Tabularize /=<CR>
 "   " vmap <Leader>a= :Tabularize /=<CR>
 "   " nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>ta :Tabularize /\t<CR>
-nmap <Leader>ta :Tabularize /\t<CR>
-" I've developed a great aesthetic preference for single brackets over double
-" brackets (mostly working on R code for the moment)
+vnoremap <leader>at :Tabularize /\t<CR>
+nnoremap <leader>at :Tabularize /\t<CR>
+" I've developed an aesthetic preference for single brackets over double
+" brackets (easier on the eyes, I'm mostly working on R code at the moment)
 nnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
 vnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
 " Increment all numbers by 1 on current line
@@ -646,7 +653,6 @@ iabbrev arrow -->
 
 " Local config
 let g:localvimrc = fnamemodify('.vimrc.local', ':p')
-" call SetProjectRoot()
 if filereadable(g:localvimrc)
   message "sourcing .vimrc.local"
   execute "source" . g:localvimrc
