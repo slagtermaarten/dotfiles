@@ -34,7 +34,8 @@ for file in $dotfiles; do
   echo "Creating symlink to $file in home directory."
   ln -s $ddir/${file} ~/.$file
 done
-ln -s $ddir/vimrc ~/.config/nvim/init.rc
+mkdir -p ~/.config/nvim
+ln -s $ddir/vimrc ~/.config/nvim/init.vim
 
 # curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 #     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -42,7 +43,7 @@ ln -s $ddir/vimrc ~/.config/nvim/init.rc
  
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-vi +PluginClean +PluginInstall +qall
+vim +PluginClean +PluginInstall +qall
 
 mkdir -p ~/Trash/
 
