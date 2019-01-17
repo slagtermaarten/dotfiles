@@ -11,7 +11,9 @@ endif
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 " Plug 'epeli/slimux'
-Plug '~/libs/slimux'
+" Plug '~/libs/slimux'
+" Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
+Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
 Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-dispatch'
@@ -49,8 +51,7 @@ Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 " Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
 Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
 Plug 'sukima/xmledit', { 'for' : 'xml' }
-" Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
-" Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
+" Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'], 'commit' : 'b34a3259d123779c298c1d43bfcc9ef810f876b5' }
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
@@ -134,8 +135,12 @@ let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_in_buffer = 0
-let R_applescript = 0
 let R_tmux_split = 1
+let R_tmux_title = 'automatic'
+let R_source = '~/.vim/tmux_split.vim'
+let R_applescript = 0
+let R_clean_line = 1
+let R_editing_mode = "vi"
 let R_assign = 0
 let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:mma_highlight_option = "solarized"
