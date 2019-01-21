@@ -79,6 +79,7 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>db :call SlimuxSendCode('debug(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dbo :call SlimuxSendCode('debugonce(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <S-k> :call SlimuxSendCode('?' . expand("<cword>") . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>aa :call SlimuxSendCode('source("' . expand("%") . '")' . "\n") <CR><CR>
   nnoremap <buffer> <silent> <leader>tb :call SlimuxSendCode('traceback()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>qq :call SlimuxSendCode('q' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>gw :call SlimuxSendCode('getwd()' . "\n") <CR>
