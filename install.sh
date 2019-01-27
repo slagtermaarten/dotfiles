@@ -4,7 +4,7 @@ ddir=$(pwd)
 olddir="$(pwd)_old"
 dotfiles=(tmux.conf tmux xprofile ackrc ycm_extra_conf.py inputrc ctags Rprofile 
           matplotlibrc gitignore gitconfig vimrc vim gvimrc zshrc zshenv 
-          oh-my-zsh vim-spell-en.utf-8.add)
+          condarc oh-my-zsh vim-spell-en.utf-8.add)
 
 rm -rf ~/.fonts
 ln -s ~/$ddir/powerline-fonts ~/.fonts
@@ -58,3 +58,13 @@ if [[ -d $ycm_path ]]; then
 fi
 
 cd $ddir
+
+
+if [[ $(uname) == "Linux" ]]; then
+  if [[ ! -d ~/conda ]]; then
+    cd ~/
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    chmod +x Miniconda3-latest-Linux-x86_64.sh
+    ./Miniconda3-latest-Linux-x86_64.sh
+  fi
+fi
