@@ -16,6 +16,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
 Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -134,8 +135,9 @@ let r_indent_ess_compatible = 0
 let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
+let R_path = '/home/m.slagter/conda/envs/r35/bin/'
 let R_in_buffer = 0
-let R_tmux_split = 1
+" let R_tmux_split = 1
 let R_tmux_title = 'automatic'
 let R_source = '~/.vim/tmux_split.vim'
 let R_applescript = 0
@@ -149,16 +151,18 @@ let g:mma_candy=1
 let vimrplugin_assign=0
 set guifont=Monaco:h13
 "
-let g:python_host_prog = '/home/m.slagter/miniconda3/envs/py2/bin/python'
-let g:python3_host_prog = '/home/m.slagter/miniconda3/envs/py36/bin/python'
+let g:python_host_prog = '/usr/bin/python'
+" let g:python3_host_prog = '/home/m.slagter/conda/envs/py3/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
 
 " Supertab related
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " YCM related
-let g:ycm_global_ycm_extra_conf = "~/dotfiles/ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "$HOME/dotfiles/ycm_extra_conf.py"
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:ycm_confirm_extra_conf = 0
 
 " Ultisnips related
 let g:UltiSnipsEditSplit = "vertical"
@@ -389,6 +393,7 @@ nnoremap <silent> gk :bw!<cr>
 nnoremap <silent> gl :bn<cr>
 nnoremap <silent> gh :bp<cr>
 nnoremap <silent> <leader>ww :wa <cr>
+nnoremap <silent> <leader>xc :bd <cr>
 nnoremap q; q:
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 " clean tabs of surrounding whitespaces
