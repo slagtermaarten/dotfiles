@@ -55,3 +55,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[credential]
+	helper = cache --timeout 7200
+[github]
+	user = slagtermaarten

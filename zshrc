@@ -97,6 +97,8 @@ autoload -U compinit && compinit
 [[ -f ~/bin/tmuxinator.zsh ]] && source ~/bin/tmuxinator.zsh
 
 # To save every command before it is executed
-setopt inc_append_history
+# setopt inc_append_history
 # To retrieve the history file everytime history is called upon.
-setopt share_history
+# setopt share_history
+
+eval "$(fasd --init auto)"

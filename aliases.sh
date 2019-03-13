@@ -32,6 +32,8 @@ alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias vi='nvim'
 alias awkt="awk -F'\t'"
+alias rm="rm -i"
+alias mv="mv -i"
 alias ..="cd .."
 ## Git shortcuts
 alias g="git"
@@ -40,6 +42,7 @@ alias gfix="git diff --name-only | uniq | xargs $EDITOR"
 alias ntmux="tmux new-session -c"
 autoload -U zmv
 alias mmv='noglob zmv -W'
+alias xo='xdg-open'
 
 if [[ -f $HOME/dotfiles/s_aliases.sh ]]; then
   source $HOME/dotfiles/s_aliases.sh

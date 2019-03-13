@@ -11,7 +11,7 @@
   options(digits = 3)
   options(menu.graphics = FALSE)
   # desired_packages <- c('datasets', 'utils', 'grDevices', 'graphics', 'stats',
-  #                       'methods', 'pacman', 'devtools', 'ggplot2',
+  #                       'methods', 'devtools', 'ggplot2',
   #                       'data.table', 'dplyr')
   # options(defaultPackages = intersect(rownames(utils::installed.packages()),
   #                                     desired_packages))
@@ -29,7 +29,7 @@ if (interactive()) {
   # suppressMessages(require(devtools))
 }
 
-wideScreen <- function(howWide=Sys.getenv('COLUMNS')) {
+.wideScreen <- function(howWide=Sys.getenv('COLUMNS')) {
   options(width=as.integer(howWide))
 }
 
@@ -37,20 +37,20 @@ if (F && 'devtools' %in% utils::installed.packages()[, 1]) {
   tryCatch(install.packages('devtools'), error = function(e) NULL)
 }
 
-if ('colorout' %in% utils::installed.packages()[, 1]) {
-  colorout::setOutputColors256(normal=4, string=3, verbose = F)
-} else if (F) {
-  tryCatch(devtools::install_github('jalvesaq/colorout'), 
-           error = function(e) { 
-             print(e); 
-             print('Pkg colorout not installed and not obtained from Github') 
-           }) 
-} else {
+if (!'colorout' %in% utils::installed.packages()[, 1]) {
+  tryCatch(devtools::install_github('jalvesaq/colorout'),
+    error = function(e) {
+      print(e);
+      print('Pkg colorout not installed and not obtained from Github')
+    })
 }
+tryCatch(colorout::setOutputColors256(normal=4, string=3, verbose = F),
+  error = function(e) { })
 
-# install.packages( 
+# install.packages(
 #   lib  = lib <- .libPaths()[1],
 #   pkgs = as.data.frame(installed.packages(lib), stringsAsFactors=FALSE)$Package,
 #   type = 'source'
 # )
+
 # vim: set ft=r:

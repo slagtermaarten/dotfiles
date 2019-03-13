@@ -82,10 +82,10 @@ else {
 endsnippet
 
 snippet ife "if .. else"
-if (${1}) { 
-  ${2}${VISUAL} 
-} else { 
-  ${3}${VISUAL} 
+if (${1}) {
+  ${2}${VISUAL}
+} else {
+  ${3}${VISUAL}
 }
 endsnippet
 
@@ -98,8 +98,8 @@ for (${1:item} in ${2:list}) { ${3}${VISUAL} }
 endsnippet
 
 snippet fun "Function definition"
-${1:name} <- function(${2}) { 
-  ${0}${VISUAL} 
+${1:name} <- function(${2}) {
+  ${0}${VISUAL}
 }
 endsnippet
 
@@ -156,8 +156,8 @@ rapply(${1:list}${VISUAL}, ${0:function})
 endsnippet
 
 snippet llply "plyr::llply function"
-plyr::llply(${1}${VISUAL}, function(${2:x}) { 
-	${3} 
+plyr::llply(${1}${VISUAL}, function(${2:x}) {
+	${3}
 }, .parallel = ${4:F}, .progress = ${5:T})
 endsnippet
 
@@ -307,11 +307,32 @@ endsnippet
 
 snippet pale?t?t?e "Develop an R color palette"
 cols <- ${1}${VISUAL}
-cols <- setNames(gen_color_vector(name = 'Royal1', 
+cols <- setNames(gen_color_vector(name = 'Royal1',
 																	n = length(cols)), names(cols))
 plot_palette(cols)
 endsnippet
 
 snippet "co" "Clear serialized object"
 clear_object(${1}${VISUAL}, ${2:sr})${0}
+endsnippet
+
+snippet "srds" "Save rds file" r
+saveRDS(${1:arg}, file.path(${2:rds_dir}, '$1.rds'))
+endsnippet
+
+snippet "rrds" "Read rds file" r
+${1:arg} <- readRDS(file.path(${2:rds_dir}, '$1.rds'))
+endsnippet
+
+snippet "crrds" "Conditionally read rds file" r
+if (!exists('${1:arg}'))
+	 $1 <- readRDS(file.path(${2:rds_dir}, '$1.rds'))
+endsnippet
+
+snippet "ip" "Install package"
+install.packages('${1:arg}${VISUAL}')
+endsnippet
+
+snippet "rp" "Remove package"
+remove.packages('${1}${VISUAL}')
 endsnippet

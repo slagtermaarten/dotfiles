@@ -32,10 +32,15 @@ pathagg $PWD/bin
 pathagg $HOME/antigenic_space/bin
 pathagg /usr/local/bin prepend
 pathagg $HOME/perl5/bin after
-pathagg $HOME/anaconda/bin after
 pathagg $HOME/.cabal/bin after
-pathagg $HOME/miniconda3/bin after
-pathagg $HOME/miniconda2/bin after
+# pathagg $HOME/anaconda/bin after
+# pathagg $HOME/miniconda3/bin after
+# pathagg $HOME/miniconda2/bin after
+pathagg $HOME/conda/bin after
+pathagg /DATA/resources/singularity/bin after
+
+
+# export PYTHONPATH="~/.local/lib/python3.5"
 
 JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre
 pathagg $JAVA_HOME/bin
@@ -111,5 +116,7 @@ export PERL5LIB
 export PERL_LOCAL_LIB_ROOT
 export PERL_MB_OPT
 export PERL_MM_OPT
-HOSTNAME=$(hostname)
-export HOSTNAME
+
+export HOSTNAME=$(hostname)
+export GIT_PYTHON_GIT_EXECUTABLE=/usr/bin/git
+export OPENBLAS_NUM_THREADS=1
