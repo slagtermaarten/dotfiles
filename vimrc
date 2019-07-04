@@ -19,6 +19,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
+Plug 'LukeGoodsell/nextflow-vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -60,7 +61,8 @@ Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
 Plug 'ervandew/supertab'
 Plug 'valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'python', 'tex', 'snakemake', 'sh', 'zsh' ] }
+Plug 'iago-lito/vim-visualMarks'
 " Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -124,10 +126,11 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
+set background=light
 set background=dark
 set t_Co=256
-" colorscheme smyck
-" colorscheme southernlights
+colorscheme southernlights
+colorscheme smyck
 colorscheme solarized
 
 " set vim-r-plugin to indent in a sane way
@@ -381,6 +384,8 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 nnoremap <c-F> :NERDTreeFind<CR>
 nnoremap <leader>np :NoPencil <CR>
 nnoremap <leader>hp :HardPencil <CR>
+vmap <unique> m <Plug>VisualMarksVisualMark
+nmap <unique> M <Plug>VisualMarksGetVisualMark
 command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
