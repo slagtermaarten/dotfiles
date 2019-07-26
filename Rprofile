@@ -44,7 +44,7 @@ if (!'colorout' %in% utils::installed.packages()[, 1]) {
       print('Pkg colorout not installed and not obtained from Github')
     })
 }
-tryCatch(colorout::setOutputColors256(normal=4, string=3, verbose = F),
+tryCatch(colorout::setOutputColors256(normal=4, string=1, verbose = F),
   error = function(e) { })
 
 # install.packages(

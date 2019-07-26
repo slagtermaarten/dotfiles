@@ -9,8 +9,9 @@ headless_browser() {
   fi
 }
 
-alias lt='ls -lhtr'
-alias ls='ls -tr'
+alias lt='ls -lhtr --color=auto'
+# alias ls='ls -tr'
+alias ls='ls --color=auto'
 alias tlf='tail -f'
 alias e="$EDITOR"
 alias la='ls -lhtra'

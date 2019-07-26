@@ -92,9 +92,9 @@ set -k
 # Custom prompt without bloat from oh-my-zsh (see here for opts
 # http://www.nparikh.org/unix/prompt.php#zsh)
 if [[ -n $SSH_CONNECTION ]]; then
-  PROMPT="[%B%m%b] %F{blue}%2/%_%f ~ "
+  PROMPT="[%B%m%b]%F{green}%t - %F{blue}%2/%_%f ~ "
 else
-  PROMPT="%F{blue}%2/%_%f ~ "
+  PROMPT="%t - %F{blue}%2/%_%f ~ "
 fi
 
 autoload -U compinit && compinit

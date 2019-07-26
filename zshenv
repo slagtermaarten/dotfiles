@@ -13,24 +13,12 @@ pathagg () {
 					PATH=$1:$PATH
 			 fi
 		fi
-    if [[ "$2" == "prepend" ]]; then
-      ## TODO properly erase previous entry if that existed
-      # PATH="${PATH//:$1://}"
-      # PATH="${PATH//$1://}"
-      # PATH="${PATH//:$1//}"
-      ## Clear out previous entry and put to the front
-      # PATH="$( echo $PATH | tr : '\n' | grep -v $1 | paste -s -d: )"
-      PATH=$1:$PATH
-    fi
 	fi
 }
 
 pathagg $HOME/bin
 pathagg $PWD/bin
-## I always want access to FAS bin, will probably leave path as soon as this
-## behemoth is finished
-pathagg $HOME/antigenic_space/bin
-pathagg /usr/local/bin prepend
+pathagg /usr/local/bin
 pathagg $HOME/perl5/bin after
 pathagg $HOME/.cabal/bin after
 # pathagg $HOME/anaconda/bin after
@@ -38,7 +26,6 @@ pathagg $HOME/.cabal/bin after
 # pathagg $HOME/miniconda2/bin after
 pathagg $HOME/conda/bin after
 pathagg /DATA/resources/singularity/bin after
-
 
 # export PYTHONPATH="~/.local/lib/python3.5"
 
