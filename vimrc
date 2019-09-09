@@ -14,13 +14,18 @@ call plug#begin('~/.vim/plugged')
 " Plug '~/libs/slimux'
 " Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
 Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
-Plug 'Chiel92/vim-autoformat'
+" Plug 'Chiel92/vim-autoformat'
+" Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'mattn/gist-vim'
+" Plug 'Badacadabra/vim-archery'
+
 Plug 'mattn/webapi-vim'
+" Plug 'LukeGoodsell/nextflow-vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
+Plug 'jeffkreeftmeijer/vim-dim'
 Plug 'tpope/vim-unimpaired'
 Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-expand-region'
@@ -29,6 +34,9 @@ Plug 'terryma/vim-expand-region'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'altercation/vim-colors-solarized'
+" Plug 'vim-scripts/CSApprox'
+Plug 'tlhr/anderson.vim'
+Plug 'danilo-augusto/vim-afterglow'
 Plug 'vim-scripts/L9'
 Plug 'vim-scripts/Rename'
 " Plug 'vim-scripts/tComment'
@@ -60,7 +68,8 @@ Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
 Plug 'ervandew/supertab'
 Plug 'valloric/YouCompleteMe'
-Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'tex', 'snakemake', 'sh', 'zsh' ] }
+Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'python', 'tex', 'snakemake', 'sh', 'zsh' ] }
+Plug 'iago-lito/vim-visualMarks'
 " Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -100,6 +109,7 @@ set hlsearch
 set incsearch
 set nobackup
 set noswapfile
+set sw=2
 set noerrorbells
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html,*.Rdata,*.Rds
 set undolevels=50
@@ -124,13 +134,21 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
+" set background=light
+colorscheme dim
 set background=dark
-set t_Co=256
-" colorscheme smyck
+" set t_Co=256
+" colo dim
+" colo delek
 " colorscheme southernlights
+" colorscheme smyck
 " colorscheme solarized
-" colorscheme zellner
-colorscheme delek
+" colorscheme afterglow
+" colorscheme anderson
+" colorscheme archery
+let g:afterglow_inherit_background=1
+let g:afterglow_blackout=0
+let g:afterglow_italic_comments=1
 
 " set vim-r-plugin to indent in a sane way
 let r_indent_align_args = 1
@@ -384,6 +402,8 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 nnoremap <c-F> :NERDTreeFind<CR>
 nnoremap <leader>np :NoPencil <CR>
 nnoremap <leader>hp :HardPencil <CR>
+" vnoremap <leader> vm <unique> <Plug>VisualMarksVisualMark
+" nnoremap <leader> M <Plug>VisualMarksGetVisualMark
 command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
@@ -703,3 +723,14 @@ augroup END
 
 autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
 " set tags=./tags,~/antigenic_space/tags,~/tags,~/TONIC/tags
+" let g:neoformat_python_autopep8 = {
+"             \ 'exe': 'autopep8',
+"             \ 'args': ['-s 4', '-E'],
+"             \ 'replace': 1 " replace the file, instead of updating buffer (default: 0),
+"             \ 'stdin': 1, " send data to stdin of formatter (default: 0)
+"             \ 'env': ["DEBUG=1"], " prepend environment variables to formatter command
+"             \ 'valid_exit_codes': [0, 23],
+"             \ 'no_append': 1,
+"             \ }
+"
+" let g:neoformat_enabled_python = ['autopep8']

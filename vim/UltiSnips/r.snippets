@@ -336,3 +336,14 @@ endsnippet
 snippet "rp" "Remove package"
 remove.packages('${1}${VISUAL}')
 endsnippet
+
+snippet coms "Commented out vim section"
+## {{{ ${1}
+${VISUAL}
+## }}} $1 
+endsnippet
+
+snippet cp "Config parallel"
+ncores <- ${1}
+doParallel::registerDoParallel(cores = ncores)
+endsnippet

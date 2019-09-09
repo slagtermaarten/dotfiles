@@ -5,7 +5,7 @@ nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
 " set autowrite
 set noautowrite
 set autoindent
-set smartindent
+set nosmartindent
 setlocal comments=b:##,b:#',b:#
 setlocal commentstring=#%s
 setlocal textwidth=80
@@ -90,6 +90,8 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>dw :call SlimuxSendCode('where' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>ls :call SlimuxSendCode('ls()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>wa :call SlimuxSendCode('warnings()' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>tf :call SlimuxSendCode('test_fun()' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>tp :call SlimuxSendCode('plot(1:3)' . "\n") <CR>
 endif
 
 
