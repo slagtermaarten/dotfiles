@@ -38,6 +38,7 @@ pathagg $HOME/.cabal/bin after
 # pathagg $HOME/miniconda2/bin after
 pathagg $HOME/conda/bin after
 pathagg /DATA/resources/singularity/bin after
+pathagg $HOME/Dropbox/mount_scripts
 
 
 # export PYTHONPATH="~/.local/lib/python3.5"
@@ -120,3 +121,4 @@ export PERL_MM_OPT
 export HOSTNAME=$(hostname)
 export GIT_PYTHON_GIT_EXECUTABLE=/usr/bin/git
 export OPENBLAS_NUM_THREADS=1
+

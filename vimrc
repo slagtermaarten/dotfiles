@@ -128,7 +128,9 @@ set background=dark
 set t_Co=256
 " colorscheme smyck
 " colorscheme southernlights
-colorscheme solarized
+" colorscheme solarized
+" colorscheme zellner
+colorscheme delek
 
 " set vim-r-plugin to indent in a sane way
 let r_indent_align_args = 1
@@ -138,6 +140,7 @@ let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let R_path = '/home/m.slagter/conda/envs/r35/bin/'
+let R_path = '/usr/local/bin/'
 let R_in_buffer = 0
 " let R_tmux_split = 1
 let R_tmux_title = 'automatic'
@@ -155,7 +158,7 @@ set guifont=Monaco:h13
 "
 let g:python_host_prog = '/usr/bin/python'
 " let g:python3_host_prog = '/home/m.slagter/conda/envs/py3/bin/python'
-let g:python3_host_prog = '/usr/bin/python3'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " Supertab related
 let g:SuperTabDefaultCompletionType = '<C-n>'

@@ -34,8 +34,14 @@ for file in $dotfiles; do
   echo "Creating symlink to $file in home directory."
   ln -s $ddir/${file} ~/.$file
 done
+
 mkdir -p ~/.config/nvim
+
+## Neo-vim config file
+mkdir -p ~/.config/nvim
+# mkdir -p ~/.local/share/nvim/site
 ln -s $ddir/vimrc ~/.config/nvim/init.vim
+ln -s ~/.local/share/nvim/site ~/.vim 
 
 # curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 #     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -59,11 +65,17 @@ fi
 
 cd $ddir
 
-
-if [[ $(uname) == "Linux" ]]; then
-  if [[ ! -d ~/conda ]]; then
+if [[ ! -d ~/conda ]]; then
+  if [[ $(uname) == "Linux" ]]; then
     cd ~/
     wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    chmod +x Miniconda3-latest-Linux-x86_64.sh
+    ./Miniconda3-latest-Linux-x86_64.sh
+  fi
+
+  if [[ $(uname) == "Darwin" ]]; then
+    cd ~/
+    wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
     chmod +x Miniconda3-latest-Linux-x86_64.sh
     ./Miniconda3-latest-Linux-x86_64.sh
   fi

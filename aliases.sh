@@ -38,7 +38,6 @@ alias ..="cd .."
 ## Git shortcuts
 alias g="git"
 ## Git merge fix
-alias gfix="git diff --name-only | uniq | xargs $EDITOR"
 alias ntmux="tmux new-session -c"
 autoload -U zmv
 alias mmv='noglob zmv -W'
@@ -59,8 +58,12 @@ if [[ -f $localaliases ]]; then
   source $localaliases
 fi
 
-gr() {
+gr () {
   cd $(git rev-parse --show-toplevel)
+}
+
+gfix () {
+  git diff --name-only | uniq | xargs $EDITOR
 }
 
 # Resolve symlink
@@ -71,6 +74,10 @@ rs () {
 # vi ()  { command gvim -p --remote-tab-silent "$@" || command gvim "$@"; }
 vir () { 
   command $EDITOR "$@" -S ~/dotfiles/bin/VimRSession.vim 
+}
+
+rwork () {
+  ssh -X coley -t 'tmux attach'
 }
 
 # viewpdf () { command evince "$@" & }
