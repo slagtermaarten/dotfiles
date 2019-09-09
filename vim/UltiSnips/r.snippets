@@ -342,3 +342,8 @@ snippet coms "Commented out vim section"
 ${VISUAL}
 ## }}} $1 
 endsnippet
+
+snippet cp "Config parallel"
+ncores <- ${1}
+doParallel::registerDoParallel(cores = ncores)
+endsnippet

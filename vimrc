@@ -14,14 +14,15 @@ call plug#begin('~/.vim/plugged')
 " Plug '~/libs/slimux'
 " Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
 Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
-Plug 'Chiel92/vim-autoformat'
+" Plug 'Chiel92/vim-autoformat'
+" Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'mattn/gist-vim'
-Plug 'Badacadabra/vim-archery'
+" Plug 'Badacadabra/vim-archery'
 
 Plug 'mattn/webapi-vim'
-Plug 'LukeGoodsell/nextflow-vim'
+" Plug 'LukeGoodsell/nextflow-vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-surround'
 Plug 'jeffkreeftmeijer/vim-dim'
@@ -400,8 +401,8 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 nnoremap <c-F> :NERDTreeFind<CR>
 nnoremap <leader>np :NoPencil <CR>
 nnoremap <leader>hp :HardPencil <CR>
-vnoremap <unique> m <Plug>VisualMarksVisualMark
-nnoremap <unique> M <Plug>VisualMarksGetVisualMark
+" vnoremap <leader> vm <unique> <Plug>VisualMarksVisualMark
+" nnoremap <leader> M <Plug>VisualMarksGetVisualMark
 command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
@@ -721,3 +722,14 @@ augroup END
 
 autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
 " set tags=./tags,~/antigenic_space/tags,~/tags,~/TONIC/tags
+" let g:neoformat_python_autopep8 = {
+"             \ 'exe': 'autopep8',
+"             \ 'args': ['-s 4', '-E'],
+"             \ 'replace': 1 " replace the file, instead of updating buffer (default: 0),
+"             \ 'stdin': 1, " send data to stdin of formatter (default: 0)
+"             \ 'env': ["DEBUG=1"], " prepend environment variables to formatter command
+"             \ 'valid_exit_codes': [0, 23],
+"             \ 'no_append': 1,
+"             \ }
+"
+" let g:neoformat_enabled_python = ['autopep8']

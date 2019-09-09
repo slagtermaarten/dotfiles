@@ -15,7 +15,7 @@ for f in $@; do
   output_f=${annotation}.wm.png
   echo "Annotating ${f:t} -> ${output_f:t}\n"
   convert -colorspace RGB -density 400 "$f" -fill black -undercolor white \
-    -pointsize 10 -gravity south -annotate +0+5 "$annotation" \
+    -pointsize 10 -gravity south -annotate +0+5 "${annotation:t}" \
     -background white $output_f
   ANNOTATED_FIGS+=($output_f)
 done
