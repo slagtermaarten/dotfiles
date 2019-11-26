@@ -7,7 +7,7 @@ set noautowrite
 set autoindent
 set nosmartindent
 setlocal comments=b:##,b:#',b:#
-setlocal commentstring=#%s
+" setlocal commentstring=#%s
 setlocal textwidth=80
 set formatoptions=tcrqj
 
@@ -92,6 +92,7 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>wa :call SlimuxSendCode('warnings()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>tf :call SlimuxSendCode('test_fun()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>tp :call SlimuxSendCode('plot(1:3)' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>do :call SlimuxSendCode('dev.off()' . "\n") <CR>
 endif
 
 
