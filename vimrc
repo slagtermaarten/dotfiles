@@ -8,6 +8,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Sourcing external files {{{
+" source('~/.vim/comments.vim')
+" }}}
+
 " Plugins {{{
 call plug#begin('~/.vim/plugged')
 " Plug 'epeli/slimux'
@@ -17,8 +21,10 @@ Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'S
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-eunuch'
 Plug 'mattn/gist-vim'
+" Plug 'vim-script/marvim.vim'
 " Plug 'Badacadabra/vim-archery'
 
 Plug 'mattn/webapi-vim'
@@ -40,7 +46,7 @@ Plug 'danilo-augusto/vim-afterglow'
 Plug 'vim-scripts/L9'
 Plug 'vim-scripts/Rename'
 " Plug 'vim-scripts/tComment'
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
 Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
 Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
@@ -69,7 +75,7 @@ Plug 'moll/vim-bbye'
 Plug 'ervandew/supertab'
 Plug 'valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'python', 'tex', 'snakemake', 'sh', 'zsh' ] }
-Plug 'iago-lito/vim-visualMarks'
+" Plug 'iago-lito/vim-visualMarks'
 " Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'jpalardy/vim-slime'
 " Plug 'LaTeX-Box-Team/LaTeX-Box'
@@ -157,8 +163,17 @@ let r_indent_ess_compatible = 0
 let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
-let R_path = '/home/m.slagter/conda/envs/r35/bin/'
-let R_path = '/usr/local/bin/'
+let candidateRpaths = reverse(['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/'])
+for cand_path in candidateRpaths
+  if isdirectory(cand_path)
+    " message cand_path . " exists"
+    let R_path = cand_path
+  endif
+endfor
+echo R_path
+" let R_path = '/usr/local/bin/'
+" let R_path = '/home/m.slagter/conda/envs/r35/bin/'
+" let R_path = '/home/m.slagter/conda/envs/r352/bin/'
 let R_in_buffer = 0
 " let R_tmux_split = 1
 let R_tmux_title = 'automatic'
@@ -259,7 +274,7 @@ if executable('ag')
 endif
 " }}}
 
-" Functions
+" Functions {{{
 " function! OpenCC3DSim()
 "   SyntasticToggleMode
 "   e dir/Simulation/*.py
@@ -384,7 +399,7 @@ function! TrimSpaces() range
   execute a:firstline.",".a:lastline."substitute ///gec"
   let &hlsearch=oldhlsearch
 endfunction
-" 
+" }}}
 
 " Mappings {{{
 let mapleader = ","
@@ -402,8 +417,8 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 nnoremap <c-F> :NERDTreeFind<CR>
 nnoremap <leader>np :NoPencil <CR>
 nnoremap <leader>hp :HardPencil <CR>
-" vnoremap <leader> vm <unique> <Plug>VisualMarksVisualMark
-" nnoremap <leader> M <Plug>VisualMarksGetVisualMark
+" vmap <leader> <unique> vm <Plug>VisualMarksVisualMark
+" nmap <leader> <unique> Vm <Plug>VisualMarksGetVisualMark
 command! -bar -nargs=? ShowSpaces call ShowSpaces(<args>)
 command! -bar -nargs=0 -range=% TrimSpaces <line1>,<line2>call TrimSpaces()
 
@@ -697,7 +712,7 @@ if filereadable(g:localvimrc)
   message "sourcing .vimrc.local"
   execute "source" . g:localvimrc
 endif
-source ~/antigenic_space/.vimrc.local
+" source ~/antigenic_space/.vimrc.local
 
 " nnoremap <leader>pea :e ~/antigenic_space/libs/fasanalysis/R
 " nnoremap <leader>pef :e ~/antigenic_space/libs/firehosedownload/r
@@ -734,3 +749,5 @@ autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastB
 "             \ }
 "
 " let g:neoformat_enabled_python = ['autopep8']
+"
+" let @d = 'G\\'eV\\'b'

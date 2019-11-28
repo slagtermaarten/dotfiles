@@ -33,10 +33,6 @@ if (interactive()) {
   options(width=as.integer(howWide))
 }
 
-if (F && 'devtools' %in% utils::installed.packages()[, 1]) {
-  tryCatch(install.packages('devtools'), error = function(e) NULL)
-}
-
 if (!'colorout' %in% utils::installed.packages()[, 1]) {
   tryCatch(devtools::install_github('jalvesaq/colorout'),
     error = function(e) {
@@ -44,7 +40,7 @@ if (!'colorout' %in% utils::installed.packages()[, 1]) {
       print('Pkg colorout not installed and not obtained from Github')
     })
 }
-tryCatch(colorout::setOutputColors256(normal=4, string=1, verbose = F),
+tryCatch(colorout::setOutputColors256(normal = 4, string = 1, verbose = F),
   error = function(e) { })
 
 # install.packages(
@@ -52,5 +48,8 @@ tryCatch(colorout::setOutputColors256(normal=4, string=1, verbose = F),
 #   pkgs = as.data.frame(installed.packages(lib), stringsAsFactors=FALSE)$Package,
 #   type = 'source'
 # )
+
+if (exists('setMKLthreads')) setMKLthreads(1)
+Sys.setenv(TAR = '/bin/tar')
 
 # vim: set ft=r:
