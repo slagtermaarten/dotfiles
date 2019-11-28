@@ -9,9 +9,10 @@ headless_browser() {
   fi
 }
 
-alias lt='ls -lhtr --color=auto'
+# alias lt='ls -lhtr --color=auto'
+alias lt='ls -lhtr'
 # alias ls='ls -tr'
-alias ls='ls --color=auto'
+# alias ls='ls --color=auto'
 alias tlf='tail -f'
 alias e="$EDITOR"
 alias la='ls -lhtra'
@@ -79,6 +80,11 @@ vir () {
 
 rwork () {
   ssh -X coley -t 'tmux attach'
+}
+
+get_pw () {
+  security 2>&1 >/dev/null find-generic-password -ga $1 \
+  |ruby -e 'print $1 if STDIN.gets =~ /^password: "(.*)"$/'
 }
 
 # viewpdf () { command evince "$@" & }

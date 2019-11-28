@@ -163,17 +163,13 @@ let r_indent_ess_compatible = 0
 let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
-let candidateRpaths = reverse(['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/'])
+let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/']
 for cand_path in candidateRpaths
   if isdirectory(cand_path)
-    " message cand_path . " exists"
     let R_path = cand_path
   endif
 endfor
 echo R_path
-" let R_path = '/usr/local/bin/'
-" let R_path = '/home/m.slagter/conda/envs/r35/bin/'
-" let R_path = '/home/m.slagter/conda/envs/r352/bin/'
 let R_in_buffer = 0
 " let R_tmux_split = 1
 let R_tmux_title = 'automatic'
