@@ -169,7 +169,6 @@ for cand_path in candidateRpaths
     let R_path = cand_path
   endif
 endfor
-echo R_path
 let R_in_buffer = 0
 " let R_tmux_split = 1
 let R_tmux_title = 'automatic'
@@ -184,10 +183,12 @@ let NERDTreeHijackNetrw=1
 let g:mma_candy=1
 let vimrplugin_assign=0
 set guifont=Monaco:h13
-"
-let g:python_host_prog = '/usr/bin/python'
-" let g:python3_host_prog = '/home/m.slagter/conda/envs/py3/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
+let candidate_paths = ['/usr/bin/python', '/usr/local/bin/python3', '/home/m.slagter/conda/envs/py3/bin/python']
+for cand_path in candidate_paths
+  if filereadable(cand_path)
+    let g:python3_host_prog = cand_path
+  endif
+endfor
 
 " Supertab related
 let g:SuperTabDefaultCompletionType = '<C-n>'
