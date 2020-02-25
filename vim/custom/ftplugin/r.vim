@@ -4,8 +4,10 @@ setlocal tabstop=2
 nnoremap <buffer> <silent> <leader>dt :! rm %:p.tmp.R<CR>
 " set autowrite
 set noautowrite
-set autoindent
+set cindent
 set nosmartindent
+setlocal wrap
+" set smartindent
 setlocal comments=b:##,b:#',b:#
 " setlocal commentstring=#%s
 setlocal textwidth=80
@@ -20,9 +22,10 @@ set formatoptions=tcrqj
 nnoremap <buffer> <leader>fb :/\v^\s*browser\(\)/ <CR>
 nnoremap <buffer> <leader>ft :/\v^\s*if\s*\(T\)/ <CR>
 nnoremap <buffer> <leader>ff :/\v^\s*if\s*\(F\)/ <CR>
+nnoremap <buffer> <leader>sf osource("<Esc>"fpa")<Esc>
 
 " From https://stackoverflow.com/questions/13597256/change-r-indentation-style-in-vim-with-vim-r-plugin#24259977
-let r_indent_align_args = 0
+let r_indent_align_args = 1
 " Set vim-r-plugin to mimics ess :
 let r_indent_ess_comments = 0
 let r_indent_ess_compatible = 0

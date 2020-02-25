@@ -10,7 +10,8 @@ headless_browser() {
 }
 
 # alias lt='ls -lhtr --color=auto'
-alias lt='ls -lhtr'
+alias ls='ls -F -G --color=auto'
+alias lt='ls -lhtr --color=auto'
 # alias ls='ls -tr'
 # alias ls='ls --color=auto'
 alias tlf='tail -f'

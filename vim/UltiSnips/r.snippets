@@ -348,7 +348,11 @@ ncores <- ${1}
 doParallel::registerDoParallel(cores = ncores)
 endsnippet
 
-snippet bpsr "Store results if not already computed"
+snippet fr "File remove"
+file.remove(${1}${VISUAL})${0}
+endsnippet
+
+snippet bpsr "Boiler-plate serializer: store results if not already computed"
 o_fn <- file.path(rds_dir, glue::glue('${1:objectname}'))
 if (!file.exists(o_fn) || redo) {
 	$1 <- ${VISUAL}

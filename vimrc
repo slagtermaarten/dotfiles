@@ -17,7 +17,8 @@ call plug#begin('~/.vim/plugged')
 " Plug 'epeli/slimux'
 " Plug '~/libs/slimux'
 " Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
-Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
+" Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
+Plug 'epeli/slimux'
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-repeat'
@@ -278,7 +279,7 @@ endif
 "   echomsg "Ran my command"
 " endfunction
 "
-nnoremap <leader>cfn :let @*=expand("%")<CR>
+nnoremap <leader>cfn :let @f=expand("%")<CR>
 
 function! IncreaseFoldlevel()
   echo &foldlevel
@@ -434,7 +435,8 @@ nnoremap <silent> <leader>xc :bd <cr>
 nnoremap q; q:
 nnoremap <silent> <leader>sy :SyntasticToggleMode<cr>
 " clean tabs of surrounding whitespaces
-nnoremap <leader>ct :% s/\s*\t\s*/\t/g<CR>
+" nnoremap <leader>ct :% s/\s*\t\s*/\t/g<CR>
+nnoremap <leader>ct :! ctags --fields=fkstK<CR>
 nnoremap <leader>id :Start! fas_utils ctags<CR>
 
 nnoremap <leader>cdp :cd ~/current_project <CR>
