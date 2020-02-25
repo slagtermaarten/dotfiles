@@ -1,0 +1,64 @@
+#!/usr/bin/env Rscript
+
+'combine_salmon.
+
+Usage:
+  combine_salmon <salmon_dir> <tx2gene> <output_prefix> <annotate_var>
+
+Options: -h --help     Show this screen.
+  --version     Show version.
+' -> doc
+
+library(docopt)
+cla <- docopt(doc, version = 'combine_salmon v0.1')
+
+# cla <- list(salmon_dir = '~/MayrVariants/rna_S885/salmon_output', 
+#   tx2gene =
+#     '/DATA/resources/ensembl_86/fasta_cdna/Homo_sapiens.GRCh38.cdna.all.ensg_to_symbol.tsv')
+
+if (is.null(cla$output_prefix)) {
+  cla$output_prefix <- './salmon_mat'
+}
+
+if (!requireNamespace('BiocManager', quietly = TRUE))
+  install.packages('BiocManager')
+
+if (!requireNamespace('tximport', quietly = TRUE))
+  BiocManager::install('tximport')
+
+if (!requireNamespace('tximportData', quietly = TRUE))
+  BiocManager::install('tximportData')
+
+if (!requireNamespace('rjson', quietly = TRUE))
+  BiocManager::install('rjson')
+
+library(tximport)
+library(maartenutils)
+library(rjson)
+
+tx2gene <- fread(cla$tx2gene)
+
+files <- list.files(cla$salmon_dir, recursive = T, pattern = 'quant.sf',
+  full.names = T) %>%
+  { setNames(., gsub('(.*)/quant.sf', '\\1', .)) }
+
+# tx2gene links transcript IDs to gene IDs for summarization
+annotate_var = 'gene_id'
+annotate_var = 'hugo_symbol'
+annotate_var <- cla$annotate_var
+txi <- tximport(files, type = 'salmon', 
+  tx2gene = tx2gene[, .(transcript_id, get(annotate_var))])
+
+counts_df <- as.data.frame(txi$counts) %>% 
+  tibble::rownames_to_column(annotate_var) %>%
+  normalize_colnames
+ 
+maartenutils::write_tsv(counts_df, 
+  output_file = sprintf('%s-%s.tsv', cla$output_prefix, annotate_var))
+
+tpm_df <- as.data.frame(txi$abundance) %>% 
+  tibble::rownames_to_column(annotate_var) %>%
+  normalize_colnames
+
+maartenutils::write_tsv(tpm_df, 
+  output_file = sprintf('%s-%s.tsv', cla$output_prefix, annotate_var))

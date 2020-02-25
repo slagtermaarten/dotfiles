@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+watch -n 0.5 'PID=$(pgrep -n R); echo "Watching $PID"; ps -p $PID -o %cpu,%mem,cmd'

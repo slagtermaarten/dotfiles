@@ -1,0 +1,73 @@
+#!/usr/bin/env Rscript
+
+'Compute TMM from RNASeq read counts
+
+Usage:
+  compute_TMM <read_count_file> <gene_id> <output_file> 
+
+Options:
+  -h --help     Show this screen.
+  --version     Show version.
+  -e            Exclude these samples (separate by comma, lower case)
+' -> doc
+
+
+required_libs <- c('readr', 'readr', 'edgeR', 'maartenutils', 'docopt', 'glue',
+  'magrittr')
+
+for (lib in required_libs) {
+  if (!any(installed.packages()[,1] == lib)) {
+    message(paste0('Installing ', lib))
+    if (!requireNamespace('BiocManager', quietly = TRUE))
+        install.packages('BiocManager')
+    BiocManager::install(lib)
+  }
+  suppressMessages(library(package = lib, character.only = T))
+}
+message('Finished loading libs')
+options(error = traceback)
+
+cla <- docopt(doc, version = 'combine_salmon v0.1')
+
+fn <- cla$read_count_file
+exclude_samples <- c()
+gene_id <- cla$gene_id
+output_fn <- clas$output_file
+
+# fn <- 'salmon_counts-gene_id.tsv'
+fn <- 'data/salmon_rna/salmon_counts-hugo_symbol.tsv'
+exclude_samples <- c()
+gene_id <- 'hugo_symbol'
+output_fn <- 'data/salmon_rna/salmon_counts-hugo_symbol-TMM_excluded_samples.tsv'
+exclude_samples <- 's1035nr1,s1035nr7,s1035nr12,s1035nr20,s1035nr27,s1035nr34'
+exclude_samples <- strsplit(exclude_samples, ',')[[1]]
+
+dtf_p <- data.table::fread(fn)
+row.names <- dtf_p[[gene_id]]
+dtf_p <- dtf_p[, .SD,
+  .SDcols = setdiff(colnames(dtf_p), c(gene_id, exclude_samples))]
+rownames(dtf_p) <- row.names
+colnames(dtf_p) <- tolower(basename(colnames(dtf_p)))
+dtf_p <- dtf_p[, .SD, .SDcols = setdiff(colnames(dtf_p), exclude_samples)]
+dge <- DGEList(counts = dtf_p)
+dge <- calcNormFactors(dge, method = 'TMM')
+nF <- dge$samples[,'lib.size'] * dge$samples[,'norm.factors']
+
+dtf_f <- sweep(dge$counts, 2, nF, '/') %>%
+  as.matrix %>%
+  set_rownames(row.names) %>%
+  { . * 1e6 } %>%
+  { .[!maartenutils::eps(apply(., 1, sum), 0), ] } %>%
+  { .[!maartenutils::eps(apply(., 1, var), 0), ] }
+
+good_idx <- dtf_f %>% apply(1, function(x) !any(is.na(x))) %>% which
+dtf_f <- dtf_f[good_idx, ]
+
+# row.names <- rownames(dtf_f)
+dtf_f <- as.data.table(dtf_f, keep.rownames = F)
+dtf_f <- cbind(row.names[good_idx], dtf_f)
+colnames(dtf_f)[1] <- gene_id
+
+readr::write_tsv(dtf_f, output_fn)
+
+# vim: set ft=r:

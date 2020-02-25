@@ -1,0 +1,66 @@
+#!/usr/bin/env Rscript
+
+required_libs <- c('data.table', 'dplyr', 'readr', 'glue', 'maartenutils',
+  'docopt', 'VariantAnnotation', 'pheatmap', 'VennDiagram')
+
+for (lib in required_libs) {
+  if (!any(installed.packages()[,1] == lib)) {
+    message(glue('Installing {lib}'))
+    if (!requireNamespace('BiocManager', quietly = TRUE))
+        install.packages('BiocManager')
+    BiocManager::install(lib)
+  }
+  suppressMessages(library(package = lib, character.only = T))
+}
+message('Finished loading libs')
+options(error = traceback)
+
+doc <- 'Compare samples by the presence of (somatic) variants
+
+Usage:
+  compare_variants <vcf_file> [--output_dir=<od>] [--exclude=<es>...]
+Options:
+  --output_dir=<od>   Directory to write plots to [default: ./]
+  --exclude=<es>      Exclude this samples from the analysis, can be repeated'
+cla <- docopt::docopt(doc)
+
+vcf <- readGT(cla$vcf_file)
+message('Finished reading vcf')
+M <- vcf != '.' & vcf != '0/0' & vcf != '0|0'
+if (!is.null(cla$exclude)) {
+  message(glue('Excluding \\
+      sample{ifelse(length(cla$exclude) > 1, \'s\', \'\')}: \\
+        {paste(cla$exclude, collapse = \', \')}'))
+  M <- M[, -which(colnames(M) %in% cla$exclude)]
+}
+
+gen_fn <- function(type = 'jaccard', idx = 1, samples = colnames(M)) {
+  file.path(cla$output_dir, 
+    glue('{type}-{idx}-{paste(samples, collapse = \'_\')}.pdf'))
+}
+
+idx <- 1
+while (
+  file.exists(gen_fn(type = 'jaccard', idx = idx)) || 
+  file.exists(gen_fn(type = 'corrob', idx = idx))) {
+  idx <- idx + 1
+}
+
+if (!dir.exists(cla$output_dir)) {
+  message(glue('Creating directory {cla$output_dir}'))
+  dir.create(cla$output_dir, recursive = T)
+}
+message(glue('Writing results to {cla$output_dir}'))
+
+
+plot(overlap_analysis(M, method = 'jaccard'),
+  display_numbers = compute_overlap_labels(M, method = 'jaccard'),
+  treeheight_row = 0, treeheight_col = 0,
+  filename = gen_fn(type = 'jaccard', idx = idx))
+plot(overlap_analysis(M, method = 'corrob'),
+  display_numbers = compute_overlap_labels(M, method = 'corrob'),
+  cluster_rows = F, cluster_cols = F,
+  treeheight_row = 0, treeheight_col = 0,
+  filename = gen_fn(type = 'corrob', idx = idx))
+
+# vim: set ft=r:
