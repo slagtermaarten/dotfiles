@@ -50,6 +50,7 @@ tryCatch(colorout::setOutputColors256(normal = 4, string = 1, verbose = F),
 # )
 
 if (exists('setMKLthreads')) setMKLthreads(1)
+if (exists('setDTthreads')) setDTthreads(1)
 Sys.setenv(TAR = '/bin/tar')
 
 # vim: set ft=r:

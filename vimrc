@@ -166,6 +166,7 @@ let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
 let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/']
 for cand_path in candidateRpaths
+  " if isdirectory(cand_path) && filereadable(cand_path . "/bin/R")
   if isdirectory(cand_path)
     let R_path = cand_path
   endif
