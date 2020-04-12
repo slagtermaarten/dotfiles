@@ -9,6 +9,19 @@ headless_browser() {
   fi
 }
 
+alias -s {yml,yaml,R,rmd,py,md,tex}=$EDITOR
+setopt autocd autopushd pushdignoredups
+alias d='dirs -v | head -10'
+alias 1='cd -'
+alias 2='cd -2'
+alias 3='cd -3'
+alias 4='cd -4'
+alias 5='cd -5'
+alias 6='cd -6'
+alias 7='cd -7'
+alias 8='cd -8'
+alias 9='cd -9'
+
 # alias lt='ls -lhtr --color=auto'
 alias ls='ls -F -G --color=auto'
 alias lt='ls -lhtr --color=auto'
@@ -29,8 +42,6 @@ alias x='chmod +x'
 # alias todo='geeknote edit --notebook todo --note gtd --content "WRITE"'
 alias ff='find . -name'
 # alias ag='sudo apt-get install'
-alias -s md=$EDITOR
-alias -s tex=$EDITOR
 alias pylab="ipython qtconsole --pylab"
 alias pynb="ipython notebook --pylab"
 alias vi='nvim'

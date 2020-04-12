@@ -479,6 +479,7 @@ nmap <leader>ed :CtrlP ~/dotfiles<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>sv :source ~/.vimrc<CR>
+nmap <leader>soc :source %<CR>
 nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>

@@ -361,3 +361,15 @@ if (!file.exists(o_fn) || redo) {
 	$1 <- readRDS(o_fn)
 }
 endsnippet
+
+snippet ci "Conditional install, load libary and install it if required"
+if (!require('$1${VISUAL}')) install.packages('$1'); library('$1')
+endsnippet
+
+snippet bci "BioConductor conditional install, load libary and install it if required"
+if (!require('BiocManager')) install.packages('BiocManager')
+if (!require('$1${VISUAL}')) {
+  BiocManager::install('$1', update = FALSE)
+}
+library('$1')
+endsnippet

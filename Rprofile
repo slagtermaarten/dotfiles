@@ -33,7 +33,11 @@ if (interactive()) {
   options(width=as.integer(howWide))
 }
 
-if (!'colorout' %in% utils::installed.packages()[, 1]) {
+ip <- function(...) {
+  install.packages(...)
+}
+
+if (F && !'colorout' %in% utils::installed.packages()[, 1]) {
   tryCatch(devtools::install_github('jalvesaq/colorout'),
     error = function(e) {
       print(e);

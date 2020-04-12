@@ -96,6 +96,11 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>tf :call SlimuxSendCode('test_fun()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>tp :call SlimuxSendCode('plot(1:3)' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>do :call SlimuxSendCode('dev.off()' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>dp :call SlimuxSendCode('parallel <- T' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ds :call SlimuxSendCode('parallel <- F' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>si :call SlimuxSendCode('i <- j <- k <- 1' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>ss :call SlimuxSendCode('sink()' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>le :call SlimuxSendCode('rlang::last_error()' . "\n") <CR>
 endif
 
 
