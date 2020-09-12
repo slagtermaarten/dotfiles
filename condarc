@@ -3,3 +3,4 @@ channels:
   - bioconda
   - defaults
   - r
+ssl_verify: false

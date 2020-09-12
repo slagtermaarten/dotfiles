@@ -37,15 +37,9 @@ ip <- function(...) {
   install.packages(...)
 }
 
-if (F && !'colorout' %in% utils::installed.packages()[, 1]) {
-  tryCatch(devtools::install_github('jalvesaq/colorout'),
-    error = function(e) {
-      print(e);
-      print('Pkg colorout not installed and not obtained from Github')
-    })
-}
-tryCatch(colorout::setOutputColors256(normal = 4, string = 1, verbose = F),
-  error = function(e) { })
+invisible(tryCatch(colorout::setOutputColors256(normal = 4, string = 1, 
+                                                verbose = F),
+  error = function(e) { }))
 
 # install.packages(
 #   lib  = lib <- .libPaths()[1],

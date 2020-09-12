@@ -18,48 +18,49 @@ call plug#begin('~/.vim/plugged')
 " Plug '~/libs/slimux'
 " Plug 'epeli/slimux', { 'for' : ['zsh', 'sh', 'bash', 'markdown'] }
 " Plug 'epeli/slimux', { 'on' : ['SlimuxGlobalConfigure', 'SlimuxREPLSendLine', 'SlimuxSendCode', 'SlimuxSendParagraph']}
-Plug 'epeli/slimux'
+Plug 'esamattis/slimux'
 " Plug 'Chiel92/vim-autoformat'
 " Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-eunuch'
-Plug 'mattn/gist-vim'
+" Plug 'tpope/vim-eunuch'
+" Plug 'mattn/gist-vim'
 " Plug 'vim-script/marvim.vim'
 " Plug 'Badacadabra/vim-archery'
 
-Plug 'mattn/webapi-vim'
+" Plug 'mattn/webapi-vim'
 " Plug 'LukeGoodsell/nextflow-vim'
 Plug 'tpope/vim-dispatch'
+Plug 'rakr/vim-one'
 Plug 'tpope/vim-surround'
-Plug 'jeffkreeftmeijer/vim-dim'
-Plug 'tpope/vim-unimpaired'
+" Plug 'jeffkreeftmeijer/vim-dim'
+" Plug 'tpope/vim-unimpaired'
 Plug 'mileszs/ack.vim'
 Plug 'terryma/vim-expand-region'
 " Plug 'vim-scripts/vim-auto-save'
 " Plug 'rking/ag.vim', { 'on' : 'Ag' }
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
 Plug 'altercation/vim-colors-solarized'
 " Plug 'vim-scripts/CSApprox'
-Plug 'tlhr/anderson.vim'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'vim-scripts/L9'
-Plug 'vim-scripts/Rename'
+" Plug 'tlhr/anderson.vim'
+" Plug 'danilo-augusto/vim-afterglow'
+" Plug 'vim-scripts/L9'
+" Plug 'vim-scripts/Rename'
 " Plug 'vim-scripts/tComment'
 " Plug 'tomtom/tcomment_vim'
-Plug 'eshock/vim-matchit'
+" Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
+" Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
-Plug 'vim-scripts/taglist.vim'
+" Plug 'vim-scripts/taglist.vim'
 Plug 'fs111/pydoc.vim', { 'for' : 'python' }
 Plug 'craigemery/vim-autotag'
 " Plug 'reedes/vim-pencil', { 'on' : ['pencil#init()', '<Plug>pencil#init()', 'SoftPencil', 'HardPencil'] }
 " Plug 'reedes/vim-pencil'
 Plug 'tpope/vim-fugitive'
-Plug 'reedes/vim-wheel'
+" Plug 'reedes/vim-wheel'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vim-scripts/c.vim', { 'for' : ['c', 'cpp'] }
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
@@ -67,14 +68,14 @@ Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind'] }
 " Plug 'vim-pandoc/vim-pandoc', { 'for' : 'markdown' }
 " Plug 'vim-pandoc/vim-pandoc-syntax', { 'for' : 'markdown' }
 " Plug 'dhruvasagar/vim-table-mode', { 'for' : 'markdown' }
-Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
-Plug 'sukima/xmledit', { 'for' : 'xml' }
+" Plug 'rsmenon/vim-mathematica', { 'for' : 'mathematica' }
+" Plug 'sukima/xmledit', { 'for' : 'xml' }
 " Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'], 'commit' : 'b34a3259d123779c298c1d43bfcc9ef810f876b5' }
 Plug 'jalvesaq/Nvim-R', { 'for' : ['r', 'rmd'] }
 Plug 'moll/vim-bbye'
 " Plug 'chiedo/vim-dr-replace'
-Plug 'ervandew/supertab'
-Plug 'valloric/YouCompleteMe'
+" Plug 'ervandew/supertab'
+" Plug 'valloric/YouCompleteMe'
 Plug 'SirVer/ultisnips', { 'for' : [ 'R', 'r', 'Rmd', 'rmd', 'markdown', 'cpp', 'py', 'python', 'tex', 'snakemake', 'sh', 'zsh' ] }
 " Plug 'iago-lito/vim-visualMarks'
 " Plug 'Shougo/deoppet.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -141,10 +142,9 @@ set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
 syntax sync minlines=10
 syntax enable
-" set background=light
-colorscheme dim
-set background=dark
-" set t_Co=256
+set background=light
+" set background=dark
+set t_Co=256
 " colo dim
 " colo delek
 " colorscheme southernlights
@@ -153,6 +153,8 @@ set background=dark
 " colorscheme afterglow
 " colorscheme anderson
 " colorscheme archery
+let g:one_allow_italics = 1
+" colorscheme one
 let g:afterglow_inherit_background=1
 let g:afterglow_blackout=0
 let g:afterglow_italic_comments=1
@@ -164,7 +166,8 @@ let r_indent_ess_compatible = 0
 let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
-let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/']
+let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/condq/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/', '/home/m.slagter/conda/envs/r362/bin/']
+let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/', '/DATA/users/m.slagter/miniconda3/envs/r362/bin/']
 for cand_path in candidateRpaths
   " if isdirectory(cand_path) && filereadable(cand_path . "/bin/R")
   if isdirectory(cand_path)
@@ -185,7 +188,7 @@ let NERDTreeHijackNetrw=1
 let g:mma_candy=1
 let vimrplugin_assign=0
 set guifont=Monaco:h13
-let candidate_paths = ['/usr/bin/python', '/usr/local/bin/python3', '/home/m.slagter/conda/envs/py3/bin/python']
+let candidate_paths = ['/usr/bin/python', '/usr/local/bin/python3']
 for cand_path in candidate_paths
   if filereadable(cand_path)
     let g:python3_host_prog = cand_path
@@ -286,6 +289,11 @@ function! IncreaseFoldlevel()
   echo &foldlevel
   let &foldlevel=&foldlevel+1
 endfunction
+
+function! SourceFAS()
+  source ~/antigenic_space/maarten-analyses/.vimrc.local
+endfunction
+nnoremap <leader>sh :call SourceFAS() <CR>
 
 function! DecreaseFoldlevel()
   echo &foldlevel
@@ -408,6 +416,7 @@ let g:pencil#wrapModeDefault = 'hard'   " or 'soft'
 let g:pencil#joinspaces = 1
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
+" nnoremap <leader>pp <Plug>RDSendParagraph
 nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
 nnoremap <leader>aw "zyiw:exe "Ack! ".@z.""<CR>
 nnoremap <c-m> :CtrlPMRUFiles <cr>
@@ -479,7 +488,8 @@ nmap <leader>ed :CtrlP ~/dotfiles<CR>
 nmap <leader>em maartenedit Makefile<CR>
 nmap <leader>ev maartenedit ~/dotfiles/vimrc<CR>
 nmap <leader>sv :source ~/.vimrc<CR>
-nmap <leader>soc :source %<CR>
+nmap <leader>sl :source .vimrc.local<CR>
+nmap <leader>soc :source %<CR> " Source current
 nmap <leader>eg maartenedit ~/.gitconfig<CR>
 nmap <leader>ea maartenedit ~/.config/awesome/rc.lua <CR>
 nmap <leader>et maartenedit ~/dotfiles/tmux.conf <CR>
@@ -528,6 +538,7 @@ vnoremap <leader>rdb :s/"/'/g<CR> <bar> :nohl <CR>
 nnoremap <leader>in :s/\d\+/\=(submatch(0)+1)/g<CR> <bar> :nohl <CR>
 " endif
 nnoremap <leader>stw :call StripTrailingWhitespaces() <CR>
+nnoremap <leader>tc :tabc<CR>
 " nnoremap <c-h> <c-w><c-h>
 " nnoremap <c-j> <c-w><c-j>
 " nnoremap <c-k> <c-w><c-k>
@@ -564,13 +575,12 @@ endif
 " }}}
 
 " Autocommands{{{
-augroup pencil
-  autocmd!
+" augroup pencil
   " autocmd FileType markdown,mkd call pencil#init()
   " autocmd FileType markdown,mkd call pencil#init({'wrap': 'hard'})
   " autocmd FileType textile call pencil#init()
   " autocmd FileType text call pencil#init({'wrap': 'hard'})
-augroup END
+" augroup END
 
 
 augroup misc_autocmds
@@ -580,8 +590,8 @@ augroup misc_autocmds
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost ~/dotfiles/vimrc source ~/dotfiles/vimrc
-    autocmd! BufReadPost * if line("'\"") > 1 && line("'\"") <=
-      \ line("$") | exe "normal! g'\"" | endif
+    " autocmd! BufReadPost * if line("'\"") > 1 && line("'\"") <=
+    "   \ line("$") | exe "normal! g'\"" | endif
     " autocmd BufEnter * silent! lcd %:p:h
     " au FocusLost * :silent! wall
     " au FocusLost * :wall
@@ -593,20 +603,20 @@ augroup END
 
 
 augroup filetypechecking
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
     au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
     au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf :call InspectDataFile()
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.bed :call InspectDataFile()
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv :call InspectDataFile()
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.csv :call InspectDataFile()
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.maf :call InspectDataFile()
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf :call InspectDataFile()
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed :call InspectDataFile()
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.tsv :call InspectDataFile()
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.csv :call InspectDataFile()
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.maf :call InspectDataFile()
     au Bufenter,BufNewFile,BufReadPost,BufRead Snakefile set filetype=snakemake
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.smk set filetype=snakemake
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.smk set filetype=snakemake
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gmt :call InspectDataFile()
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.gmt :call ViewerMode()
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.gmt :call ViewerMode()
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf setlocal nowrap
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
@@ -653,7 +663,6 @@ augroup genericSlimux
     nnoremap <leader>sca :bufdo SlimuxGlobalConfigureLastBuffer<CR>
   " endif
 augroup end
-
 
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
@@ -734,10 +743,9 @@ endif
 augroup slimux
   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom s:last_selected_pane"
   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer"
-  autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
+  " autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
 augroup END
 
-autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
 " set tags=./tags,~/antigenic_space/tags,~/tags,~/TONIC/tags
 " let g:neoformat_python_autopep8 = {
 "             \ 'exe': 'autopep8',
@@ -752,3 +760,10 @@ autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastB
 " let g:neoformat_enabled_python = ['autopep8']
 "
 " let @d = 'G\\'eV\\'b'
+"
+" function! BufDo(command)
+"   let currBuff=bufnr("%")
+"   execute 'bufdo ' . a:command
+"   execute 'buffer ' . currBuff
+" endfunction
+" com! -nargs=+ -complete=command Bufdo call BufDo(<q-args>)

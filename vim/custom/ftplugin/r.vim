@@ -29,15 +29,6 @@ let r_indent_align_args = 1
 " Set vim-r-plugin to mimics ess :
 let r_indent_ess_comments = 0
 let r_indent_ess_compatible = 0
-
-function! ProjectSearch()
-  let l:searchterm = expand("<cword>")
-	echom "Searching for: " . l:searchterm
-  execute "Ack! " . l:searchterm . " ~/libs/maartenutils/R" 
-  " execute "AckAdd " . l:searchterm . " ~/antigenic_space/libs/fasanalysis/R"
-  " execute "AckAdd " . l:searchterm . " ~/antigenic_space/libs/firehosedownload/R"
-endfunction
-nnoremap <buffer> <leader>aps :call ProjectSearch() <CR>
 " nnoremap <buffer> <leader>fpb :/\v^\s*perm_browser\(\)/ <CR>
 " nnoremap <buffer> <leader>ft :/if (T)/ <CR>
 
@@ -87,6 +78,7 @@ if exists(':SlimuxGlobalConfigure')
   nnoremap <buffer> <silent> <leader>qq :call SlimuxSendCode('q' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>gw :call SlimuxSendCode('getwd()' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>sw :call SlimuxSendCode('setwd("' . expand("%:p:h") . '")' . "\n") <CR>
+  nnoremap <buffer> <silent> <leader>rt :call SlimuxSendCode('str(' . expand("<cword>") . ')' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dq :call SlimuxSendCode('Q' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dn :call SlimuxSendCode('n' . "\n") <CR>
   nnoremap <buffer> <silent> <leader>dc :call SlimuxSendCode('c' . "\n") <CR>

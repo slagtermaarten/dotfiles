@@ -24,7 +24,7 @@ pathagg $HOME/.cabal/bin after
 # pathagg $HOME/anaconda/bin after
 # pathagg $HOME/miniconda3/bin after
 # pathagg $HOME/miniconda2/bin after
-pathagg $HOME/conda/bin after
+# pathagg $HOME/conda/bin after
 pathagg /DATA/resources/singularity/bin after
 pathagg $HOME/Dropbox/mount_scripts
 
@@ -33,9 +33,9 @@ pathagg $HOME/Dropbox/mount_scripts
 JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home/jre
 pathagg $JAVA_HOME/bin
 
-if [[ $(uname) == 'Darwin' ]]; then
-	pathagg $HOME/anaconda/envs/r34/bin
-fi
+# if [[ $(uname) == 'Darwin' ]]; then
+# 	pathagg $HOME/anaconda/envs/r34/bin
+# fi
 # Deduplicate path variables
 get_var () {
     eval 'printf "%s\n" "${'"$1"'}"'
