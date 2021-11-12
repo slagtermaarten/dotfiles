@@ -23,6 +23,8 @@ Plug 'esamattis/slimux'
 " Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'qpkorr/vim-bufkill'
+" Plug 'skywind3000/asyncrun.vim'
 " Plug 'tpope/vim-eunuch'
 " Plug 'mattn/gist-vim'
 " Plug 'vim-script/marvim.vim'
@@ -44,14 +46,15 @@ Plug 'terryma/vim-expand-region'
 Plug 'altercation/vim-colors-solarized'
 " Plug 'vim-scripts/CSApprox'
 " Plug 'tlhr/anderson.vim'
+" Plug 'Raimondi/delimitMate'
 " Plug 'danilo-augusto/vim-afterglow'
 " Plug 'vim-scripts/L9'
-" Plug 'vim-scripts/Rename'
+Plug 'vim-scripts/Rename'
 " Plug 'vim-scripts/tComment'
 " Plug 'tomtom/tcomment_vim'
 " Plug 'eshock/vim-matchit'
 Plug 'ctrlpvim/ctrlp.vim', { 'on' : ['CtrlP', 'CtrlPDir', 'CtrlPMRUFiles', 'CtrlPBuffer'] }
-" Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
+Plug 'godlygeek/tabular', { 'on' : ['Tabularize'] }
 " Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 Plug 'honza/vim-snippets'
 " Plug 'vim-scripts/taglist.vim'
@@ -104,6 +107,7 @@ call plug#end()
 set ssop-=options    " do not store global and local values in a session
 set ssop-=folds      " do not store folds
 set showmode
+set modeline
 set autoread
 set bs=2
 set ruler
@@ -112,14 +116,16 @@ set laststatus=2
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set autoindent
+" set autoindent
 set hlsearch
 set incsearch
 set nobackup
 set noswapfile
+setlocal textwidth=70
+setlocal colorcolumn=70
 set sw=2
 set noerrorbells
-set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html,*.Rdata,*.Rds
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.rds,*.html,*.Rdata,*.Rds        
 set undolevels=50
 set history=400
 set wildmenu
@@ -132,7 +138,6 @@ set matchtime=3
 set splitbelow
 set splitright
 set equalalways
-set colorcolumn=80
 " highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 " match OverLength /\%81v.\+/
 "
@@ -140,7 +145,7 @@ let hostname=system('hostname -s')
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ [%{hostname}]\ %=%-14.(%l,%c%V%)\ %P
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}\ %=%-14.(%l,%c%V%)\ %P
 " set statusline=%<%f\ %=%-14.(%l,%c%V%)\ %P
-syntax sync minlines=10
+" syntax sync minlines=10
 syntax enable
 set background=light
 " set background=dark
@@ -159,26 +164,30 @@ let g:afterglow_inherit_background=1
 let g:afterglow_blackout=0
 let g:afterglow_italic_comments=1
 
-" set vim-r-plugin to indent in a sane way
-let r_indent_align_args = 1
-let r_indent_ess_comments = 0
-let r_indent_ess_compatible = 0
-let g:r_indent_comment_column = 0
+" let g:r_indent_comment_column = 0
 let g:netrw_liststyle=3
 let NERDTreeChDirMode=0
-let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/condq/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/', '/home/m.slagter/conda/envs/r362/bin/']
-let candidateRpaths = ['/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/', '/DATA/users/m.slagter/miniconda3/envs/r362/bin/']
+
+let candidateRpaths = [$RPATH, '/usr/local/bin/', '/home/m.slagter/conda/envs/r35/bin/', '/home/m.slagter/conda/envs/r352/bin/', '/DATA/users/m.slagter/miniconda3/envs/r362/bin/']
+let candidateRpaths = [$RPATH, '/DATA/users/m.slagter/miniconda3/envs/r362/bin/']
+let candidateRpaths = [$RPATH, '/DATA/users/m.slagter/miniconda3/envs/r4/bin/']
 for cand_path in candidateRpaths
   " if isdirectory(cand_path) && filereadable(cand_path . "/bin/R")
   if isdirectory(cand_path)
     let R_path = cand_path
   endif
 endfor
+" let R_cmd = '/usr/bin/xvfb-run R'
+let R_cmd = '/usr/bin/xvfb-run -a ' . R_path . 'R'
+let R_app = '/usr/bin/xvfb-run -a ' . R_path . 'R'
+" let R_app = R_cmd
+let R_args = ['--no-save']
 let R_in_buffer = 0
+let R_applescript = 0
+" let R_tmux_split = 0
 " let R_tmux_split = 1
 let R_tmux_title = 'automatic'
 let R_source = '~/.vim/tmux_split.vim'
-let R_applescript = 0
 let R_clean_line = 1
 let R_editing_mode = "vi"
 let R_assign = 0
@@ -186,7 +195,7 @@ let g:C_CFlags="-O3 -std=c++0x -pg -D_DEBUG -g -c -Wall"
 let g:mma_highlight_option = "solarized"
 let NERDTreeHijackNetrw=1
 let g:mma_candy=1
-let vimrplugin_assign=0
+let vimrplugin_assign=1
 set guifont=Monaco:h13
 let candidate_paths = ['/usr/bin/python', '/usr/local/bin/python3']
 for cand_path in candidate_paths
@@ -194,6 +203,7 @@ for cand_path in candidate_paths
     let g:python3_host_prog = cand_path
   endif
 endfor
+let g:python3_host_prog = "/DATA/users/m.slagter/miniconda3/envs/r4/bin/python3"
 
 " Supertab related
 let g:SuperTabDefaultCompletionType = '<C-n>'
@@ -389,6 +399,12 @@ function! TabMove(direction)
     endif
 endfunction
 
+" command SynToggle
+"       \ if exists("g:syntax_on") |
+"       \   syntax off |
+"       \ else |
+"       \   syntax enable |
+"       \ endif
 
 function! ShowSpaces(...)
   let @/='\v(\s+$)|( +\ze\t)'
@@ -417,7 +433,10 @@ let g:pencil#joinspaces = 1
 vmap <Space> <Plug>RDSendSelection
 nmap <Space> <Plug>RDSendLine
 " nnoremap <leader>pp <Plug>RDSendParagraph
+"
+nnoremap <silent><leader>tm :let @+ = expand("%:p")<cr><cr>
 nnoremap <silent><leader>cp :let @+ = expand("%:p")<cr><cr>
+nnoremap <expr> <leader>s exists('g:syntax_on') ? ':syntax off<CR>' : ':syntax enable<CR>'
 nnoremap <leader>aw "zyiw:exe "Ack! ".@z.""<CR>
 nnoremap <c-m> :CtrlPMRUFiles <cr>
 nnoremap <c-b> :CtrlPBuffer <cr>
@@ -475,9 +494,10 @@ nnoremap ! :!
 " nnoremap H ^
 " vnoremap L $
 vnoremap // y/<C-R>"<CR>
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " Sync project to remote, define syncto and syncfrom functions in project folder
 command! WP :call WordProcessorMode()
-command! Gfix :Gcommit --amend
+command! Gfix :Git commit --amend
 nmap maartenedit  :e
 " Have to be sure that this command won't be found in any plugins, so give it
 " a super goofy name: maartenedit
@@ -590,6 +610,7 @@ augroup misc_autocmds
     " autocmd BufWinEnter *.* silent loadview
     " autocmd BufWinEnter *.* :NERDTreeCWD
     autocmd! bufwritepost ~/dotfiles/vimrc source ~/dotfiles/vimrc
+    autocmd! bufwritepost .vimrc.local source .vimrc.local
     " autocmd! BufReadPost * if line("'\"") > 1 && line("'\"") <=
     "   \ line("$") | exe "normal! g'\"" | endif
     " autocmd BufEnter * silent! lcd %:p:h
@@ -604,8 +625,8 @@ augroup END
 
 augroup filetypechecking
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.m set ft=mma "Mathematica
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
-    au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd set ft=rmd
+    " au Bufenter,BufNewFile,BufReadPost,BufRead *.R set ft=r
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.Rmd UltiSnipsAddFiletypes r.rmd
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.cc3d set ft=xml
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.gtf :call InspectDataFile()
@@ -622,6 +643,39 @@ augroup filetypechecking
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal list
     " au Bufenter,BufNewFile,BufReadPost,BufRead *.bed setlocal nowrap
 augroup end
+
+function! CustomNvimRMappings()
+   nmap <buffer> <silent> <LocalLeader>vt :call RAction("viewobj", ", howto='topleft 11sp', nrows=10")<CR>
+   nmap <buffer> <silent> <LocalLeader>rk :call RAction("levels")<CR>
+   nmap <buffer> <silent> <LocalLeader>od :call RAction("dim")<CR>
+   nmap <buffer> <silent> <LocalLeader>H :call RAction("head")<CR>
+   nmap <buffer> <silent> <LocalLeader>cn :call RAction("colnames")<CR>
+   nmap <buffer> <silent> <LocalLeader>rn :call RAction("rownames")<CR>
+   nmap <buffer> <silent> <LocalLeader>T :call RAction("tail")<CR>
+   nmap <buffer> <silent> <LocalLeader>db :call RAction("debug")<CR>
+   nmap <buffer> <silent> <LocalLeader>rg :call RAction("plot")<CR>
+   nmap <buffer> <silent> <LocalLeader>dbo :call RAction("debugonce")<CR>
+   nmap <buffer> <silent> <LocalLeader>gw :call g:SendCmdToR("getwd()")<CR>
+   nmap <buffer> <silent> <LocalLeader>sw :call g:SendCmdToR("setwd('" . expand('%:p:h') . "')")<CR>
+   nmap <buffer> <silent> <LocalLeader>dq :call g:SendCmdToR("Q")<CR>
+   nmap <buffer> <silent> <LocalLeader>dw :call g:SendCmdToR("where")<CR>
+   nmap <buffer> <silent> <LocalLeader>do :call g:SendCmdToR("dev.off()")<CR>
+   nmap <buffer> <silent> <LocalLeader>ss :call g:SendCmdToR("sink()")<CR>
+   nmap <buffer> <silent> <LocalLeader>le :call g:SendCmdToR("rlang::last_error()")<CR>
+   nmap <buffer> <silent> <LocalLeader>tp :call g:SendCmdToR("plot(1:3)") <CR>
+   nmap <buffer> <silent> <LocalLeader>tb :call g:SendCmdToR("traceback()") <CR>
+   nmap <buffer> <silent> <LocalLeader>tm :call g:SendCmdToR("targets::tar_make()") <CR>
+   nmap <buffer> <silent> <LocalLeader>tf :call g:SendCmdToR("targets::tar_manifest(fields = 'command')") <CR>
+endfunction
+" call CustomNvimRMappings()
+
+augroup mynvimr
+   au!
+   autocmd filetype r,rmd call CustomNvimRMappings()
+augroup end
+
+let R_debug = 0
+let R_dbg_jump = 0
 
 
 " Restore cursor after having called SendLine
@@ -652,17 +706,16 @@ function! s:GetVisual() range
 endfunction
 command! -range=% -bar -nargs=* MySlimuxREPLSendSelection call SlimuxSendCode(s:GetVisual() . "\n")
 
-augroup genericSlimux
-  " if exists(':SlimuxGlobalConfigure')
-    nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
-    " nnoremap <silent> <space> :SlimuxREPLSendLine<CR>
-    nnoremap <silent> <space> :call MySlimuxREPLSendLine()<CR>
-    vnoremap <silent> <space> :MySlimuxREPLSendSelection<CR> 
-    nnoremap <silent> <leader>aa :SlimuxREPLSendBuffer<CR> <CR>
-    nnoremap <silent> <Leader>pp :SlimuxREPLSendParagraph<CR>
-    nnoremap <leader>sca :bufdo SlimuxGlobalConfigureLastBuffer<CR>
-  " endif
-augroup end
+" Call this function to load Slimux mappings
+function! SlimuxMappings()
+  nnoremap <leader>sc :SlimuxGlobalConfigure<CR>
+  " nnoremap <silent> <space> :SlimuxREPLSendLine<CR>
+  nnoremap <silent> <space> :call MySlimuxREPLSendLine()<CR>
+  vnoremap <silent> <space> :MySlimuxREPLSendSelection<CR> 
+  nnoremap <silent> <leader>saa :SlimuxREPLSendBuffer<CR> <CR>
+  nnoremap <silent> <Leader>spp :SlimuxREPLSendParagraph<CR>
+  nnoremap <leader>sca :bufdo SlimuxGlobalConfigureLastBuffer<CR>
+endfunction
 
 let g:table_mode_corner_corner="+"
 let g:table_mode_header_fillchar="="
@@ -713,7 +766,7 @@ nnoremap <silent> <leader>dt :! rm %.tmp.R<CR>
 " Abbreviations {{{
 iabbrev THe The
 iabbrev cc3 CompuCell3D
-iabbrev arrow -->
+inoremap ≠ <-
 " }}}
 
 " Local config
@@ -732,19 +785,6 @@ endif
 " if !exists('g:slimux_autoset')
 "     let g:slimux_autoset = 1
 " endif
-
-" if g:slimux_autoset
-" augroup slimux
-"   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom s:last_selected_pane"
-"   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer"
-"   " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost call s:SelectPane(s:global_conf, s:last_selected_pane)"
-"   autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
-" augroup END
-augroup slimux
-  " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost echom s:last_selected_pane"
-  " execute "autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer"
-  " autocmd! BufReadPost,BufNewFile,BufEnter,FileReadPost SlimuxGlobalConfigureLastBuffer
-augroup END
 
 " set tags=./tags,~/antigenic_space/tags,~/tags,~/TONIC/tags
 " let g:neoformat_python_autopep8 = {
