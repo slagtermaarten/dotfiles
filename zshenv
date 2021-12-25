@@ -26,7 +26,10 @@ pathagg $HOME/.cabal/bin after
 # pathagg $HOME/miniconda2/bin after
 # pathagg $HOME/conda/bin after
 pathagg /DATA/resources/singularity/bin after
-pathagg $HOME/Dropbox/mount_scripts
+pathagg $HOME/Dropbox/mount_scripts after
+pathagg $HOME/.local/bin
+rubydir=($HOME/.gem/ruby/*(:om))
+pathagg "$rubydir[$#rubydir]/bin" after
 
 # export PYTHONPATH="~/.local/lib/python3.5"
 
