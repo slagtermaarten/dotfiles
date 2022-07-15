@@ -21,6 +21,7 @@ pathagg $PWD/bin
 pathagg /usr/local/bin
 pathagg $HOME/perl5/bin after
 pathagg $HOME/.cabal/bin after
+pathagg /Library/TeX/texbin
 # pathagg $HOME/anaconda/bin after
 # pathagg $HOME/miniconda3/bin after
 # pathagg $HOME/miniconda2/bin after
