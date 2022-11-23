@@ -1,4 +1,5 @@
 # install homebrew and packages
+ddir=$HOME/dotfiles
 cd $ddir
 if [[ $(uname) == "Darwin" ]]; then
   if ! type "brew" > /dev/null; then
@@ -14,4 +15,3 @@ cd $ddir
 git submodule init
 git submodule update
 git pull --recurse-submodules
-

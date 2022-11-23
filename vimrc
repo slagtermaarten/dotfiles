@@ -175,11 +175,11 @@ for cand_path in candidateRpaths
   " if isdirectory(cand_path) && filereadable(cand_path . "/bin/R")
   if isdirectory(cand_path)
     let R_path = cand_path
+    let R_cmd = '/usr/bin/xvfb-run -a ' . R_path . 'R'
+    let R_app = '/usr/bin/xvfb-run -a ' . R_path . 'R'
   endif
 endfor
 " let R_cmd = '/usr/bin/xvfb-run R'
-let R_cmd = '/usr/bin/xvfb-run -a ' . R_path . 'R'
-let R_app = '/usr/bin/xvfb-run -a ' . R_path . 'R'
 " let R_app = R_cmd
 let R_args = ['--no-save']
 let R_in_buffer = 0
@@ -197,13 +197,12 @@ let NERDTreeHijackNetrw=1
 let g:mma_candy=1
 let vimrplugin_assign=1
 set guifont=Monaco:h13
-let candidate_paths = ['/usr/bin/python', '/usr/local/bin/python3']
+let candidate_paths = ['/usr/bin/python', '/usr/local/bin/python3', '/DATA/users/m.slagter/miniconda3/envs/r4/bin/python3']
 for cand_path in candidate_paths
   if filereadable(cand_path)
     let g:python3_host_prog = cand_path
   endif
 endfor
-let g:python3_host_prog = "/DATA/users/m.slagter/miniconda3/envs/r4/bin/python3"
 
 " Supertab related
 let g:SuperTabDefaultCompletionType = '<C-n>'

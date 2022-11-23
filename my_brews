@@ -1,4 +1,5 @@
 ack
+ag
 autoconf
 autojump
 automake
@@ -16,6 +17,7 @@ gcc
 gd
 gdbm
 gettext
+gh
 ghc
 git
 glib

@@ -20,6 +20,7 @@ pathagg $HOME/bin
 pathagg $PWD/bin
 pathagg /usr/local/bin
 pathagg $HOME/perl5/bin after
+pathagg /opt/homebrew/bin
 pathagg $HOME/.cabal/bin after
 pathagg /Library/TeX/texbin
 # pathagg $HOME/anaconda/bin after
@@ -29,8 +30,10 @@ pathagg /Library/TeX/texbin
 pathagg /DATA/resources/singularity/bin after
 pathagg $HOME/Dropbox/mount_scripts after
 pathagg $HOME/.local/bin
-rubydir=($HOME/.gem/ruby/*(:om))
-pathagg "$rubydir[$#rubydir]/bin" after
+if [[ -d $HOME/.gem ]]; then
+	rubydir=($HOME/.gem/ruby/*(:om))
+	pathagg "$rubydir[$#rubydir]/bin" after
+fi
 
 # export PYTHONPATH="~/.local/lib/python3.5"
 
