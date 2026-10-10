@@ -1,6 +1,0 @@
-outputDir = 'results'
-
-process {
-   cpus = 2
-   memory = '2GB'
-}

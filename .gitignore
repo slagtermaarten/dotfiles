@@ -21,3 +21,4 @@ lib/*.jar
 nextflow/plugins/
 nextflow/build/
 config/github-copilot/
+nextflow/
