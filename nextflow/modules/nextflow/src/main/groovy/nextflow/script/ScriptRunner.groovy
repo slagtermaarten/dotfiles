@@ -1,0 +1,322 @@
+/*
+ * Copyright 2013-2024, Seqera Labs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package nextflow.script
+
+import static nextflow.util.ConfigHelper.*
+
+import java.nio.file.Path
+
+import groovy.transform.CompileStatic
+import groovy.transform.PackageScope
+import groovy.util.logging.Slf4j
+import nextflow.Global
+import nextflow.Session
+import nextflow.container.inspect.ContainerInspectMode
+import nextflow.exception.AbortOperationException
+import nextflow.exception.AbortRunException
+import nextflow.plugin.Plugins
+import nextflow.util.HistoryFile
+/**
+ * Run a nextflow script file
+ *
+ * @author Paolo Di Tommaso <paolo.ditommaso@gmail.com>
+ */
+@Slf4j
+@CompileStatic
+class ScriptRunner {
+
+    /**
+     * The underlying execution session
+     */
+    private Session session
+
+    /**
+     * The script interpreter
+     */
+    private ScriptLoader scriptLoader
+
+    /**
+     * The pipeline file (it may be null when it's provided as string)
+     */
+    private ScriptFile scriptFile
+
+    /**
+     * The script result
+     */
+    private def result
+
+    /**
+     * Simulate execution and exit
+     */
+    private boolean preview
+
+    /**
+     * Optional callback to perform a custom action on a preview event
+     */
+    private Closure previewAction
+
+    /**
+     * Instantiate the runner object creating a new session
+     */
+    ScriptRunner( ) {
+        this( [:] )
+    }
+
+    ScriptRunner( Map config ) {
+        this.session = new Session(config)
+    }
+
+    ScriptRunner( Session session ) {
+        this.session = session
+    }
+
+    ScriptRunner setScript( Path script ) {
+        setScript(new ScriptFile(script))
+    }
+
+    ScriptRunner setScript( ScriptFile script ) {
+        this.scriptFile = script
+        return this
+    }
+
+    ScriptRunner setPreview(boolean value, Closure<Void> action) {
+        this.preview = value
+        this.previewAction = action
+        return this
+    }
+
+    Session getSession() { session }
+
+    /**
+     * @return The interpreted script object
+     */
+    @Deprecated BaseScript getScriptObj() { scriptLoader.getScript() }
+
+    /**
+     * @return The result produced by the script execution
+     */
+    def getResult() { result }
+
+
+    /**
+     * Execute a Nextflow script:
+     * 1. compile and load the script
+     * 2. execute the script
+     * 3. await for all tasks to complete
+     *
+     * @param args command-line positional arguments
+     * @param cliParams parameters specified on the command-line
+     * @param configParams parameters specified in the config
+     * @param entryName named workflow entrypoint
+     */
+    def execute( List<String> args=null, Map<String,?> cliParams=null, Map<String,?> configParams=null, String entryName=null ) {
+        assert scriptFile
+
+        // init session
+        session.init(scriptFile, args, cliParams, configParams)
+
+        // start session
+        session.start()
+        try {
+            // parse the script
+            try {
+                parseScript(scriptFile, entryName)
+                // run the code
+                run()
+            }
+            finally {
+                log.debug "Parsed script files:${scriptFiles0()}"
+            }
+            // await completion
+            await()
+            // shutdown session
+            shutdown()
+        }
+        catch (Throwable e) {
+            session.abort(e)
+            throw e
+        }
+
+        if( !session.success ) {
+            throw new AbortRunException()
+        }
+
+        return result
+    }
+
+    protected String scriptFiles0() {
+        def result = ''
+        for( Map.Entry<String,Path> it : ScriptMeta.allScriptNames() )
+            result += "\n  ${it.key}: ${it.value.toUriString()}"
+        return result
+    }
+
+    /**
+     * Test the name specified by the {@code methodName}
+     *
+     * @param scriptText
+     * @param methodName
+     * @param args
+     */
+    def test ( String methodName, List<String> args = null ) {
+        assert methodName
+        // init session
+        session.init(scriptFile, args)
+        parseScript(scriptFile, null)
+        def values = args ? args.collect { parseValue(it) } : null
+
+        def methodsToTest
+        if ( methodName == '%all' ) {
+            methodsToTest = scriptObj.metaClass.getMethods().findAll { it.name.startsWith('test') }.collect { it.name }.unique()
+        }
+        else {
+            methodsToTest = methodName.split(',') *.trim()
+        }
+
+        if( !methodsToTest ) {
+            log.info ('No test defined')
+            return
+        }
+
+        for( String name: methodsToTest ) {
+            try {
+                def metaMethod = scriptObj.metaClass.getMethods().find { it.name == name }
+
+                if( !metaMethod ) {
+                    log.error "Unknown function '$name' -- Check the name spelling"
+                }
+                else {
+                    def result = metaMethod.invoke(scriptObj, values as Object[] )
+                    if( result != null ) {
+                        log.info "SUCCESS: '$name' == $result"
+                    }
+                    else {
+                        log.info "SUCCESS: '$name'"
+                    }
+                }
+            }
+
+            catch( AssertionError | Exception e ) {
+
+                def lines = e.getMessage()?.readLines()?.collect { '  ' + it }
+                def fmtMsg = lines ? "\n\n${lines.join('\n')}\n" : ''
+
+                log.info "FAILED: function '$name'${fmtMsg}", e
+            }
+        }
+    }
+
+    def normalizeOutput(output) {
+        return output
+    }
+
+    protected void parseScript( ScriptFile scriptFile, String entryName ) {
+        scriptLoader = ScriptLoaderFactory.create(session)
+                            .setEntryName(entryName)
+                            // setting module true when running in "inspect" mode to prevent the running the entry workflow
+                            .setModule(ContainerInspectMode.active())
+                            .parse(scriptFile.main)
+        session.script = scriptLoader.getScript()
+    }
+
+
+    /**
+     * Launch the Nextflow script execution
+     *
+     * @return The value as returned by the user provided script
+     */
+    protected run() {
+        log.debug "> Launching execution"
+        assert scriptLoader, "Missing script instance to run"
+        // -- launch the script execution
+        scriptLoader.runScript()
+        // -- normalise output
+        result = normalizeOutput(scriptLoader.getResult())
+        // -- ignite dataflow network
+        session.fireDataflowNetwork(preview)
+    }
+
+    protected await() {
+        if( preview ) {
+            previewAction?.call(session)
+            return
+        }
+        log.debug "> Awaiting termination "
+        session.await()
+    }
+
+    protected shutdown() {
+        session.destroy()
+        Plugins.stop()
+        session.cleanup()
+        Global.cleanUp()
+        log.debug "> Execution complete -- Goodbye"
+    }
+
+    /**
+     * @param cli The launcher command line string
+     */
+    void verifyAndTrackHistory(String cli, String name) {
+        assert cli, 'Missing launch command line'
+
+        if( HistoryFile.disabled() ) {
+            log.debug "Nextflow history file tracking disabled"
+            return
+        }
+
+        // -- when resume, make sure the session id exists in the executions history
+        if( session.resumeMode && !HistoryFile.DEFAULT.checkExistsById(session.uniqueId.toString()) ) {
+            throw new AbortOperationException("Can't find a run with the specified id: ${session.uniqueId} -- Execution can't be resumed")
+        }
+
+        def revisionId = scriptFile.commitId ?: scriptFile.scriptId
+        HistoryFile.DEFAULT.write( name, session.uniqueId, revisionId, cli )
+    }
+
+
+    @PackageScope
+    ScriptFile getScriptFile() { scriptFile }
+
+    /**
+     * Extends an {@code ArrayList} class adding a nicer index-out-of-range error message
+     */
+    static class ArgsList extends ArrayList<String> {
+
+
+        ArgsList(List<String> values) {
+            super( values ?: new LinkedHashSet<String>() )
+        }
+
+        String get( int pos ) {
+            if( pos < 0 ) {
+                throw new AbortOperationException("Argument array index cannot be lower than zero")
+            }
+
+            if( pos >= size() ) {
+                throw new AbortOperationException("Arguments index out of range: $pos -- You may not have entered all arguments required by the pipeline")
+            }
+
+            super.get(pos)
+        }
+
+        String getAt(int pos) {
+            get(pos)
+        }
+
+    }
+
+}

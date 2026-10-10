@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Clean all frame Docker images"
+docker images | grep 'bio' | tr -s ' ' | cut -d' ' -f3 | xargs docker rmi -f
+

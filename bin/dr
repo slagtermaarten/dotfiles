@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# This script finds the name of the docker image that is defined in the current
+# working directory and launches a run command with it.
+
+# Catch all command line arguments
+if [ $# -eq 0 ]; then
+  com="/bin/bash"
+else
+  com="$@"
+fi
+
+# Find the image name in the current working directory
+cur_dir=$(pwd)
+echo $cur_dir
+if [ $(which rg) = '' ]; then
+  echo "Please install ripgrep (rg) to use this script."
+  exit 1
+else
+  rg=$(which rg)
+fi
+# rg=/home/linuxbrew/.linuxbrew/bin/rg
+
+image_name=$(${rg} 'image = ' --no-filename $cur_dir | head -n 1 | sed -E 's/.* = //g')
+
+if [ "${image_name}" == '' ]; then
+  echo "No image found in the current working directory."
+  exit 1
+fi
+
+echo "Found image: ${image_name}"
+# Pass all command line arguments to the docker run command
+COM="docker run --rm -it ${image_name} $com"
+echo "Running: $COM"
+eval $COM

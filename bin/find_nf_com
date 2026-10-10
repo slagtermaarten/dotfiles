@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Find the most recent nextflow command file in a directory tree, and return
+# its enclosing directory. This is useful when debugging Nextflow pipelines.
+
+SEARCH_TERM=vaccine_assembly.py
+WORKDIR=./work
+
+# Parse the command line arguments
+while getopts ":t:w:p:" opt; do
+  case ${opt} in
+    t )
+      SEARCH_TERM=$OPTARG
+      ;;
+    w )
+      WORKDIR=$OPTARG
+      ;;
+    \? )
+      echo "Usage: find_nf_com [-t search_term] [-w workdir]"
+      return 1
+      ;;
+  esac
+done
+
+# echo "$SEARCH_TERM, $WORKDIR"
+
+# RG=/home/linuxbrew/.linuxbrew/bin/rg
+# echo $SEARCH_TERM, $WORKDIR
+RG=$(which rg)
+
+# Remove trailing slash from WORKDIR
+WORKDIR=${WORKDIR%/}
+
+shopt -s lastpipe
+shopt -s globstar
+# COMFILES=$(find $WORKDIR -name '.command.sh')
+
+# for f in "${COMFILES[@]}"; do
+for f in ${WORKDIR}/**/.command.sh; do
+  search_result=$(${RG} -l ${SEARCH_TERM} ${f} | wc -l)
+  if (( $search_result > 0 )); then
+    stat -c '%Y %n' $f
+  fi
+done | sort -nk1 | tail -n1 | cut -d' ' -f2 | read comfile
+# done
+
+if [ -z $comfile ]; then
+  echo "No command file found"
+else
+  echo $(dirname $comfile)
+fi

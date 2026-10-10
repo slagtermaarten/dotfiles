@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Backup local files from ~/localfiles to ~/cloudfiles
+rsync -av ~/localfiles ~/cloudfiles/code/Users/Maarten.Slagter/local_bak

@@ -1,0 +1,55 @@
+#!/bin/bash
+# Identify the project root and return its basename for tmux window naming.
+
+CUR_DIR="${1:-$PWD}"
+
+get_project_root() {
+    local dir="$1"
+
+    # 0. Try to find subproject for 3 parent dirs
+    local current="$dir"
+		for i in {1..3}; do
+        if [ -e "$current/.subproject" ]; then
+            echo "$current"
+            return
+        fi
+        current=$(dirname "$current")
+        [ "$current" = "/" ] || [ "$current" = "$HOME" ] && break
+    done
+
+    # 1. Try to find git root
+    local git_root
+    git_root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
+    if [ -n "$git_root" ]; then
+        echo "$git_root"
+        return
+    fi
+
+    # 2. Search upwards for common markers
+    local current="$dir"
+    while [ "$current" != "/" ] && [ "$current" != "$HOME" ]; do
+        if [ -e "$current/Makefile" ] || \
+           [ -e "$current/package.json" ] || \
+           [ -e "$current/Cargo.toml" ] || \
+           [ -e "$current/go.mod" ] || \
+           [ -e "$current/README.md" ] || \
+           [ -e "$current/GEMINI.md" ] || \
+           [ -e "$current/.git" ]; then
+            echo "$current"
+            return
+        fi
+        current=$(dirname "$current")
+    done
+
+    # 3. Fallback: current directory
+    echo "$dir"
+}
+
+PROJECT_ROOT=$(get_project_root "$CUR_DIR")
+
+# Special case for home directory to avoid naming windows "maartens" or "home"
+if [ "$PROJECT_ROOT" = "$HOME" ]; then
+    echo "~"
+else
+    basename "$PROJECT_ROOT"
+fi

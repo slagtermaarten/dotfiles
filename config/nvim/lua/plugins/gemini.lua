@@ -1,0 +1,225 @@
+return {
+  'slagtermaarten/gemini.nvim',
+  opts = {
+    completion = {
+      model = {
+        model_id = 'gemini-3-flash-preview',
+      },
+      completion_delay = 200,
+      trigger_key = '<C-S-c>',
+    },
+    instruction = {
+      model = {
+        model_id = 'gemini-3-flash-preview',
+      },
+      menu_key = '<Leader>gi',
+    },
+  },
+}
+-- return {
+-- 	"kiddos/gemini.nvim",
+-- 	opts = {
+-- 		instruction = {
+-- 			enabled = true,
+-- 			menu_key = '<Leader>gi',
+-- 		},
+-- 		completion = {
+-- 			enabled = true,
+-- 			completion_delay = 100,
+-- 		},
+-- 	}
+-- }
+-- return {
+--   "kiddos/gemini.nvim",
+--   dependencies = { "hrsh7th/nvim-cmp", "kiddos/cmp-gemini" },
+--   opts = {
+--     -- instruction = {
+--     --   enabled = true,
+--     --   menu_key = "<Leader>gi",
+--     -- },
+--     -- completion = {
+--     --   enabled = true,
+--     --   completion_delay = 100,
+--     -- },
+--   },
+-- }
+
+
+-- return {
+--   "gutsavgupta/nvim-gemini-companion",
+--   dependencies = { "nvim-lua/plenary.nvim" },
+--   event = "VeryLazy",
+--   config = function()
+--     require("gemini").setup()
+--   end,
+--   keys = {
+--     { "<leader>gg", "<cmd>GeminiToggle<cr>", desc = "Toggle Gemini sidebar" },
+--     { "<leader>gc", "<cmd>GeminiSwitchToCli<cr>", desc = "Spawn or switch to AI session" },
+--     { '<leader>gS', '<cmd>GeminiSend<cr>', mode = { 'x' }, desc = 'Send selection to Gemini' },
+--
+--   }
+-- }
+-- return {
+--   "huggingface/llm.nvim",
+--   -- event = "VeryLazy",
+--   config = function()
+--     require("llm").setup({
+--       backend = "gemini",
+--
+--       gemini = {
+--         model = "gemini-3-flash-preview",  -- or "gemini-1.5-pro"
+--         api_key = vim.env.GEMINI_API_KEY,  -- must be set in your shell
+--       },
+--
+--       -- Optional: inline suggestions like Copilot
+--       inline_completion = {
+--         enabled = true,
+--         debounce = 200,
+--         throttle = 1000,
+--         max_lines = 50,
+--       },
+--
+--       -- Optional: chat UI
+--       chat = {
+--         enabled = false,
+--         window = {
+--           layout = "float",
+--           border = "rounded",
+--         },
+--       },
+--     })
+--   end,
+-- }
+--
+-- return {
+--   "yetone/avante.nvim",
+-- 	event = "InsertEnter",
+--   build = "make",
+--   opts = {
+--     -- Set Gemini as the active provider
+--     provider = "gemini",
+--
+--     -- Enable inline (ghost text) suggestions
+--     auto_suggestions = true,
+--
+--     -- Suggestion behavior
+--     suggestion = {
+--       debounce = 200,
+--     },
+--
+--     -- Provider configuration (NEW schema)
+--     providers = {
+--       gemini = {
+--         api_key = os.getenv("GEMINI_API_KEY"),
+--         -- model = "models/gemini-1.5-pro",
+-- 				model = "gemini-3-flash-preview",
+--       },
+--     },
+--   },
+--
+--   -- Keymaps + highlights are set here so everything is self-contained
+--   config = function(_, opts)
+--     require("avante").setup(opts)
+--
+--     -- Accept ghost text (VS Code: Tab)
+--     vim.keymap.set("i", "<Tab>", function()
+--       require("avante").accept_suggestion()
+--     end, { silent = true, desc = "Avante: accept suggestion" })
+--
+--     -- Dismiss ghost text
+--     vim.keymap.set("i", "<C-]>", function()
+--       require("avante").dismiss_suggestion()
+--     end, { silent = true, desc = "Avante: dismiss suggestion" })
+--
+--     -- Optional: Copilot-like ghost text styling
+--     vim.api.nvim_set_hl(0, "AvanteSuggestion", {
+--       fg = "#6e7681",
+--       italic = true,
+--     })
+--   end,
+-- }
+
+-- return {
+--   "yetone/avante.nvim",
+--   -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+--   -- ⚠️ must add this setting! ! !
+--   build = vim.fn.has("win32") ~= 0
+--       and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+--       or "make",
+--   event = "VeryLazy",
+--   version = false, -- Never set this value to "*"! Never!
+--   ---@module 'avante'
+--   ---@type avante.Config
+--   opts = {
+--     -- add any opts here
+--     -- this file can contain specific instructions for your project
+--     instructions_file = "avante.md",
+--     -- for example
+--     provider = "gemini",
+--     -- providers = {
+--     --   claude = {
+--     --     endpoint = "https://api.anthropic.com",
+--     --     model = "claude-sonnet-4-20250514",
+--     --     timeout = 30000, -- Timeout in milliseconds
+--     --       extra_request_body = {
+--     --         temperature = 0.75,
+--     --         max_tokens = 20480,
+--     --       },
+--     --   },
+--     --   moonshot = {
+--     --     endpoint = "https://api.moonshot.ai/v1",
+--     --     model = "kimi-k2-0711-preview",
+--     --     timeout = 30000, -- Timeout in milliseconds
+--     --     extra_request_body = {
+--     --       temperature = 0.75,
+--     --       max_tokens = 32768,
+--     --     },
+--     --   },
+--     -- },
+--     providers = {
+--       gemini = {
+--         api_key = os.getenv("GEMINI_API_KEY"),
+--         model = "models/gemini-2.0-flash",
+-- 				-- model = "gemini-3-flash-preview",
+--       },
+--     },
+--   },
+--   dependencies = {
+--     "nvim-lua/plenary.nvim",
+--     "MunifTanjim/nui.nvim",
+--     --- The below dependencies are optional,
+--     "nvim-mini/mini.pick", -- for file_selector provider mini.pick
+--     "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+--     "hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+--     "ibhagwan/fzf-lua", -- for file_selector provider fzf
+--     "stevearc/dressing.nvim", -- for input provider dressing
+--     "folke/snacks.nvim", -- for input provider snacks
+--     "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+--     -- "zbirenbaum/copilot.lua", -- for providers='copilot'
+--     -- {
+--     --   -- support for image pasting
+--     --   "HakonHarnes/img-clip.nvim",
+--     --   event = "VeryLazy",
+--     --   opts = {
+--     --     -- recommended settings
+--     --     default = {
+--     --       embed_image_as_base64 = false,
+--     --       prompt_for_file_name = false,
+--     --       drag_and_drop = {
+--     --         insert_mode = true,
+--     --       },
+--     --       -- required for Windows users
+--     --       use_absolute_path = true,
+--     --     },
+--     --   },
+--     -- },
+--     {
+--       -- Make sure to set this up properly if you have lazy=true
+--       'MeanderingProgrammer/render-markdown.nvim',
+--       opts = {
+--         file_types = { "markdown", "Avante" },
+--       },
+--       ft = { "markdown", "Avante" },
+--     },
+--   },
+-- }

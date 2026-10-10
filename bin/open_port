@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+port=${1:-8001}
+
+echo "Opening $port"
+
+sudo firewall-cmd --add-port=${port}/tcp --permanent && sudo firewall-cmd --reload

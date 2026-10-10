@@ -1,0 +1,45 @@
+#!/bin/bash
+
+SEARCHTERM=""
+DIR=""
+
+# Process opts of the following form: -p and -d
+usage() { echo "Usage: $0 [-p <search term>] [-d <directory>]" 1>&2; exit 1; }
+
+while getopts ":h:p:s:d" opt; do
+  case ${opt} in
+    h )
+      usage
+      exit 0
+      ;;
+    d )
+      DIR=$OPTARG
+      ;;
+    p )
+      SEARCHTERM=$OPTARG
+      ;;
+    s )
+      SEARCHTERM=$OPTARG
+      ;;
+    \? )
+      echo "Invalid Option: -$OPTARG" 1>&2
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+shift $((OPTIND -1))
+
+# Test empty string
+if [[ -z "$DIR" ]]; then
+  DIR="./"
+fi
+
+if [ "$SEARCHTERM" = '' ]; then
+  SEARCHTERM="*.csv"
+fi
+
+# echo "Searching for $SEARCHTERM in $DIR"
+find $DIR -name $SEARCHTERM -printf '%C@ %p\n' | sort -nk1 | tail -n1 | cut -d' ' -f2
+

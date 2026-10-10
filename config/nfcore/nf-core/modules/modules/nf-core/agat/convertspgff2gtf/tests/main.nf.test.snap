@@ -1,0 +1,36 @@
+{
+    "sarscov2 - genome [gff3] - stub": {
+        "content": [
+            [
+                "test.agat.gtf",
+                "genome.gff3.agat.log",
+                "versions.yml:md5,7aef168b12a4461faf8cf13876855501"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-17T11:12:56.404413"
+    },
+    "sarscov2 - genome [gff3]": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "test.agat.gtf:md5,be1c396ac00fd5a84dc08a36d84ff8c5"
+                ]
+            ],
+            [
+                "versions.yml:md5,7aef168b12a4461faf8cf13876855501"
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.04.8"
+        },
+        "timestamp": "2025-10-17T11:12:51.27996"
+    }
+}

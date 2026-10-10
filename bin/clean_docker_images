@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "Clean all <none> <none> Docker images"
+docker images | tr -s ' ' | grep '<none> <none>' | cut -d' ' -f3 | xargs docker rmi -f
+

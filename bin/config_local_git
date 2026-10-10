@@ -1,0 +1,5 @@
+	#!/bin/bash
+
+  git config --local user.email "maartens.slagter@tzu.nl"
+  git config --local user.name "Maarten Slagter"
+

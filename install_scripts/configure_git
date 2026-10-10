@@ -1,0 +1,4 @@
+#!/bin/bash
+
+git config --global user.email "maarten.slagter@curevac.com"
+git config --global user.name "Maarten Slagter"

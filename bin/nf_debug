@@ -1,0 +1,34 @@
+#!/bin/bash
+
+chmod +x ./.command.sh
+chmod +x ./.command.run
+
+# Remove redirections such that we can see the output of the command directly
+# in the terminal
+sed -i "s/> score_slices.log//g"  "./.command.sh"
+sed -i "s/> tmd_splitter.log//g"  "./.command.sh"
+sed -i "s/> .\/[a-z_]*.log//g"    "./.command.sh"
+sed -i "s/2>&1//g"                "./.command.sh"
+
+echo "Re-building CPython image"
+make -C $MHOME/frameselect_connect cpython
+# make -C $MHOME/frameselect_connect pypy
+
+# Extract the nxf_launch function from .command.run
+echo "#!/bin/bash" > .my_nfx_launch.sh
+echo 'export PATH=${PATH}:$MHOME/frameselect_connect-nf/bin'
+echo 'export PATH=${PATH}:$MHOME/frameselect_connect-nf/bin' >> .my_nfx_launch.sh
+grep -A 2 "nxf_launch() {" .command.run >> .my_nfx_launch.sh
+echo "nxf_launch" >> .my_nfx_launch.sh
+chmod +x .my_nfx_launch.sh
+
+sed -i "s/-e \"NXF_TASK_WORKDIR\"//" .my_nfx_launch.sh
+sed -i 's/-w \"\$NXF_TASK_WORKDIR\"/-w $(pwd)/g' .my_nfx_launch.sh
+sed -i 's/eval $(nxf_container_env); //g' .my_nfx_launch.sh
+sed -i "s/--name \$NXF_BOXID//g" .my_nfx_launch.sh
+sed -i "s/--cpu-shares 1024//g" .my_nfx_launch.sh
+sed -i "s/--cpu-shares 1024//g" .my_nfx_launch.sh
+
+echo $PATH
+
+./.my_nfx_launch.sh

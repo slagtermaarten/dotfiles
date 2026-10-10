@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# To run this for all links in a directory, ensure this program is in the path
+# and run:
+# find ./ -maxdepth 1 -type l -exec replace_symlinks {} \;
+
+set -e
+# Iterate over command line arguments
+for link; do
+    test -h "$link" || continue
+
+    dir=$(dirname "$link")
+    reltarget=$(readlink "$link")
+    case $reltarget in
+        /*) abstarget=$reltarget;;
+        *)  abstarget=$dir/$reltarget;;
+    esac
+
+    rm -fv "$link"
+    cp -afv "$abstarget" "$link" || {
+        # on failure, restore the symlink
+        rm -rfv "$link"
+        ln -sfv "$reltarget" "$link"
+    }
+done

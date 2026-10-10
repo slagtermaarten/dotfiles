@@ -1,0 +1,11 @@
+#!/bin/bash
+
+socket="maarten"
+detected=$(tmux -L $socket list-sessions 2>/dev/null | wc -l)
+conf=/home/azureuser/.tmux.conf
+
+if [[ "$detected" = "0" ]]; then
+  tmux -L $socket -f $conf
+else
+  tmux -L $socket attach
+fi
